@@ -76,3 +76,7 @@ Builds on and compares against **Lignin-KMC** (Orella et al., *ACS Sustainable
 Chem. Eng.* 2019) with barriers from Gani et al. (*ACS Sustainable Chem. Eng.*
 2019), and **LigninGraphs** (Wang et al. 2022). β-O-4 → monomer-yield relationship
 from Bourmaud, Luterbacher et al. (*Angew. Chem. Int. Ed.* 2024).
+
+## License
+
+MIT — see [LICENSE](LICENSE).
