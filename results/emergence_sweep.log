@@ -1,0 +1,14 @@
+Lignin-KMC forward emergence sweep (endwise regime)
+params: max_monos=100 ini=2 add_rate=1 temp=298.15K n_reps=20
+NMR anchors: SW black pine ~48%; poplar ~60%; birch ~72%; high-S poplar ~79%
+
+  S/G  pct_S  bO4_mean  bO4_sd C5link_mean  bb_mean  b5_mean 55_mean  branch  n_bonds
+ 0.00   0.00     38.8%    2.1       59.8%     0.7%    59.8%    0.0%   0.000     98.3
+ 0.25   0.20     46.9%    3.4       52.5%     0.3%    52.5%    0.0%   0.000     98.7
+ 0.50   0.33     54.7%    3.6       44.3%     0.4%    44.3%    0.0%   0.001     98.3
+ 1.00   0.50     60.6%    3.5       37.8%     0.7%    37.8%    0.0%   0.000     98.0
+ 1.50   0.60     66.3%    3.1       31.8%     0.8%    31.7%    0.0%   0.001     98.0
+ 2.00   0.67     74.8%    2.8       22.2%     0.9%    22.1%    0.0%   0.001     96.9
+ 3.00   0.75     79.0%    2.8       17.1%     0.7%    17.0%    0.0%   0.001     95.8
+
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/emergence_sweep.csv

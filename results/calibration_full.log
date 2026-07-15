@@ -1,0 +1,34 @@
+Full-inventory calibration (fraction of total linkages)
+anchors: [0.0, 1.0, 3.0]  fit reps: 8  k_bo4 fixed: 8.0
+reference inventory (%% of total linkages):
+   S/G 0.0: {'bo4': 59.4, 'b5': 14.2, 'bb': 3.2, 'b1': 2.6, '55': 15.5, '4o5': 5.2}
+   S/G 1.0: {'bo4': 79.5, 'b5': 7.7, 'bb': 5.1, 'b1': 1.9, '55': 3.8, '4o5': 1.9}
+   S/G 3.0: {'bo4': 89.1, 'b5': 3.4, 'bb': 4.6, 'b1': 1.1, '55': 1.1, '4o5': 0.6}
+
+  eval  20  loss=0.01597  best=0.01292
+  eval  40  loss=0.01650  best=0.01155
+  eval  60  loss=0.01091  best=0.00972
+  eval  80  loss=0.00918  best=0.00916
+  eval 100  loss=0.00916  best=0.00916
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.9054, 'k_b1': 0.2594, 'k_bb': 5.3483, 'k_55': 2.66, 'k_4o5': 0.2084, 'n_nuclei': 4.7319}
+final loss: 0.00916  (evals: 118)
+
+full-inventory fit vs reference (model | ref, %% of total linkages):
+  S/G  bO4         b5          bb          b1          5-5         4-O-5        branch
+  0.0  62.8|59.4   14.3|14.2    1.2| 3.2    2.2| 2.6   16.6|15.5    2.9| 5.2    0.194
+  1.0  75.7|79.5    9.0| 7.7    2.2| 5.1    2.4| 1.9    8.2| 3.8    2.5| 1.9    0.106
+  3.0  83.7|89.1    4.5| 3.4    2.3| 4.6    2.7| 1.1    4.4| 1.1    2.4| 0.6    0.067
+
+full S/G sweep with fitted params (%% of total linkages):
+  S/G     bO4     b5     bb     b1    5-5    4o5  branch
+ 0.00   62.8%  14.3%   1.2%   2.2%  16.6%   2.9%   0.194
+ 0.25   68.3%  12.0%   1.5%   2.4%  13.0%   2.7%   0.156
+ 0.50   72.6%  10.6%   1.7%   2.2%  10.6%   2.3%   0.128
+ 1.00   75.7%   9.0%   2.2%   2.4%   8.2%   2.5%   0.106
+ 1.50   80.3%   6.2%   1.8%   2.5%   6.8%   2.3%   0.090
+ 2.00   81.3%   5.7%   2.2%   2.4%   5.6%   2.8%   0.083
+ 3.00   83.7%   4.5%   2.3%   2.7%   4.4%   2.4%   0.067
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.9054, 'k_b1': 0.2594, 'k_bb': 5.3483, 'k_55': 2.66, 'k_4o5': 0.2084, 'n_nuclei': 4.7319}
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_full_calibrated.csv

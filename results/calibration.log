@@ -1,0 +1,30 @@
+Calibrating side-chain constants (beta-side-chain normalization)
+anchors: [0.0, 1.0, 3.0]  fit reps: 10  k_bo4 fixed: 8.0
+reference beta-side-chain (bo4/b5/bb/b1):
+   S/G 0.0: {'bo4': 0.754, 'b5': 0.18, 'bb': 0.041, 'b1': 0.025}
+   S/G 1.0: {'bo4': 0.832, 'b5': 0.094, 'bb': 0.054, 'b1': 0.02}
+   S/G 3.0: {'bo4': 0.907, 'b5': 0.035, 'bb': 0.047, 'b1': 0.012}
+
+  eval  15  loss=0.00995  best=0.00858
+  eval  30  loss=0.01008  best=0.00824
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.254, 'k_b1': 0.404, 'k_bb': 2.9801, 'pool_target': 4.0675}
+final loss: 0.00824  (evals: 40)
+
+beta-side-chain fit vs reference (model | ref), %:
+  S/G  bo4                b5                 bb                 b1                
+  0.0  80.0|75.4          13.4|18.0           2.4| 4.1           4.2| 2.5         
+  1.0  85.5|83.2           7.7| 9.4           2.4| 5.4           4.3| 2.0         
+  3.0  87.6|90.7           4.3| 3.5           3.0| 4.7           5.1| 1.2         
+
+full S/G sweep with fitted params (raw %% of all bonds; bO4* = beta-side-chain):
+  S/G    bO4*     bO4     b5     bb     b1     55    4o5  branch
+ 0.00   82.5%   56.5%   8.3%   1.1%   2.6%  23.8%   7.6%   0.312
+ 0.25   83.4%   59.5%   7.5%   1.5%   3.0%  20.0%   8.7%   0.284
+ 0.50   84.7%   63.2%   7.4%   1.5%   2.6%  16.2%   9.1%   0.251
+ 1.00   86.4%   66.2%   5.5%   2.0%   2.9%  13.0%  10.4%   0.232
+ 1.50   86.7%   68.6%   4.7%   2.3%   3.6%   9.9%  11.0%   0.207
+ 2.00   87.3%   70.7%   4.4%   2.0%   3.9%   8.1%  10.8%   0.186
+ 3.00   88.7%   73.8%   3.4%   2.3%   3.6%   6.5%  10.2%   0.161
+
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_calibrated.csv

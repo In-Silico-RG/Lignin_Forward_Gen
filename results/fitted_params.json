@@ -1,0 +1,12 @@
+{
+  "_note": "Full-inventory calibrated parameters (fraction-of-total-linkages objective, decoupled nucleation, syringyl beta-beta boost). Fit on softwood/poplar/high-S anchors; final loss 0.00916.",
+  "k_bo4": 8.0,
+  "k_b5": 2.9054,
+  "k_b1": 0.2594,
+  "k_bb": 5.3483,
+  "k_55": 2.66,
+  "k_4o5": 0.2084,
+  "n_nuclei": 4.7319,
+  "bb_s_boost": 4.0,
+  "pool_target": 1.0
+}
