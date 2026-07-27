@@ -1,0 +1,120 @@
+==========================================================================
+CROSS-ALGORITHM VALIDATION -- aggregate analysis (manuscript section 3.1)
+==========================================================================
+
+These are RECONSTRUCTED scripts (originals lost with a deleted session
+scratchpad). Every number below is what the rewritten code produces now.
+The audit at the end compares them to the archived docs/03 claims.
+
+==========================================================================
+ARM: LGS (enumeration)
+  source: results/cross_lgs_matched.csv
+  archived claim -- docs/03: t_gen shows a non-monotonic peak at HARDWOOD (HW >> GR > SW). NOTE: LGS enumerates orderings of a target multiset -- it does not reject on bond profile (docs/03's description of it is wrong; see cross_lgs_matched.py). Its cost is expected to track the TARGET composition, not S/G. n=3 and it is not deterministic, so the stats below are indicative only; read the ordering.
+
+--- structures enumerated ---
+  SW  n=  3  mean=   436.333  sd=    5.774  median=  433.000  min=  433.000  max=   443.000
+  HW  n=  3  mean=   374.333  sd=    1.528  median=  374.000  min=  373.000  max=   376.000
+  GR  n=  3  mean=   168.000  sd=    0.000  median=  168.000  min=  168.000  max=   168.000
+  ANOVA (means): F=4980.290  p=2.18e-10  eta^2=0.999
+    SW vs HW: Welch t= 17.981  p=0.00167
+    SW vs GR: Welch t= 80.500  p=0.000154
+    HW vs GR: Welch t=233.960  p=1.83e-05
+  Kruskal-Wallis (ranks): H=7.513  p=0.0234
+    SW vs HW: Mann-Whitney p=0.0765
+    SW vs GR: Mann-Whitney p=0.0593
+    HW vs GR: Mann-Whitney p=0.0636
+
+--- wall-clock seconds ---
+  SW  n=  3  mean=    38.211  sd=    2.914  median=   37.776  min=   35.540  max=    41.318
+  HW  n=  3  mean=    26.683  sd=    3.148  median=   25.590  min=   24.228  max=    30.232
+  GR  n=  3  mean=    14.257  sd=    3.552  median=   12.505  min=   11.922  max=    18.345
+  ANOVA (means): F=41.645  p=0.000303  eta^2=0.933
+    SW vs HW: Welch t=  4.655  p=0.00976
+    SW vs GR: Welch t=  9.031  p=0.000989
+    HW vs GR: Welch t=  4.535  p=0.0109
+  Kruskal-Wallis (ranks): H=7.200  p=0.0273
+    SW vs HW: Mann-Whitney p=0.1
+    SW vs GR: Mann-Whitney p=0.1
+    HW vs GR: Mann-Whitney p=0.1
+
+==========================================================================
+ARM: Lignin-KMC (incremental)
+  source: results/cross_kmc_matched.csv
+  archived claim -- docs/03: wall-clock REVERSED (HW fastest); event-count HW & GR both > SW (p<1e-4) but HW indistinguishable from GR -> HW-unique peak NOT reproduced.
+
+--- wall-clock seconds ---
+  SW  n= 30  mean=     0.008  sd=    0.001  median=    0.007  min=    0.005  max=     0.012
+  HW  n= 30  mean=     0.007  sd=    0.001  median=    0.006  min=    0.005  max=     0.010
+  GR  n= 30  mean=     0.007  sd=    0.002  median=    0.006  min=    0.005  max=     0.012
+  ANOVA (means): F=6.450  p=0.00244  eta^2=0.129
+    SW vs HW: Welch t=  3.538  p=0.000844
+    SW vs GR: Welch t=  2.636  p=0.0107
+    HW vs GR: Welch t= -0.429  p=0.67
+  Kruskal-Wallis (ranks): H=15.775  p=0.000375
+    SW vs HW: Mann-Whitney p=0.000239
+    SW vs GR: Mann-Whitney p=0.00152
+    HW vs GR: Mann-Whitney p=0.751
+
+--- KMC events fired ---
+  SW  n= 30  mean=    41.200  sd=    1.186  median=   41.000  min=   39.000  max=    43.000
+  HW  n= 30  mean=    43.533  sd=    1.306  median=   44.000  min=   41.000  max=    46.000
+  GR  n= 30  mean=    42.733  sd=    1.172  median=   43.000  min=   41.000  max=    46.000
+  ANOVA (means): F=28.198  p=3.63e-10  eta^2=0.393
+    SW vs HW: Welch t= -7.244  p=1.2e-09
+    SW vs GR: Welch t= -5.036  p=4.94e-06
+    HW vs GR: Welch t=  2.497  p=0.0154
+  Kruskal-Wallis (ranks): H=34.808  p=2.76e-08
+    SW vs HW: Mann-Whitney p=8.4e-08
+    SW vs GR: Mann-Whitney p=2.12e-05
+    HW vs GR: Mann-Whitney p=0.0176
+
+==========================================================================
+ARM: LigninGraphs (incremental)
+  source: results/cross_ligningraphs_incremental.csv
+  archived claim -- docs/03: NULL -- no significant difference (p=0.58 t_gen, p=0.63 steps); huge variance; the clean n=5 pilot pattern vanished at n=30.
+
+--- wall-clock seconds ---
+  SW  n= 30  mean=     0.414  sd=    0.548  median=    0.221  min=    0.039  max=     2.290
+  HW  n= 30  mean=     0.805  sd=    1.080  median=    0.190  min=    0.060  max=     3.055
+  GR  n= 30  mean=     0.681  sd=    1.157  median=    0.254  min=    0.080  max=     4.166
+  ANOVA (means): F=1.281  p=0.283  eta^2=0.029
+    SW vs HW: Welch t= -1.769  p=0.084
+    SW vs GR: Welch t= -1.142  p=0.26
+    HW vs GR: Welch t=  0.429  p=0.669
+  Kruskal-Wallis (ranks): H=0.872  p=0.646
+    SW vs HW: Mann-Whitney p=0.652
+    SW vs GR: Mann-Whitney p=0.641
+    HW vs GR: Mann-Whitney p=0.355
+
+--- Metropolis steps ---
+  SW  n= 30  mean=    21.967  sd=   31.723  median=   10.000  min=    3.000  max=   135.000
+  HW  n= 30  mean=   127.133  sd=  193.516  median=   14.500  min=    6.000  max=   501.000
+  GR  n= 30  mean=    73.300  sd=  147.137  median=   19.000  min=    7.000  max=   501.000
+  ANOVA (means): F=4.141  p=0.0191  eta^2=0.087
+    SW vs HW: Welch t= -2.937  p=0.00624
+    SW vs GR: Welch t= -1.868  p=0.071
+    HW vs GR: Welch t=  1.213  p=0.23
+  Kruskal-Wallis (ranks): H=7.774  p=0.0205
+    SW vs HW: Mann-Whitney p=0.0203
+    SW vs GR: Mann-Whitney p=0.0133
+    HW vs GR: Mann-Whitney p=0.865
+
+==========================================================================
+AUDIT -- reconstruction vs. archived claim
+==========================================================================
+
+Ordering is by MEDIAN, and the verdict follows the RANK test -- these
+cost distributions are skewed and censored, so means mislead (see
+cross_common.report_anova).
+
+arm                          metric                      ordering(med)    p_anova     p_rank  verdict
+LGS (enumeration)            structures enumerated        SW > HW > GR   2.18e-10     0.0234  sig
+LGS (enumeration)            wall-clock seconds           SW > HW > GR   0.000303     0.0273  sig
+Lignin-KMC (incremental)     wall-clock seconds           SW > HW > GR    0.00244   0.000375  sig
+Lignin-KMC (incremental)     KMC events fired             HW > GR > SW   3.63e-10   2.76e-08  sig
+LigninGraphs (incremental)   wall-clock seconds           GR > SW > HW      0.283      0.646  NULL
+LigninGraphs (incremental)   Metropolis steps             GR > HW > SW     0.0191     0.0205  sig
+
+Read this table against the archived claims printed per arm above.
+A claim is only safe to cite in the manuscript if the reconstruction
+reproduces both its ORDERING and its significance.

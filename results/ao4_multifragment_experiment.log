@@ -1,0 +1,34 @@
+alpha-O-4 in a multi-fragment regime (reviewer 2.4)
+refit [7 constants + k_ao4] at each fixed oo_scale; fit reps 5, eval reps 12
+baseline = the adopted single-molecule fit: chi2 25.44, k_ao4 rejected (0.0149)
+
+--- refitting at oo_scale = 1.00 ---
+  done: chi2 = 17.87  k_ao4 = 0.0149
+--- refitting at oo_scale = 0.10 ---
+  done: chi2 = 15.77  k_ao4 = 0.0091
+--- refitting at oo_scale = 0.01 ---
+  done: chi2 = 33.85  k_ao4 = 0.0073
+--- refitting at oo_scale = 0.00 ---
+  done: chi2 = 80.30  k_ao4 = 0.0113
+
+=== summary: does alpha-O-4 earn its place as fragments appear? ===
+ oo_scale     chi2     k_ao4 | n_frags (sw/pop/hiS)   | 5-5 & 4-O-5 model|ref (sw/pop/hiS)
+     1.00    17.87    0.0149 | 1.0/1.0/1.0            | 5-5 6.2/4.5/1.9|6.0/3.8/1.1  4O5 2.7/3.3/2.2|1.5/1.9/0.6
+     0.10    15.77    0.0091 | 1.0/1.0/1.0            | 5-5 5.7/3.6/2.4|6.0/3.8/1.1  4O5 0.8/1.3/1.0|1.5/1.9/0.6
+     0.01    33.85    0.0073 | 1.0/1.0/1.0            | 5-5 2.7/1.9/0.7|6.0/3.8/1.1  4O5 0.6/0.3/0.3|1.5/1.9/0.6
+     0.00    80.30    0.0113 | 1.0/1.0/1.0            | 5-5 0.0/0.0/0.0|6.0/3.8/1.1  4O5 0.0/0.0/0.0|1.5/1.9/0.6
+
+4-O-5 residual (z, model-ref in sigma) per regime -- the over-prediction alpha-O-4 was meant to relieve:
+ oo_scale   sw 4O5 z  pop 4O5 z  hiS 4O5 z
+     1.00       1.16       1.38       1.63
+     0.10      -0.73      -0.58       0.43
+     0.01      -0.94      -1.64      -0.28
+     0.00      -1.50      -1.92      -0.57
+
+=== reading ===
+If chi2 never beats the single-molecule baseline and k_ao4 is never adopted
+with a chi2 gain, alpha-O-4's rejection is robust to topology: its only
+action -- joining fragments -- is invisible to the six-linkage inventory, so
+no inventory fit adopts it, multi-fragment or not. The oo_scale = 0 regime
+reaches real fragments but loses 5-5 and 4-O-5 (which alpha-O-4 cannot make),
+so it cannot be the better model the reviewer hypothesized.

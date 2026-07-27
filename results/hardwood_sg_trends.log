@@ -1,0 +1,26 @@
+Hardwood S/G trends: 12 species (Balakshin 2016) vs the calibrated model
+  measured range S/G 1.15-3.02, n=12, quantitative 13C NMR, per 100 Ar
+  model compared over the SAME S/G range, %% of the six modelled linkages
+  NOTE normalisations differ; compare sign and strength, not magnitude.
+
+                measured (12 species)     model (same S/G range)
+quantity           slope       r    r2       slope direction
+------------------------------------------------------------------
+beta-O-4           +3.88   +0.57  0.33       +2.51 same sign
+beta-beta          +0.77   +0.32  0.10       +0.07 same sign
+beta-5             -0.78   -0.46  0.21       -1.62 same sign
+condensation       -3.50   -0.58  0.34       -1.03 same sign
+
+The two quantities that move with S/G in the measured set are beta-O-4
+(up) and condensation (down) -- the pair the S-blocks-C5 mechanism produces.
+beta-beta does not move, which is also what the model does.
+
+HIGH-SYRINGYL ANCHOR
+  calibration anchor: S/G 3.0, beta-O-4 78 per 100 C9
+  nearest measured  : Silver birch, S/G 3.02, beta-O-4 66 per 100 Ar
+  anchor exceeds it by +12
+  all 3 species with S/G >= 2.5: beta-O-4 [66, 61, 59] (mean 62.0)
+  The model predicts UNDER this anchor, so part of that residual may be
+  the anchor rather than the model.
+
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/results/hardwood_sg_trends.csv

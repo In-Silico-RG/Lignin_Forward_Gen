@@ -1,0 +1,23 @@
+Wall-clock stability -- identical seeded code, repeated 5 times
+Same seeds => identical trajectories. Anything that moves is the machine.
+
+        | wall-clock seconds (t_gen)         | KMC events fired
+repeat  |       SW       HW       GR       p |     SW     HW     GR          p
+0       |   0.0073   0.0073   0.0063  0.0005 |   41.2   43.5   42.7   2.76e-08
+1       |   0.0078   0.0065   0.0064  0.0052 |   41.2   43.5   42.7   2.76e-08
+2       |   0.0071   0.0062   0.0072  0.0035 |   41.2   43.5   42.7   2.76e-08
+3       |   0.0071   0.0065   0.0065  0.0566 |   41.2   43.5   42.7   2.76e-08
+4       |   0.0069   0.0061   0.0062  0.0000 |   41.2   43.5   42.7   2.76e-08
+
+========================================================================
+wall-clock verdict per repeat: sig, sig, sig, NULL, sig
+  p range: 2.46e-05 to 0.0566  (2302x spread)
+events    verdict per repeat: sig, sig, sig, sig, sig
+  p range: 2.76e-08 to 2.76e-08
+
+=> t_gen FLIPS its verdict across repeats of identical, seeded code.
+   The structures are the same every time; only the clock moved. A
+   wall-clock 'complexity' signal is therefore not a property of the
+   chemistry, and cannot support a claim about lignin.
+=> The event count, by contrast, is stable: identical counts and the
+   same verdict every repeat -- it measures the algorithm, not the host.

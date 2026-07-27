@@ -1,321 +1,264 @@
-# 06 — Forward-generator experiments (Lignin-KMC)
+# Experimental record
 
-Central experiments for the "forward generation with the right chemistry" paper.
-Code in `../code/`, raw outputs in `../results/`. All runs use Lignin-KMC 0.2.2
-(Gani/Orella DFT barriers, `DEF_E_BARRIER_KCAL_MOL`), converted to rates via TST
-at 298.15 K. Env: conda `lignin_kmc` (py3.6).
+Every run behind the paper, in the order the argument needs them. All runs use fixed
+seeds, so repeating a command should reproduce the committed log in `results/` line for
+line. Commands are given from the repository root.
 
-## Experiment 1 — emergence sweep (does S/G→β-O-4 emerge?)
+Percentages are fractions of the total modelled linkage inventory unless a line says
+otherwise. Residuals in σ are `(model − reference) / σ`, where σ is the spread of the
+NMR reference; `|z| < 1` means the model sits inside the measurement.
 
-`code/forward_emergence_sweep.py` → `results/emergence_sweep.csv`.
-Endwise regime (add_rate = 1 monomer/s ≪ coupling rates), MAX_MONOS = 100,
-INI_MONOS = 2, n = 20 reps per S/G. β-O-4 target is **never imposed** — it is
-whatever the coupling chemistry produces.
+---
 
-| S/G | pct_S | β-O-4 (emergent) | β-5 | ΣC5-linkages | branch | real β-O-4 (NMR) |
-|---|---|---|---|---|---|---|
-| 0.00 | 0.00 | **38.8 ± 2.1%** | 59.8% | 59.8% | 0.000 | softwood ~46–48% |
-| 0.25 | 0.20 | 46.9 ± 3.4% | 52.5% | 52.5% | 0.000 | — |
-| 0.50 | 0.33 | 54.7 ± 3.6% | 44.3% | 44.3% | 0.001 | — |
-| 1.00 | 0.50 | 60.6 ± 3.5% | 37.8% | 37.8% | 0.000 | poplar ~60% ✓ |
-| 1.50 | 0.60 | 66.3 ± 3.1% | 31.8% | 31.7% | 0.001 | — |
-| 2.00 | 0.67 | 74.8 ± 2.8% | 22.2% | 22.1% | 0.001 | birch ~72% ✓ |
-| 3.00 | 0.75 | 79.0 ± 2.8% | 17.1% | 17.0% | 0.001 | high-S poplar ~79% ✓ |
+## 1. What emerges before any fitting
 
-(NMR anchors: Bourmaud/Luterbacher 2024, whole-cell-wall HSQC⁰.)
+```bash
+python code/forward_emergence_sweep.py
+```
+→ `results/emergence_sweep.csv`, `results/emergence_sweep.log`
 
-### What emerged WITHOUT being told (the wins)
+Lignin-KMC run at literature barriers across S/G 0 → 3, with no adjustment of any
+kind. β-O-4 climbs from 38.8 % to 79.0 %, which is the direction and roughly the span
+that NMR reports for real woods. The trend is genuinely predicted rather than imposed.
 
-1. **β-O-4 rises monotonically with S/G** and matches real hardwood NMR within
-   1–3 points (poplar, birch, high-S poplar). This is the paper's backbone: a
-   forward generator reproduces the S/G→β-O-4 relationship as an emergent
-   property of local coupling chemistry — not an imposed target.
-2. **The softwood β-O-4 ceiling mechanism is emergent.** As S rises, S units
-   (methoxylated at C5) cannot form C5 linkages, so the competing C5 channels
-   fall (59.8% → 17.1%) and β-O-4 is funnelled up. Exactly the chemistry in
-   `02_biochemistry_evidence.md` §D, produced automatically.
-3. **Chains are perfectly linear** (branch ≈ 0), matching the Bourmaud 2024
-   "random, largely linear" native-lignin finding.
+The same run also shows the problem the paper exists to address: β-5 sits at 59.8 % in
+the softwood limit, roughly four times any measured value, and 5-5 never forms at all.
+A forward model can carry the composition trend and still get the inventory badly
+wrong.
 
-### Where it fails (the diagnostic — and the paper's real contribution)
+## 2. Why the supply of monomers matters
 
-1. **Softwood β-O-4 under-predicted (38.8% vs ~46–48%).** The Gani G–G barriers
-   make β-5 (5.8 kcal/mol) easier than β-O-4 (6.2) for monomer–oligomer coupling,
-   so pure endwise G favours β-5 by ~2:1 (ΔΔG 0.4 kcal/mol → ~1.96× rate). Real
-   softwood is β-O-4-dominant (β-5 only ~11%).
-2. **Linkage inventory collapses to β-O-4 + β-5.** β-β ~0.7%, and 5-5 / 4-O-5 /
-   β-1 essentially **absent** — because pure endwise (monomer→oligomer) growth
-   never does the oligomer–oligomer coupling that makes condensed/branch bonds.
-   Real lignin has 5-5 ~5–10%, β-β ~2–5%.
-3. So β-O-4 comes out "right" in the hardwood range partly for the wrong reason:
-   β-5 is the *only* competitor, and S-blocking of C5 is the only lever moving
-   β-O-4. The rest of the bond spectrum is wrong.
+```bash
+python code/supply_regime_sweep.py
+```
+→ `results/supply_regime_sweep.csv`, `results/supply_regime.log`
 
-### Interpretation
+The monomer addition rate is swept from 1 to 10⁸. Slow addition keeps chains growing
+one unit at a time and holds condensed bonds near zero. Fast addition floods the
+system with monomers, oligomers can then only join each other through carbon–carbon
+bonds, and 5-5 plus 4-O-5 rise to a third of the inventory while β-O-4 collapses to
+15.7 %. Neither extreme matches native lignin, which is what motivates the decoupled
+nucleation used here: a short burst that forms dimers, then endwise growth against a
+small standing monomer pool.
 
-Forward > backward is demonstrated: the emergent S/G→β-O-4 relationship + chain
-linearity come free from chemistry, whereas backward generators must be told the
-answer. But **"the right chemistry" is incomplete**: (a) the G–G β-5/β-O-4 balance
-is off, and (b) pure endwise supply cannot populate condensed/branch linkages.
-These are the concrete targets a faithful generator must fix. Experiment 2 tests
-whether the supply regime (endwise↔bulk) is responsible for (b).
+## 3. Calibration
 
-## Experiment 2 — supply-regime sweep (endwise ↔ bulk)
+```bash
+python code/calibrate_full.py --objective chi2
+```
+→ `results/mini_forward_full_calibrated.csv`, `results/calibration_full.log`
 
-`code/supply_regime_sweep.py` → `results/supply_regime_sweep.csv`.
-Vary add_rate over 8 orders of magnitude (endwise→bulk) at fixed S/G;
-MAX_MONOS = 100, n = 15 reps. Bonds as % of total.
+Nelder–Mead fit of seven coupling constants to three native wood anchors (softwood
+S/G 0, poplar S/G 1, high-syringyl hardwood S/G 3). Mean RMSE across the anchors is
+1.6 points; this fit scores χ² 25.44 and SSE 0.00574.
 
-**Softwood (S/G = 0, pure G):**
+```
+k_bo4 8.0   k_b5 2.4904   k_b1 0.2715   k_bb 16.7825
+k_55 0.7108   k_4o5 0.1737   n_nuclei 4.716   k_bo4_nuc 0.9213
+```
 
-| add_rate | β-O-4 | β-5 | β-β | 5-5 | 4-O-5 | branch |
-|---|---|---|---|---|---|---|
-| 1e0 (endwise) | 38.7% | 59.8% | 0.7% | 0.0% | 0.0% | 0.000 |
-| 1e2 | 37.5% | 60.9% | 0.8% | 0.0% | 0.0% | 0.000 |
-| 1e4 | 40.9% | 49.9% | 3.8% | 4.1% | 1.3% | 0.090 |
-| 1e6 | 24.0% | 27.6% | 15.6% | 9.8% | 23.0% | 0.343 |
-| 1e8 (bulk) | 15.7% | 17.0% | 24.7% | 16.2% | 26.5% | 0.289 |
+Per-linkage residuals in σ:
 
-**Hardwood (S/G = 1):**
+| S/G | β-O-4 | β-5 | β-β | β-1 | 5-5 | 4-O-5 |
+|-----|-------|-----|-----|-----|-----|-------|
+| 0.0 | −0.34 | −0.01 | −0.29 | −0.49 | −0.05 | **+2.00** |
+| 1.0 | −0.34 | +1.61 | −1.57 | −0.10 | −0.01 | +1.41 |
+| 3.0 | −1.24 | +1.75 | −1.01 | +1.49 | +1.13 | **+2.17** |
 
-| add_rate | β-O-4 | β-5 | β-β | 5-5 | 4-O-5 | branch |
-|---|---|---|---|---|---|---|
-| 1e0 (endwise) | 61.1% | 37.2% | 0.7% | 0.0% | 0.0% | 0.000 |
-| 1e2 | 58.0% | 35.8% | 2.5% | 0.0% | 3.6% | 0.034 |
-| 1e4 | 52.0% | 27.7% | 6.8% | 1.7% | 11.6% | 0.131 |
-| 1e6 | 32.8% | 16.7% | 17.1% | 2.1% | 31.4% | 0.241 |
-| 1e8 (bulk) | 19.5% | 21.8% | 23.0% | 1.4% | 34.3% | 0.102 |
+Two residuals sit outside the measurement at every anchor: β-β is pulled low and
+4-O-5 is pushed high. Sections 6 to 8 chase both.
 
-### Findings
+The two objectives are not comparable to each other, and neither is a verdict on the
+fit — judge it by the residuals above and by the held-out error in section 4.
+`--objective sse` runs the unweighted variant (`results/calibration_full_sse.log`).
 
-1. **The missing condensed/branch linkages ARE a regime effect** — they appear
-   only in the bulk regime (high add_rate → oligomer–oligomer coupling). So the
-   model *can* make 5-5 / 4-O-5; pure endwise simply never does. Answers the
-   Experiment-1 diagnostic: gap (b) is regime, not parameter.
-2. **But NO regime reproduces real lignin.** The two requirements are in
-   opposition under pure kinetic control:
-   - Endwise → high β-O-4 + perfectly linear, but **zero** condensation.
-   - Bulk → gives condensation, but β-O-4 **collapses** (to 16–33%) and chains
-     become heavily branched (branch 0.1–0.34).
-   Real lignin needs **all three at once**: high β-O-4, largely linear, and a
-   *modest* amount of condensation (5-5 ~5–10%, β-β ~2–5%). The intermediate
-   S/G=1 @ add_rate 1e4 (β-O-4 52%, β-β 6.8%, some 5-5/4-O-5, branch 0.13) is the
-   closest but still off (β-5 and 4-O-5 too high).
-3. **The softwood problem is a genuine PARAMETER fact, not a regime artifact.**
-   At S/G = 0, *no* add_rate yields realistic softwood (β-O-4 ~46%, β-5 ~11%,
-   5-5 ~10%). The Gani G–G barriers over-favour β-5 vs β-O-4 (5.8 vs 6.2
-   kcal/mol), so β-5 dominates at every supply rate. This is a concrete,
-   citable deficiency of the published forward-generator parameters.
+An earlier, narrower fit of the β-side-chain distribution alone is kept in
+`code/calibrate.py` (`results/calibration.log`) for comparison.
 
-## Overall conclusion (Experiments 1–2)
+## 4. Leave-one-out validation
 
-Forward > backward is demonstrated: the S/G→β-O-4 relationship, the softwood
-C5-ceiling, and chain linearity all **emerge** from local coupling chemistry with
-no imposed target — things a backward generator can only be *told*. But **"the
-right chemistry" is not yet in hand**, and we can now name the two gaps precisely:
+```bash
+python code/validate.py --objective chi2
+```
+→ `results/validation_loocv.csv`, `results/validation_loocv.log`
 
-- **(P) Parameter gap:** the G–G β-5/β-O-4 barrier balance is wrong; softwood is
-  irreproducible at any supply rate. Fix = recalibrate the guaiacyl coupling
-  barriers against quantitative NMR.
-- **(M) Mechanism gap:** pure kinetic control forces a false choice between
-  β-O-4-rich-but-linear (endwise) and condensed-but-β-O-4-poor (bulk). Real
-  lignin achieves high β-O-4 + linearity + modest condensation together — which
-  requires physics beyond these rate constants (predominantly-endwise supply with
-  a controlled minority of oligomer–oligomer coupling; and/or reversible/
-  thermodynamic control; and/or matrix/dirigent templating).
+Refit on two anchors, predict the third. Held-out RMSE is 3.5, 2.7 and 3.8 points for
+softwood, poplar and high-syringyl respectively, mean 3.4. Roughly twice the in-sample
+error, which is what a three-point fit should look like when it is not memorising.
 
-These two gaps ARE the design specification for the "truer" generator — the
-constructive contribution of the paper.
+The objective must match the calibration run; mixing them compares different fits.
+Industrial and pulping lignins are excluded throughout, because pulping alters the
+native structure the model is trying to predict.
 
-## Experiment 3 — the fresh minimal forward generator
+## 5. Are the seven constants actually determined?
 
-`code/mini_forward_generator.py` → `results/mini_forward_sweep.csv`.
-A self-contained (~300-line, numpy-only) forward KMC we fully own. Chemistry:
-G/S/H units with explicit reactive positions (O4, C5, C1, one-shot β donor),
-the S-blocks-C5 rule (S has no free C5), radical cross-coupling between different
-fragments, an endwise supply (β donors are only free monomers) plus an
-independent low-rate oligomer–oligomer channel (5-5, 4-O-5). All coupling
-propensities are OUR tunable parameters. n = 120 monomers, 25 reps.
+```bash
+python code/param_recovery_experiment.py
+python code/seed_averaged_refit.py
+```
+→ `results/param_recovery.csv/.log`, `results/seed_averaged_refit.csv/.log`,
+`results/seed_averaged_refit_summary.json`
 
-Default params: k_bo4 8, k_b5 2, k_b1 0.4, k_bb 3, k_55 0.6, k_4o5 0.5,
-supply_rate 0.4, oo_scale 1.
+Synthetic data is generated at known constants and refitted. Four constants come back
+with coefficients of variation between 12 % and 27 % and count as determined; `k_bb`
+(40.2 %) and `k_bo4_nuc` (21.1 %) do not. The inventory does not pin those two
+directions, so their fitted values should not be read as chemistry.
 
-| S/G | β-O-4 | β-5 | β-β | 5-5 | 4-O-5 | β-1 | branch | NMR β-O-4 |
-|---|---|---|---|---|---|---|---|---|
-| 0.00 | 59.3% | 26.2% | 0.1% | 3.0% | 4.5% | 7.0% | 0.074 | ~46 |
-| 0.25 | 60.8% | 21.6% | 0.0% | 3.1% | 5.3% | 9.1% | 0.084 | — |
-| 0.50 | 64.3% | 19.3% | 0.0% | 2.8% | 4.4% | 9.3% | 0.071 | — |
-| 1.00 | 68.2% | 15.2% | 0.0% | 1.7% | 4.0% | 10.8% | 0.057 | ~60 |
-| 1.50 | 70.8% | 13.5% | 0.1% | 1.3% | 3.0% | 11.3% | 0.043 | — |
-| 2.00 | 72.2% | 12.3% | 0.0% | 0.7% | 2.9% | 11.8% | 0.036 | ~72 |
-| 3.00 | 75.1% | 9.2% | 0.1% | 0.5% | 1.9% | 13.1% | 0.024 | ~79 |
+Scored on four fresh seed bases with no refitting, the adopted parameters give χ²
+27.2 ± 3.4 (range 22.6–31.5), so they are not tuned to one noise realisation.
 
-### What this generator does that Lignin-KMC could NOT
+Averaging the objective over seeds before fitting moves one determined constant by
+more than 20 % and improves held-out χ² from 26.53 ± 2.82 to 24.53 ± 1.92, a 7.5 %
+gain. Both fits are reported; the seed-averaged one is not silently adopted.
 
-**It produces high β-O-4 + condensed linkages (5-5, 4-O-5) + near-linear chains
-SIMULTANEOUSLY** — resolving gap (M). Lignin-KMC forced a choice (endwise = no
-condensation; bulk = β-O-4 collapse). Here the endwise β-mechanism gives β-O-4
-and linearity while the independent minority oligomer–oligomer channel supplies
-modest 5-5/4-O-5 (3–5% at softwood, falling to <1% at high-S as C5 is blocked) —
-all emergent. Branch coefficient stays 0.02–0.08 (largely linear), matching the
-Bourmaud "random linear" picture.
+## 6. The eighth parameter the model refuses
 
-Also emergent (nothing imposed): β-O-4 rises monotonically with S/G; β-5, 5-5,
-4-O-5 (all C5-dependent) fall as S rises — the S-blocks-C5 ceiling.
+```bash
+python code/calibrate_full.py --objective chi2 --with-ao4
+python code/ao4_multifragment_experiment.py
+```
+→ `results/calibration_full_ao4.log`, `results/mini_forward_full_calibrated_ao4.csv`,
+`results/ao4_multifragment_experiment.csv/.log`
 
-### Calibration gaps (all are KNOBS, not structural — this is the point of gap P)
+α-O-4 is a real linkage in native lignin, so adding a non-radical chain-joining
+constant for it is the obvious eighth parameter. Refitting from the seven-parameter
+optimum drives `k_ao4` straight to its floor (0.0149) and leaves the fit where it was
+(χ² 25.44 → 25.41).
 
-1. **β-O-4 slope too shallow.** Model spans 59→75% vs real ~46→79%; softwood is
-   over-predicted. Fix: raise k_bo4/k_b5 selectivity and/or restrict β-5 to
-   phenolic *end* units (not internal C5) so β-O-4 dominates more at the G end.
-2. **β-1 too high (7–13%, rising with S/G; real ~1–5%).** The C1 acceptor pool is
-   the whole polymer, so C5-blocked S flux leaks into β-1. Fix: lower k_b1 and/or
-   restrict β-1 to end units.
-3. **β-β ≈ 0 (real ~2–5%).** Endwise supply is too slow for monomer–monomer
-   dimerization. Fix: raise supply_rate slightly or seed a small monomer pool.
+The second script asks whether that rejection is an artefact of running one molecule
+at a time. Sweeping the oligomer–oligomer coupling scale into the genuinely
+multi-fragment regime never beats the single-molecule baseline, and never adopts
+`k_ao4` for a χ² gain. α-O-4's only action here is joining fragments, which the
+six-linkage inventory cannot see, so no inventory fit will pay for it. Where fragments
+do appear (`oo_scale = 0`), 5-5 and 4-O-5 fall below the reference, so that regime is
+not a better model either.
 
-None of these require re-architecting — they are parameter/rule refinements the
-generator exposes by design.
+## 7. The β-β floor and how nucleation sets it
 
-## Experiment 4 — calibration (β-side-chain normalization)
+```bash
+python code/knuc_nuclei_experiment.py
+python code/poisson_nuclei_experiment.py
+```
+→ `results/knuc_nuclei_experiment.csv/.log`, `results/poisson_nuclei_experiment.csv/.log`
 
-`code/calibrate.py` → `results/calibration.log`, `results/mini_forward_calibrated.csv`.
-Fit side-chain constants k_b5, k_b1, k_bb, supply_rate (k_bo4 = 8 fixed as scale)
-by Nelder-Mead to literature β-side-chain distributions (β-O-4/β-5/β-β/β-1 as
-fractions of their sum) at three anchors: softwood (46/11/2.5/1.5), poplar
-(62/7/4/1.5), high-S HW (78/3/4/1). One parameter set must fit all three, so the
-S/G trend comes from the S-blocks-C5 chemistry, not per-point fitting. Seeds fixed
-→ deterministic objective.
+Letting nucleation run continuously instead of front-loading it pushes β-β past the
+4.20 % ceiling and up to every reference value, so the ceiling is a consequence of
+front-loaded nucleation rather than of the architecture. It is not free: the same rate
+that lifts β-β also inflates monomer–monomer β-5 and β-1 and multiplies the fragment
+count.
 
-**Fitted:** k_b5 2.24, k_b1 0.39, k_bb 2.87, supply_rate 0.44 (≈ starting values —
-the optimizer could not improve by moving constants → residual is structural).
-Final loss 0.018.
+Allowing the nucleus count to be Poisson rather than fixed asks a different question.
+Each anchor's measured β-β implies its own mean nucleus count — 5.49 for softwood,
+7.49 for poplar, 6.13 for high-syringyl — against a single fitted global value of
+4.72. Widening the distribution cannot move one global mean onto three separated
+targets, so the β-β deficit is a real limit of one-global-nucleation, not a fitting
+accident.
 
-**Fit vs reference (β-side-chain %, model | ref):**
+## 8. The 4-O-5 over-prediction
 
-| S/G | β-O-4 | β-5 | β-β | β-1 |
-|---|---|---|---|---|
-| 0.0 | 82.1 \| 75.4 | 14.3 \| 18.0 | 0.0 \| 4.1 | 3.6 \| 2.5 |
-| 1.0 | 88.6 \| 83.2 | 7.5 \| 9.4 | 0.0 \| 5.4 | 3.9 \| 2.0 |
-| 3.0 | 91.8 \| 90.7 | 3.8 \| 3.5 | 0.2 \| 4.7 | 4.2 \| 1.2 |
+```bash
+python code/sigma_4o5_sensitivity.py
+python code/ref_4o5_sensitivity_experiment.py
+python code/ref_4o5_hardwood_sensitivity.py
+python code/weld_decomposition.py
+```
+→ the matching `results/*_4o5_*` and `results/weld_decomposition.csv` files
 
-Good on β-O-4/β-5 (high-S near-perfect); the emergent trend fits. Calibrated full
-sweep (raw % of all bonds): β-O-4 64.6%→84.6%, 5-5 15.5%→3.5%, branch 0.20→0.07 as
-S/G 0→3 — softwood condensed/branched, hardwood linear, all emergent.
+4-O-5 is over-predicted at every anchor (+2.00 σ softwood, +2.17 σ high-syringyl), and
+it carries the smallest reference uncertainty, so it dominates a χ² objective. Four
+runs test whether the residual is the model's fault or the reference's.
 
-**Dominant residual = β-β ≈ 0 (real ~4-5%), and it is STRUCTURAL.** β-β is a
-monomer–monomer dimerization; under slow endwise supply there are essentially
-never two free monomers at once, so it cannot form, and the missing mass inflates
-β-O-4 by ~7 pts at softwood. Fix is mechanistic (front-load β-β via a small
-initial monomer pool — early nucleation, pinoresinol/syringaresinol — rather than
-a rate constant), NOT calibration.
+Widening σ from 0.01 to 0.04 changes mean RMSE by at most 0.006 points; only at 0.06
+does the fit move (+0.68), so the residual is not manufactured by a tight σ floor.
 
-### Experiment 4b — β-β seed-pool fix + re-calibration
+Raising the softwood 4-O-5 reference itself from 1 % toward 3 % shrinks the residual
+from +2.00 σ to +0.30 σ while `k_4o5` tracks the reference upward — consistent with an
+under-measured reference, though it only comes for free if the other linkages hold,
+which the logged χ² and constants let a reader check.
 
-Added a deterministic standing free-monomer pool (`pool_target`): the supply
-refills to ~`pool_target` free monomers each step (a slow KMC supply event can't
-maintain a pool — coupling is far faster). This enables early monomer–monomer
-β-β dimerization. Re-calibrated with pool_target as the 4th parameter.
+Scaling the hardwood 4-O-5 references by 2 improves mean RMSE by 0.19 points and pulls
+the mean residual from +1.86 σ to +1.07 σ; scaling by 4 overshoots. Hardwood 4-O-5 is
+poorly constrained by NMR, and the fit prefers a reference above the nominal one.
 
-**Fitted:** k_b5 2.25, k_b1 0.40, k_bb 2.98, pool_target 4.07. **Loss halved
-(0.018 → 0.0082).** β-β now forms (and, realistically, rises with S/G).
+The last script splits each condensed bond into the part forced by oligomers welding
+together and the part formed by choice. Both 5-5 and 4-O-5 carry a substantial
+obligatory component, which is why 4-O-5 cannot simply be tuned away without also
+disturbing 5-5.
 
-| S/G | β-O-4 | β-5 | β-β | β-1 | (ref β-β) |
+## 9. Does molecular size change the answer?
+
+```bash
+python code/connectivity_experiment.py
+```
+→ `results/connectivity_experiment.csv/.log`
+
+The six linkage fractions stay flat across degrees of polymerisation from 20 to 240,
+so the reported inventory does not depend on the size of the molecule generated. The
+fragment count only rises as the oligomer–oligomer coupling scale approaches zero, and
+there 5-5 and 4-O-5 collapse below reference. Native fragmentation and native condensed
+content cannot both be had in this model, because in it condensation is the welding.
+
+## 10. Behaviour between and beyond the anchors
+
+```bash
+python code/intermediate_sg_experiment.py
+python code/plot_intermediate_sg.py
+```
+→ `results/intermediate_sg_experiment.csv/.log`
+
+The model is fitted at three S/G values, so its behaviour in between is worth
+checking. Sweeping the grid finely and extending it to near-pure syringyl, the two
+C5-dependent linkages track guaiacyl availability `g = 1/(1 + S/G)` almost exactly
+(β-5 r = +0.994, 5-5 r = +0.986). 4-O-5 tracks it far more loosely (r = +0.482),
+because it can also form at the C5-free 4-O position. Nothing anomalous appears
+between the anchors.
+
+## 11. An independent hardwood test
+
+```bash
+python code/hardwood_sg_trends.py
+python code/plot_external_validation.py
+```
+→ `results/hardwood_sg_trends.csv/.log`, needs `data/balakshin2016_hardwoods.csv`
+
+Twelve hardwood species from Balakshin et al. (2016), none used in fitting, checked
+against the model's S/G trend. The useful finding concerns the high-syringyl anchor
+itself: it carries β-O-4 at 78 per 100 C9, while the nearest measured species (silver
+birch, S/G 3.02) reports 66 per 100 aromatic rings, and the three species above
+S/G 2.5 average 62. The model predicts below that anchor, so part of the high-S
+residual in section 3 may belong to the anchor rather than to the model.
+
+## 12. Comparison with other generators
+
+```bash
+python code/cross_kmc_matched.py
+python code/cross_ligningraphs_incremental.py
+python code/cross_lgs_matched.py
+python code/cross_wallclock_stability.py
+python code/cross_algorithm_analysis.py
+```
+→ `results/cross_*.csv/.log`
+
+Each generator is run on matched softwood / hardwood / grass parameterisations and the
+cost distributions compared. These are skewed and censored, so the analysis reports
+medians with both a parametric and a rank test, and a claim only counts if the
+reconstruction reproduces its ordering *and* its significance.
+
+| Arm | Metric | Ordering (median) | p (ANOVA) | p (rank) | |
 |---|---|---|---|---|---|
-| 0.0 | 80.0 \| 75.4 | 13.4 \| 18.0 | **2.4** \| 4.1 | 4.2 \| 2.5 | was 0.0 |
-| 1.0 | 85.5 \| 83.2 | 7.7 \| 9.4 | **2.4** \| 5.4 | 4.3 \| 2.0 | was 0.0 |
-| 3.0 | 87.6 \| 90.7 | 4.3 \| 3.5 | **3.0** \| 4.7 | 5.1 \| 1.2 | was 0.2 |
+| LGS (enumeration) | structures enumerated | SW > HW > GR | 2.2e-10 | 0.023 | sig |
+| LGS (enumeration) | wall-clock seconds | SW > HW > GR | 3.0e-4 | 0.027 | sig |
+| Lignin-KMC (incremental) | wall-clock seconds | SW > HW > GR | 2.4e-3 | 3.8e-4 | sig |
+| Lignin-KMC (incremental) | KMC events fired | HW > GR > SW | 3.6e-10 | 2.8e-8 | sig |
+| LigninGraphs (incremental) | wall-clock seconds | GR > SW > HW | 0.283 | 0.646 | null |
+| LigninGraphs (incremental) | Metropolis steps | GR > HW > SW | 0.019 | 0.021 | sig |
 
-**New side effect (next target):** fitting β-β via pool_target over-inflated the
-CONDENSED channel, because the β-side-chain objective does not penalise 5-5/4-O-5
-or branching. Calibrated raw softwood now has 5-5 = 23.8%, 4-O-5 = 7.6%, branch =
-0.31 — too condensed/branched (real softwood 5-5 ~10-25% is plausible but branch
-0.31 is high). pool_target conflates β-β nucleation with condensation opportunity.
+Wall-clock time is a property of an implementation, not of lignin chemistry;
+`cross_wallclock_stability.py` shows how far it moves under re-runs and ordering
+changes, which is why the structural counts carry the argument instead.
 
-**Next step: full-inventory calibration** — extend the objective to also target
-the condensed fractions (5-5, 4-O-5) and branch coefficient, and fit k_55/k_4o5
-alongside, so the whole linkage inventory is balanced rather than just the
-β-side-chain.
+## Requirements for the optional runs
 
-### Experiment 4c — full-inventory calibration (fraction of total linkages)
-
-`code/calibrate_full.py`. Objective = squared error on ALL six linkage fractions
-(of total linkages) at the three anchors; fit k_b5, k_b1, k_bb, k_55, k_4o5 and
-pool_target. Reference (% of total): softwood 59/14/3/3/16/5, poplar
-80/8/5/2/4/2, high-S 89/3/5/1/1/1.
-
-**First attempt (single standing pool) FAILED — loss 0.073, optimizer stuck.**
-Diagnosis: `pool_target` (~4, needed for β-β) forces condensation. A big pool
-means several oligomers grow at once; a large oligomer has no free β donor, so
-two oligomers can only merge via a condensed C–C bond (5-5/4-O-5). That
-coalescence is mandatory → condensation and branching stay high (0.15–0.32) and
-don't fall with S/G. Lowering k_4o5 didn't help (flux shifts to 5-5). β-β
-nucleation and linearity are irreconcilable under one standing pool.
-
-### Experiment 4d — DECOUPLED NUCLEATION + full-inventory calibration (BEST)
-
-Fix: separate β-β nucleation from ongoing supply. `run()` now has a **nucleation
-phase** — form `n_nuclei` dimers up front (each dimer's type drawn from the
-monomer-monomer rate constants; this is where β-β comes from) — then an
-**endwise phase** with `pool_target = 1` (one free monomer at a time → chains
-grow linearly, no forced coalescence; multiple linear chains coexist, which is
-realistic — lignin is polydisperse). Re-fit k_b5, k_b1, k_bb, k_55, k_4o5,
-`n_nuclei` (pool_target fixed 1), wider initial simplex.
-
-**Loss 0.073 → 0.0104 (7×).** Fitted: k_bo4 8 (scale), k_b5 2.68, k_b1 0.36,
-k_bb 5.32, k_55 1.36, k_4o5 0.14, n_nuclei 6.99, pool_target 1.
-
-| S/G | β-O-4 | β-5 | β-β | β-1 | 5-5 | 4-O-5 | branch |
-|---|---|---|---|---|---|---|---|
-| 0.0 | 66.1\|59.4 | 15.1\|14.2 | 1.9\|3.2 | 2.8\|2.6 | 11.6\|15.5 | 2.5\|5.2 | 0.14 |
-| 1.0 | 76.3\|79.5 | 8.2\|7.7 | 2.4\|5.1 | 3.4\|1.9 | 7.1\|3.8 | 2.7\|1.9 | 0.10 |
-| 3.0 | 83.9\|89.1 | 4.3\|3.4 | 2.0\|4.6 | 2.9\|1.1 | 4.0\|1.1 | 3.0\|0.6 | 0.07 |
-
-β-O-4 within ~3-7 pts (was 13-14 off), β-5 near-perfect, condensation now falls
-with S/G, branching realistic (0.14→0.07). Decoupling resolved the structural
-conflict: optimizer lowered condensation (k_55, k_4o5) while raising β-β
-(k_bb, nucleation) because they're independent now.
-
-**Remaining residual (second-order):** β-β ~2% vs real 3-5%, and flat in S/G
-(real rises). More nuclei would raise β-β but re-add condensation, so the fit
-balances at ~7 nuclei. Refinement: make nucleation favour β-β for syringyl
-(syringaresinol) so β-β tracks S/G. Not a structural blocker.
-
-### Experiment 5 — polish, extend, validate, write
-
-**Polish (syringyl β-β boost):** added `bb_s_boost` (β-β weight ×4 when both
-nucleating units are S → syringaresinol). Re-fit: loss 0.0104 → 0.0092; β-β now
-rises weakly with S/G (1.2→2.3). Fitted params saved to
-`results/fitted_params.json` (k_b5 2.91, k_b1 0.26, k_bb 5.35, k_55 2.66,
-k_4o5 0.21, n_nuclei 4.73, bb_s_boost 4, pool_target 1, k_bo4 8).
-
-**Extend (commelinid chemistry):** added optional H units (`pct_h`),
-γ-p-coumaroylation of S (`frac_pca`), tricin initiation (`frac_tricin`), all
-default OFF so wood behaviour/calibration unchanged. Grass/palm run reproduces
-composition signatures (H ~10%, pCA-acyl ~9% of units, ~1 tricin/chain).
-
-**Validate (`code/validate.py`, native-only leave-one-out CV):** Palm pulping data
-(Kraft/Soda/Organosolv) was REMOVED as comparison data — pulping cleaves β-O-4 and
-condenses the polymer, so it is not native lignin and is invalid for a
-native-biosynthesis generator (user directive, 2026-07-14). Replaced with
-leave-one-out CV on the three native wood anchors: re-fit on two, predict the third.
-Held-out RMSE 2.9 / 2.9 / 3.2 pts (softwood/poplar/high-S), mean 3.0 — comparable to
-the in-sample residual, so the model extrapolates in composition, not just
-interpolates fitted points. Independent native full-inventory NMR (known S/G) is the
-essential external validation still needed. Results: `results/validation_loocv.log`.
-
-**Write:** manuscript draft at `manuscript/draft.md` (target JTB / in silico
-Plants) covering the full arc: forward-vs-backward, the artifact, Lignin-KMC gaps,
-the minimal generator, calibration, validation, extension.
-
-## Updated overall conclusion
-
-The fresh forward generator is a working first version that **already surpasses
-the published forward generator on the decisive criterion**: it reproduces high
-β-O-4, modest condensation, and chain linearity together, with the full linkage
-inventory (not just β-O-4/β-5), and every deviation from NMR is a tunable
-parameter we control. Next step is calibration (fit k_* + β-5/β-1 end-restriction
-against the Bourmaud NMR anchors), then extension (H units, acylated conjugates,
-tricin) for the grass/palm case.
-
-
+Sections 1, 2 and 12 need `ligninkmc` installed; section 12 additionally needs
+LigninGraphs and LGS. Sections 3 to 11 need only NumPy and SciPy. Each script's header
+states its own dependencies.

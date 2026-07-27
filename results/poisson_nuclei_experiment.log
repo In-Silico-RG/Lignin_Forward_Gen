@@ -1,0 +1,24 @@
+Poisson-nucleus experiment (reviewer 2.3, third option)
+adopted params: n_nuclei = 4.7160 -> round = 5;  n_target = 120;  reps = 400
+hard ceiling at N = 5 nuclei: 4.20% (= 5/119, only if every nucleus is a resinol)
+
+=== fixed-integer vs Poisson at the fitted n_nuclei (mean-preserving) ===
+anchor     ref bb | fix bb   fix N (mean) | poi bb   poi N (mean) P(>=ref)  poi 5-95% band
+softwood    3.76% |  3.41%          5.00 |  3.32%          4.84      40%  [0.84, 5.88]
+poplar      5.13% |  3.41%          5.00 |  3.23%          4.76       9%  [0.84, 5.88]
+high-S      4.57% |  3.62%          5.00 |  3.43%          4.66      23%  [0.84, 6.72]
+
+Q1 (mean): Poisson leaves the mean beta-beta on the same line as fixed N
+           (E[N] = n_nuclei), so rounding was not what pinned it.
+Q2 (band): P(>=ref) and the 5-95%% band show whether any molecule reaches
+           the reference -- the hard line is now a band.
+
+=== mean nucleus count required to hit each reference beta-beta (Poisson) ===
+if these differ, one GLOBAL n_nuclei cannot serve all three anchors
+anchor     ref bb implied lambda
+softwood    3.76%           5.49
+poplar      5.13%           7.49
+high-S      4.57%           6.13
+
+fitted global n_nuclei = 4.72. The spread of implied lambdas is the obstruction;
+Poisson widens the band but cannot move a single global mean to three targets at once.

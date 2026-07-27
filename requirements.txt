@@ -1,2 +1,16 @@
+# Python 3.9+
+# Core dependencies for the forward generator, calibration, and validation.
 numpy
 scipy
+
+# Forward radical-coupling reference model (Section 3.1 comparison).
+ligninkmc
+
+# Optional — only for the cross-generator comparison scripts (code/cross_*.py):
+#   the LigninGraphs and LGS backward generators. Install per their own
+#   instructions; not required to run mini_forward_generator.py or the calibration.
+
+# The committed logs in results/ were produced with numpy 2.3.3 and scipy 1.16.2.
+# The generator is seeded and does not depend on those exact versions, but the
+# Nelder-Mead calibration can land on a marginally different optimum under a
+# different scipy.

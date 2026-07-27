@@ -1,0 +1,38 @@
+Seed-averaged refit -- closing the fit-stability crack (round-2 Exp B follow-up)
+fit objective: chi2 of inventory AVERAGED over seed bases [7000, 17000, 27000, 37000] x 8 reps (= 32 eff.)
+held-out bases (never seen by any fit): [101000, 202000, 303000, 404000, 505000] x 40 reps
+
+adopted params (single-seed reps=8 fit): {"k_b5": 2.4904, "k_b1": 0.2715, "k_bb": 16.7825, "k_55": 0.7108, "k_4o5": 0.1737, "n_nuclei": 4.716, "k_bo4_nuc": 0.9213}
+
+Refitting under the seed-averaged objective (started AT the adopted optimum)...
+  eval  25  chi2_avg=23.339  best=21.487
+  eval  50  chi2_avg=29.447  best=19.040
+  eval  75  chi2_avg=18.171  best=18.171
+  eval 100  chi2_avg=18.449  best=17.802
+  eval 125  chi2_avg=17.850  best=17.689
+  eval 150  chi2_avg=17.814  best=17.689
+  eval 175  chi2_avg=17.689  best=17.689
+seed-averaged params: {"k_b5": 2.6208, "k_b1": 0.3031, "k_bb": 18.5724, "k_55": 0.7903, "k_4o5": 0.1147, "n_nuclei": 5.3336, "k_bo4_nuc": 1.0501}
+  (180 evals)
+
+param          adopted   seed-avg    ratio   class
+k_b5            2.4904     2.6208     1.05   det
+k_b1            0.2715     0.3031     1.12   det
+k_bb           16.7825    18.5724     1.11   UNDET
+k_55            0.7108     0.7903     1.11   det
+k_4o5           0.1737     0.1147     0.66   det
+n_nuclei        4.7160     5.3336     1.13   det
+k_bo4_nuc       0.9213     1.0501     1.14   UNDET
+
+Expectation: the four determined constants barely move; any large movement
+should sit in the two UNDET directions (k_bb, k_bo4_nuc), which the data do
+not pin regardless of seed. That pattern = the crack was Monte-Carlo noise in
+the objective, not a real relocation of the identified optimum.
+
+HELD-OUT generalisation (chi2 on bases neither fit ever saw):
+  adopted  :  28.46  22.38  25.29  30.64  25.88   mean 26.53 +/- 2.82
+  seed-avg :  24.49  21.89  23.14  27.38  25.75   mean 24.53 +/- 1.92
+
+held-out mean chi2: seed-avg BETTER by 2.00 (7.5%)
+
+RECOMMENDATION: INSPECT: a determined constant moved >20%. Report both fits; do not silently adopt.

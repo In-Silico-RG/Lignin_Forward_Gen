@@ -1,0 +1,5 @@
+quantity,meas_slope,meas_r,meas_r2,meas_min,meas_max,model_slope,agreement
+beta-O-4,3.884,0.574,0.329,52.0,66.0,2.514,same sign
+beta-beta,0.765,0.317,0.101,6.0,10.0,0.066,same sign
+beta-5,-0.776,-0.457,0.209,1.0,5.0,-1.624,same sign
+condensation,-3.504,-0.583,0.34,13.0,24.0,-1.03,same sign

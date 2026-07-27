@@ -1,0 +1,45 @@
+Full-inventory calibration (fraction of total linkages)
+anchors: [0.0, 1.0, 3.0]  fit reps: 8  k_bo4 fixed: 8.0
+reference inventory (%% of total linkages):
+   S/G 0.0: {'bo4': 69.2, 'b5': 16.5, 'bb': 3.8, 'b1': 3.0, '55': 6.0, '4o5': 1.5}
+   S/G 1.0: {'bo4': 79.5, 'b5': 7.7, 'bb': 5.1, 'b1': 1.9, '55': 3.8, '4o5': 1.9}
+   S/G 3.0: {'bo4': 89.1, 'b5': 3.4, 'bb': 4.6, 'b1': 1.1, '55': 1.1, '4o5': 0.6}
+
+  eval  20  chi2=33.61  best=19.649
+  eval  40  chi2=18.73  best=17.436
+  eval  60  chi2=30.666  best=15.73
+  eval  80  chi2=24.854  best=15.73
+  eval 100  chi2=15.448  best=15.261
+  eval 120  chi2=15.261  best=15.261
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.3378, 'k_b1': 0.2321, 'k_bb': 18.9686, 'k_55': 0.8348, 'k_4o5': 0.1308, 'n_nuclei': 4.8243, 'k_bo4_nuc': 1.1377, 'oligo_bb': 0.0001}
+minimised: chi2 = 15.261  (evals: 135)
+this fit scores:  sse = 0.00506   chi2 = 22.74
+  Both are printed for every fit because they are different objectives
+  and their VALUES do not compare. Judge a fit by the per-linkage
+  residuals below and by validate.py's held-out error, not by a loss.
+
+full-inventory fit vs reference (model | ref, %% of total linkages):
+  S/G  bO4         b5          bb          b1          5-5         4-O-5        branch
+  0.0  68.4|69.2   15.2|16.5    3.6| 3.8    2.2| 3.0    7.9| 6.0    2.7| 1.5    0.106
+  1.0  79.2|79.5    8.2| 7.7    3.6| 5.1    1.8| 1.9    4.6| 3.8    2.5| 1.9    0.071
+  3.0  83.8|89.1    4.9| 3.4    3.8| 4.6    2.6| 1.1    2.7| 1.1    2.3| 0.6    0.051
+
+residuals in sigma ((model - ref) / sigma; |z| < 1 is within measurement):
+  S/G      bO4      b5      bb      b1     5-5   4-O-5
+  0.0    -0.21   -1.39   -0.17   -0.79   +1.86   +1.24
+  1.0    -0.07   +0.54   -1.51   -0.10   +0.80   +0.54
+  3.0    -1.20   +1.47   -0.79   +1.43   +1.52   +1.73
+
+full S/G sweep with fitted params (%% of total linkages):
+  S/G     bO4     b5     bb     b1    5-5    4o5  branch
+ 0.00   68.4%  15.2%   3.6%   2.2%   7.9%   2.7%   0.106
+ 0.25   72.4%  12.6%   3.1%   2.3%   7.1%   2.6%   0.096
+ 0.50   74.8%  11.1%   3.3%   2.2%   6.1%   2.4%   0.085
+ 1.00   79.2%   8.2%   3.6%   1.8%   4.6%   2.5%   0.071
+ 1.50   81.2%   6.6%   3.7%   2.2%   3.9%   2.4%   0.062
+ 2.00   81.2%   7.3%   3.3%   2.4%   3.1%   2.8%   0.059
+ 3.00   83.8%   4.9%   3.8%   2.6%   2.7%   2.3%   0.051
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.3378, 'k_b1': 0.2321, 'k_bb': 18.9686, 'k_55': 0.8348, 'k_4o5': 0.1308, 'n_nuclei': 4.8243, 'k_bo4_nuc': 1.1377, 'oligo_bb': 0.0001}
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_full_calibrated_oligobb.csv

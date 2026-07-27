@@ -1,0 +1,23 @@
+Cross-algorithm validation -- LGS, matched params
+jar: /home/aldo/SOFT/lignin-structure-generator-main/Executable_Jar_and_Config_0225/lgs-generator-1.0.jar
+LGS is a sequence-controlled ENUMERATOR, not a rejection sampler
+(see docstring; read from GeneratePolymer.java). docs/03's description
+of it as whole-structure rejection sampling is wrong.
+params: DP=10  repeats=3
+
+cfg    S/G  BO4 tgt |  structures    linear   branched |   lgs_t(s)     wall_s
+SW    0.00       54 |         433       100        333 |       37.0      37.78
+SW    0.00       54 |         443       100        343 |       34.0      35.54
+SW    0.00       54 |         433       100        333 |       40.0      41.32
+HW    1.50       69 |         374       310         64 |       29.0      30.23
+HW    1.50       69 |         376       311         65 |       24.0      25.59
+HW    1.50       69 |         373       304         69 |       23.0      24.23
+GR    0.80       77 |         168       133         35 |       11.0      11.92
+GR    0.80       77 |         168       133         35 |       17.0      18.34
+GR    0.80       77 |         168       126         42 |       11.0      12.50
+
+========================================================================
+SUMMARY
+  SW  structures=[433, 443, 433] (VARIES: [433, 443])   wall_s mean=38.21 sd=2.38
+  HW  structures=[374, 376, 373] (VARIES: [373, 374, 376])   wall_s mean=26.68 sd=2.57
+  GR  structures=168 (DETERMINISTIC)   wall_s mean=14.26 sd=2.90

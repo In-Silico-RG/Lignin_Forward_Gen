@@ -1,0 +1,13 @@
+part,param,true,recovered,ratio,class,verdict
+recovery,k_b5,2.4904,2.9519,1.1853,determined,recovered
+recovery,k_b1,0.2715,0.3485,1.2838,UNDETERMINED,NOT recovered
+recovery,k_bb,16.7825,7.8282,0.4664,UNDETERMINED,NOT recovered
+recovery,k_55,0.7108,0.9756,1.3725,determined,NOT recovered
+recovery,k_4o5,0.1737,0.2505,1.4424,determined,NOT recovered
+recovery,n_nuclei,4.7160,5.1965,1.1019,determined,recovered
+recovery,k_bo4_nuc,0.9213,1.4987,1.6268,UNDETERMINED,NOT recovered
+
+seed_base,k_b5,k_b1,k_bb,k_55,k_4o5,n_nuclei,k_bo4_nuc,chi2
+7000,2.4904,0.2715,16.7825,0.7108,0.1737,4.7160,0.9213,25.44
+17000,3.0713,0.3089,7.1567,1.3504,0.2582,6.1815,0.9294,64.13
+27000,2.9501,0.3372,8.2189,0.8982,0.2113,4.9241,1.4134,40.02

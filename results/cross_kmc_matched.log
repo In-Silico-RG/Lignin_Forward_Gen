@@ -1,0 +1,40 @@
+Cross-algorithm validation -- Lignin-KMC, matched params (incremental)
+RECONSTRUCTION of a lost script; see docstring + docs/03.
+params: DP=10 ini=2 add_rate=1 temp=298.15K n_reps=30
+rates: calc_rates(DEF_E_BARRIER_KCAL_MOL) -- NOT MANUSCRIPT_RATES (docs/04)
+NOTE: forward generator -- the 54/69/77%% beta-O-4 targets CANNOT be
+      supplied; only S/G and DP are matched. See docstring.
+
+cfg    S/G wall_s(mean)   events(mean)    bo4(mean)
+SW    0.00       0.0078           41.2        0.385
+HW    1.50       0.0066           43.5        0.641
+GR    0.80       0.0067           42.7        0.596
+
+========================================================================
+STATISTICS
+
+--- wall-clock seconds (the t_gen proxy) ---
+  SW  n= 30  mean=     0.008  sd=    0.001  median=    0.007  min=    0.005  max=     0.012
+  HW  n= 30  mean=     0.007  sd=    0.001  median=    0.006  min=    0.005  max=     0.010
+  GR  n= 30  mean=     0.007  sd=    0.002  median=    0.006  min=    0.005  max=     0.012
+  ANOVA (means): F=6.450  p=0.00244  eta^2=0.129
+    SW vs HW: Welch t=  3.539  p=0.000843
+    SW vs GR: Welch t=  2.636  p=0.0107
+    HW vs GR: Welch t= -0.429  p=0.67
+  Kruskal-Wallis (ranks): H=15.775  p=0.000375
+    SW vs HW: Mann-Whitney p=0.000239
+    SW vs GR: Mann-Whitney p=0.00152
+    HW vs GR: Mann-Whitney p=0.751
+
+--- KMC events fired (native unit of work) ---
+  SW  n= 30  mean=    41.200  sd=    1.186  median=   41.000  min=   39.000  max=    43.000
+  HW  n= 30  mean=    43.533  sd=    1.306  median=   44.000  min=   41.000  max=    46.000
+  GR  n= 30  mean=    42.733  sd=    1.172  median=   43.000  min=   41.000  max=    46.000
+  ANOVA (means): F=28.198  p=3.63e-10  eta^2=0.393
+    SW vs HW: Welch t= -7.244  p=1.2e-09
+    SW vs GR: Welch t= -5.036  p=4.94e-06
+    HW vs GR: Welch t=  2.497  p=0.0154
+  Kruskal-Wallis (ranks): H=34.808  p=2.76e-08
+    SW vs HW: Mann-Whitney p=8.4e-08
+    SW vs GR: Mann-Whitney p=2.12e-05
+    HW vs GR: Mann-Whitney p=0.0176

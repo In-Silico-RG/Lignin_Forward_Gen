@@ -1,0 +1,44 @@
+4-O-5 sigma sensitivity
+  adopted objective: sigma_k = max(0.05*ref_k, 0.01)
+  4-O-5 reference: [1.0, 1.5, 0.5] per 100 C9 -> floor binds at every anchor
+  fit reps = 8, report reps = 30
+
+sigma_4o5 = 0.01 (1 pt)  (adopted)   evals 108   mean RMSE 1.620 pts
+   params: {'k_b5': 2.4904, 'k_b1': 0.2715, 'k_bb': 16.7825, 'k_55': 0.7108, 'k_4o5': 0.1737, 'n_nuclei': 4.716, 'k_bo4_nuc': 0.9213}
+   S/G 0.0  RMSE  0.97   4-O-5  3.5 (ref  1.5, +2.00)   5-5  6.0 (ref  6.0, -0.05)
+   S/G 1.0  RMSE  1.21   4-O-5  3.3 (ref  1.9, +1.41)   5-5  3.8 (ref  3.8, -0.01)
+   S/G 3.0  RMSE  2.67   4-O-5  2.7 (ref  0.6, +2.17)   5-5  2.3 (ref  1.1, +1.13)
+
+sigma_4o5 = 0.02 (2 pt)   evals 106   mean RMSE 1.620 pts
+   params: {'k_b5': 2.4904, 'k_b1': 0.2715, 'k_bb': 16.7825, 'k_55': 0.7108, 'k_4o5': 0.1737, 'n_nuclei': 4.716, 'k_bo4_nuc': 0.9213}
+   S/G 0.0  RMSE  0.97   4-O-5  3.5 (ref  1.5, +2.00)   5-5  6.0 (ref  6.0, -0.05)
+   S/G 1.0  RMSE  1.21   4-O-5  3.3 (ref  1.9, +1.41)   5-5  3.8 (ref  3.8, -0.01)
+   S/G 3.0  RMSE  2.67   4-O-5  2.7 (ref  0.6, +2.17)   5-5  2.3 (ref  1.1, +1.13)
+
+sigma_4o5 = 0.03 (3 pt)   evals 136   mean RMSE 1.625 pts
+   params: {'k_b5': 2.3253, 'k_b1': 0.2006, 'k_bb': 19.8609, 'k_55': 0.6497, 'k_4o5': 0.2002, 'n_nuclei': 5.2389, 'k_bo4_nuc': 1.1513}
+   S/G 0.0  RMSE  1.24   4-O-5  4.0 (ref  1.5, +2.47)   5-5  6.6 (ref  6.0, +0.54)
+   S/G 1.0  RMSE  1.13   4-O-5  3.8 (ref  1.9, +1.83)   5-5  3.6 (ref  3.8, -0.29)
+   S/G 3.0  RMSE  2.50   4-O-5  3.4 (ref  0.6, +2.85)   5-5  2.2 (ref  1.1, +1.10)
+
+sigma_4o5 = 0.04 (4 pt)   evals 103   mean RMSE 1.616 pts
+   params: {'k_b5': 2.4875, 'k_b1': 0.2722, 'k_bb': 16.923, 'k_55': 0.713, 'k_4o5': 0.1736, 'n_nuclei': 4.6988, 'k_bo4_nuc': 0.9406}
+   S/G 0.0  RMSE  0.94   4-O-5  3.5 (ref  1.5, +1.97)   5-5  5.9 (ref  6.0, -0.10)
+   S/G 1.0  RMSE  1.25   4-O-5  3.5 (ref  1.9, +1.55)   5-5  3.8 (ref  3.8, -0.01)
+   S/G 3.0  RMSE  2.66   4-O-5  2.7 (ref  0.6, +2.17)   5-5  2.3 (ref  1.1, +1.15)
+
+sigma_4o5 = 0.06 (6 pt)   evals 161   mean RMSE 2.300 pts
+   params: {'k_b5': 2.4212, 'k_b1': 0.2402, 'k_bb': 17.4511, 'k_55': 0.6906, 'k_4o5': 0.2845, 'n_nuclei': 5.2238, 'k_bo4_nuc': 0.8961}
+   S/G 0.0  RMSE  1.95   4-O-5  5.5 (ref  1.5, +4.01)   5-5  6.4 (ref  6.0, +0.40)
+   S/G 1.0  RMSE  2.00   4-O-5  5.3 (ref  1.9, +3.34)   5-5  3.2 (ref  3.8, -0.65)
+   S/G 3.0  RMSE  2.94   4-O-5  4.7 (ref  0.6, +4.11)   5-5  1.7 (ref  1.1, +0.51)
+
+CHANGE FROM THE ADOPTED FIT (sigma_4o5 = 0.01)
+sigma_4o5   mean RMSE d(mean RMSE)   max |dk|/k  4-O-5 resid
+0.01            1.620       +0.000         0.0%        +1.86
+0.02            1.620       +0.000         0.0%        +1.86
+0.03            1.625       +0.006        26.1%        +2.38
+0.04            1.616       -0.003         2.1%        +1.90
+0.06            2.300       +0.680        63.8%        +3.82
+
+Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/results/sigma_4o5_sensitivity.csv

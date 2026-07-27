@@ -1,0 +1,29 @@
+Cross-algorithm validation -- LigninGraphs, matched params (incremental)
+RECONSTRUCTION of a lost script; see docstring + docs/03.
+params: DP=10 Tmetro=30 i_max=500 n_reps=30 base_seed=20260714
+
+cfg    S/G    target wall_s(mean)   steps(mean)   size(mean)
+SW    0.00      0.54       0.4142          22.0          8.9
+HW    1.50      0.69       0.8053         127.1          7.9
+GR    0.80      0.77       0.6812          73.3          8.3
+
+========================================================================
+STATISTICS
+
+--- wall-clock seconds (the t_gen proxy) ---
+  SW  n= 30  mean=     0.414  sd=    0.548  median=    0.221  min=    0.039  max=     2.290
+  HW  n= 30  mean=     0.805  sd=    1.080  median=    0.190  min=    0.060  max=     3.055
+  GR  n= 30  mean=     0.681  sd=    1.157  median=    0.254  min=    0.080  max=     4.166
+  ANOVA: F=1.281  p=0.283  eta^2=0.029
+    SW vs HW: Welch t= -1.769  p=0.084
+    SW vs GR: Welch t= -1.142  p=0.26
+    HW vs GR: Welch t=  0.429  p=0.669
+
+--- Metropolis steps (native unit of work) ---
+  SW  n= 30  mean=    21.967  sd=   31.723  median=   10.000  min=    3.000  max=   135.000
+  HW  n= 30  mean=   127.133  sd=  193.516  median=   14.500  min=    6.000  max=   501.000
+  GR  n= 30  mean=    73.300  sd=  147.137  median=   19.000  min=    7.000  max=   501.000
+  ANOVA: F=4.141  p=0.0191  eta^2=0.087
+    SW vs HW: Welch t= -2.937  p=0.00624
+    SW vs GR: Welch t= -1.868  p=0.071
+    HW vs GR: Welch t=  1.213  p=0.23

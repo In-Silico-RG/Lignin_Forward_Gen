@@ -3,21 +3,21 @@ Leave-one-out cross-validation on native wood anchors
 
 HELD-OUT S/G=0.0 (fit on [1.0, 3.0]):
           bo4         b5          bb          b1          55          4o5        
-  pred    64.7        16.4        1.3         2.1         13.3        2.2        
-  ref     59.4        14.2        3.2         2.6         15.5        5.2        
-  held-out RMSE: 2.9 pts
+  pred    63.4        15.5        2.7         2.7         11.8        3.9        
+  ref     69.2        16.5        3.8         3.0         6.0         1.5        
+  held-out RMSE: 3.5 pts
 
 HELD-OUT S/G=1.0 (fit on [0.0, 3.0]):
           bo4         b5          bb          b1          55          4o5        
-  pred    76.2        7.9         2.0         2.4         9.3         2.3        
+  pred    74.5        10.1        3.6         3.6         3.6         4.5        
   ref     79.5        7.7         5.1         1.9         3.8         1.9        
-  held-out RMSE: 2.9 pts
+  held-out RMSE: 2.7 pts
 
 HELD-OUT S/G=3.0 (fit on [0.0, 1.0]):
           bo4         b5          bb          b1          55          4o5        
-  pred    83.3        4.3         2.2         2.4         4.3         3.5        
+  pred    81.3        5.2         4.0         2.7         2.1         4.7        
   ref     89.1        3.4         4.6         1.1         1.1         0.6        
-  held-out RMSE: 3.2 pts
+  held-out RMSE: 3.8 pts
 
-mean held-out RMSE across folds: 3.0 pts
+mean held-out RMSE across folds: 3.4 pts
 Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/validation_loocv.csv
