@@ -25,9 +25,13 @@ Writes results/hardwood_sg_trends.csv and prints a report.
 """
 import csv
 import os
+
 import sys
 
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, os.pardir, "data")
@@ -127,7 +131,7 @@ def main():
         w = csv.DictWriter(fh, fieldnames=list(out[0].keys()))
         w.writeheader()
         w.writerows(out)
-    print("\nWrote %s" % os.path.normpath(path))
+    print("\nWrote %s" % rel(path))
 
 
 if __name__ == "__main__":

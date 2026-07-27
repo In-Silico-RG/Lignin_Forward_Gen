@@ -17,6 +17,8 @@ Run: conda run -n lignin_kmc python code/supply_regime_sweep.py
 Outputs: results/supply_regime_sweep.csv + printed table.
 """
 import os
+import sys
+
 import numpy as np
 
 from ligninkmc.create_lignin import (calc_rates, create_initial_monomers,
@@ -24,6 +26,9 @@ from ligninkmc.create_lignin import (calc_rates, create_initial_monomers,
 from ligninkmc.kmc_functions import run_kmc, analyze_adj_matrix
 from ligninkmc.kmc_common import (Event, GROW, ADJ_MATRIX, BONDS, CHAIN_BRANCH_COEFF,
                                   BO4, BB, B5, B1, C5O4, AO4, C5C5, DEF_E_BARRIER_KCAL_MOL)
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 TEMP = 298.15
 MAX_MONOS = 100
@@ -98,7 +103,7 @@ def main():
         fh.write(",".join(cols) + "\n")
         for r in rows:
             fh.write(",".join("%.5f" % r[c] for c in cols) + "\n")
-    print("\nWrote %s" % out_csv)
+    print("\nWrote %s" % rel(out_csv))
 
 
 if __name__ == "__main__":

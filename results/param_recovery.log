@@ -1,4 +1,4 @@
-Parameter recovery + seed robustness (round-2 methodological critique)
+Parameter recovery + seed robustness
 true params: {"k_b5": 2.4904, "k_b1": 0.2715, "k_bb": 16.7825, "k_55": 0.7108, "k_4o5": 0.1737, "n_nuclei": 4.716, "k_bo4_nuc": 0.9213}
 
 PART 1 -- recover known params from SYNTHETIC data (gen reps=250)

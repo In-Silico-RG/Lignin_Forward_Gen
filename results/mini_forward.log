@@ -11,4 +11,4 @@ n=120 monomers, reps=25
  2.00    72.2%  12.3%   0.0%   0.7%   2.9%  11.8%   0.036    72   HW anchor
  3.00    75.1%   9.2%   0.1%   0.5%   1.9%  13.1%   0.024    79   HW anchor
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_sweep.csv
+Wrote results/mini_forward_sweep.csv

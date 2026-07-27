@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """
-ref_4o5_sensitivity_experiment.py  --  reviewer concern 3.2
+ref_4o5_sensitivity_experiment.py  --  is the 4-O-5 residual the model's or the
+                                       reference's?
 
 The adopted softwood 4-O-5 reference is 1.0 / 100 C9 -- the only directly NMR-measured
 figure (Yue 2016/2017), against thioacidolysis values that inflate condensed dimers
-~8x. The fit still leaves a systematic 4-O-5 over-prediction (~ +2 sigma). Reviewer 3.2
-asks the fair question: is that residual real, or is the model just fitting a reference
-that is itself too low? If the reference were 2.0 or 3.0, would the fitted constants
+~8x. The fit still leaves a systematic 4-O-5 over-prediction (~ +2 sigma), which
+raises a fair question: is that residual real, or is the model just fitting a
+reference that is itself too low? If the reference were 2.0 or 3.0, would the constants
 move a lot (=> the reference drives the fit) or barely (=> 4-O-5 is nearly unidentified
 and the residual is not a reference artefact)?
 
@@ -71,7 +72,7 @@ def main():
         lines.append(s)
 
     emit("4-O-5 reference sensitivity: re-fit chi2 at softwood 4-O-5 in {1.0, 2.0, 3.0}")
-    emit("(1.0 = adopted, the only NMR-measured value; 2.0/3.0 probe the reviewer's worry")
+    emit("(1.0 = adopted, the only NMR-measured value; 2.0/3.0 probe the possibility")
     emit(" that the +2sigma 4-O-5 residual is just an underestimated reference.)")
     emit("Only the softwood 4-O-5 number changes between rows; fit machinery is identical.")
     emit("")
@@ -127,7 +128,7 @@ def main():
     emit("  * softwood 4-O-5 residual z: %+.2f (ref 1.0) -> %+.2f (ref 2.0) -> %+.2f (ref 3.0)"
          % (z0[0], z0[1], z0[2]))
     emit("    If |z| shrinks as the reference rises, the +sigma residual at 1.0 is")
-    emit("    consistent with an underestimated reference (reviewer's hypothesis);")
+    emit("    consistent with an underestimated reference;")
     emit("    the point is that this costs nothing elsewhere only if the OTHER linkages'")
     emit("    fits are unchanged -- check chi2 and the other constants above.")
     emit("")

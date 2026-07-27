@@ -1,5 +1,8 @@
 # Lignin_Forward_Gen
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A minimal, transparent **forward** kinetic Monte Carlo generator that predicts the
 native lignin inter-unit **linkage inventory** (β-O-4, β-5, β-β, β-1, 5-5, 4-O-5)
 from monomer composition (S/G ratio) alone. Unlike *backward* generators, which are
@@ -12,12 +15,12 @@ the paper below.
 
 ## Paper
 
-> M. Y. Combariza and A. F. Combariza, *What do in silico lignin structure generators
-> predict? A forward, chemically-calibrated generator for linkage-resolved lignin
-> structure across feedstocks* (submitted to *ACS Sustainable Chemistry & Engineering*).
+> M. Y. Combariza and A. F. Combariza, *Predicting linkage-resolved lignin structure
+> across feedstocks with a chemically calibrated forward generator* (submitted to
+> *ACS Sustainable Chemistry & Engineering*).
 
 If you use this software, please cite the paper and the archived release (see
-[Citation](#citation)).
+[Citation](#citation)). `CITATION.cff` carries both in machine-readable form.
 
 ## Requirements
 
@@ -52,6 +55,8 @@ docs/experiments.md           Every run behind the paper, with its findings
 data/                         Literature reference tables used by the scripts
 results/                      Calibration/validation logs and CSV outputs
 requirements.txt
+CITATION.cff                  How to cite the software and the paper
+.zenodo.json                  Deposition metadata for the archived release
 LICENSE                       MIT
 ```
 
@@ -153,9 +158,13 @@ Released under the [MIT License](LICENSE).
              linkage-resolved lignin structure},
   year    = {2026},
   url     = {https://github.com/In-Silico-RG/Lignin_Forward_Gen},
-  note    = {Archived at Zenodo, DOI: 10.5281/zenodo.XXXXXXX}
+  doi     = {10.5281/zenodo.XXXXXXX}
 }
 ```
+
+Each release is archived on Zenodo and gets its own DOI; `10.5281/zenodo.XXXXXXX`
+above is the concept DOI, which always resolves to the newest version. Repository
+metadata for the deposition lives in `.zenodo.json`.
 
 ## Contact
 

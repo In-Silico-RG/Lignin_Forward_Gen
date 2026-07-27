@@ -42,4 +42,4 @@ full S/G sweep with fitted params (%% of total linkages):
  3.00   83.8%   4.9%   3.8%   2.6%   2.7%   2.3%   0.051
 
 fitted params: {'k_bo4': 8.0, 'k_b5': 2.3378, 'k_b1': 0.2321, 'k_bb': 18.9686, 'k_55': 0.8348, 'k_4o5': 0.1308, 'n_nuclei': 4.8243, 'k_bo4_nuc': 1.1377, 'oligo_bb': 0.0001}
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_full_calibrated_oligobb.csv
+Wrote results/mini_forward_full_calibrated_oligobb.csv

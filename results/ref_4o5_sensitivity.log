@@ -1,5 +1,5 @@
 4-O-5 reference sensitivity: re-fit chi2 at softwood 4-O-5 in {1.0, 2.0, 3.0}
-(1.0 = adopted, the only NMR-measured value; 2.0/3.0 probe the reviewer's worry
+(1.0 = adopted, the only NMR-measured value; 2.0/3.0 probe the possibility
  that the +2sigma 4-O-5 residual is just an underestimated reference.)
 Only the softwood 4-O-5 number changes between rows; fit machinery is identical.
 
@@ -25,7 +25,7 @@ READING:
   * k_4o5 moves 1.48x -> 1.56x over the reference range (1->3): the constant DOES follow the reference
   * softwood 4-O-5 residual z: +2.00 (ref 1.0) -> +0.96 (ref 2.0) -> +0.30 (ref 3.0)
     If |z| shrinks as the reference rises, the +sigma residual at 1.0 is
-    consistent with an underestimated reference (reviewer's hypothesis);
+    consistent with an underestimated reference;
     the point is that this costs nothing elsewhere only if the OTHER linkages'
     fits are unchanged -- check chi2 and the other constants above.
 

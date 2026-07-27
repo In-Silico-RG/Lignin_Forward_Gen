@@ -1,4 +1,4 @@
-Poisson-nucleus experiment (reviewer 2.3, third option)
+Poisson-nucleus experiment (does a variable nucleus count lift beta-beta?)
 adopted params: n_nuclei = 4.7160 -> round = 5;  n_target = 120;  reps = 400
 hard ceiling at N = 5 nuclei: 4.20% (= 5/119, only if every nucleus is a resinol)
 

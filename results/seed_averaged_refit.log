@@ -1,4 +1,4 @@
-Seed-averaged refit -- closing the fit-stability crack (round-2 Exp B follow-up)
+Seed-averaged refit -- fit stability under a noisy objective
 fit objective: chi2 of inventory AVERAGED over seed bases [7000, 17000, 27000, 37000] x 8 reps (= 32 eff.)
 held-out bases (never seen by any fit): [101000, 202000, 303000, 404000, 505000] x 40 reps
 

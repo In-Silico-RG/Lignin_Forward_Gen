@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-plot_external_validation.py -- reviewers' Major #1 ("n=3 / across feedstocks")
+plot_external_validation.py -- the n=3 / across-feedstocks question, in one figure
 
 Independent-literature check on beta-O-4(S/G). We do NOT plot the model's normalised
 (% of six linkages) output against mol% literature -- that would collide with the

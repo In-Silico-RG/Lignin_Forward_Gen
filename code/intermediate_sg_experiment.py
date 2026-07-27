@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 """
-intermediate_sg_experiment.py  --  reviewer concern 2.2
+intermediate_sg_experiment.py  --  behaviour between and beyond the anchors
 
-The model is calibrated on THREE S/G anchors (0, 1, 3). Reviewer 2.2 asks whether
-the claim that it "predicts the complete native linkage inventory from monomer
-composition (S/G) alone ... across feedstocks" is supported, given n=3. The ask is
-specific and modest:
-  (a) predictions at >=2-3 INTERMEDIATE S/G not used in calibration (0.5, 1.5, 2.0),
-      shown to be smooth and physically reasonable;
-  (b) an explicit statement of the S/G validity range -- interpolation only, or
-      extrapolation too? what about S/G > 3, tension/compression wood, mutants?
+The model is calibrated on THREE S/G anchors (0, 1, 3), so a claim that it predicts
+the complete native linkage inventory from monomer composition alone, across
+feedstocks, rests on what it does at S/G values it never saw. Two things need
+showing:
+  (a) predictions at INTERMEDIATE S/G not used in calibration (0.5, 1.5, 2.0), and
+      whether they are smooth and physically reasonable;
+  (b) the S/G validity range -- interpolation only, or extrapolation too? what about
+      S/G > 3, tension/compression wood, mutants?
 
 This script answers (a) and supplies the evidence for (b). It runs the ADOPTED fit
 (results/fitted_params.json, chi2 = 25.44) over a dense S/G grid with error bars
@@ -23,8 +23,8 @@ This script answers (a) and supplies the evidence for (b). It runs the ADOPTED f
      at C5, so S cannot donate/accept a C5 bond) forces beta-5, 5-5 and 4-O-5 -- the
      three C5-dependent linkages -- toward ZERO as S/G -> inf, while the C5-INDEPENDENT
      linkages (beta-O-4, beta-beta, beta-1) survive. This is a MECHANISM-level
-     guarantee, not a fitted trend, and it is the physical-reasonableness test the
-     reviewer asks for. We push the sweep to S/G = 4, 6, 10 and a near-limit S/G = 49
+     guarantee, not a fitted trend, which makes it the sharpest available test of
+     physical reasonableness. We push the sweep to S/G = 4, 6, 10 and a near-limit 49
      (98% syringyl) and check the C5 channels collapse and track the G fraction
      1/(1+S/G).
 
@@ -56,7 +56,7 @@ N = 120           # matches calibrate_full.N (one 120-unit molecule)
 REPS = 60         # more than the fit's 30 -- we want error bars, not just a point
 
 ANCHORS = {0.0, 1.0, 3.0}
-# interpolation grid (the reviewer's 0.5/1.5/2.0 are here) + extrapolation tail
+# interpolation grid (the off-anchor 0.5/1.5/2.0 are here) + extrapolation tail
 INTERP = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0]
 EXTRAP = [4.0, 6.0, 10.0, 49.0]      # 49 -> 98% syringyl, a proxy for S/G -> inf
 GRID = INTERP + EXTRAP

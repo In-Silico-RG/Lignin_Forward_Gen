@@ -37,6 +37,7 @@ from ligning.optimization import Trajectory
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cross_common import (CONFIGS, DP, N_REPS, BASE_SEED, sg_to_pct_s,
                           results_dir, write_csv, report_anova, target_profile)
+from repo_paths import rel
 
 # ligning.rules.linkage_names order -- the Trajectory linkage vector must follow it
 LINKAGE_NAMES = ['4-O-5', 'alpha-O-4', 'beta-O-4', '5-5', 'beta-5', 'beta-beta', 'beta-1']
@@ -152,8 +153,8 @@ def main():
 
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
-    print("\nWrote %s" % os.path.join(out_dir, "cross_ligningraphs_incremental.csv"))
-    print("Wrote %s" % log_path)
+    print("\nWrote %s" % rel(os.path.join(out_dir, "cross_ligningraphs_incremental.csv")))
+    print("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

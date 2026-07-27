@@ -19,9 +19,14 @@ Run: conda run -n lignin python code/validate.py
 Outputs: results/validation_loocv.log, results/validation_loocv.csv
 """
 import os
+import sys
+
 import importlib.util
 import numpy as np
 from scipy.optimize import minimize
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location(
@@ -161,7 +166,7 @@ def main():
         for held, train, pred, ref, rmse in rows:
             for k in ALL_KEYS:
                 fh.write("%.1f,%s,%.2f,%.2f\n" % (held, k, 100 * pred[k], 100 * ref[k]))
-    print("Wrote %s" % csv)
+    print("Wrote %s" % rel(csv))
 
 
 if __name__ == "__main__":

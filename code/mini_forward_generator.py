@@ -59,7 +59,12 @@ Usage:
 """
 import argparse
 import os
+import sys
+
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 # ---- default OWNED parameters (tunable; this is the point) ------------------
 DEFAULT_PARAMS = {
@@ -160,7 +165,7 @@ DEFAULT_PARAMS = {
     # held constant, so [M]^2 is too. Default 0 = the published front-loaded model.
     "k_nuc": 0.0,
     # ---- oligomer beta-beta: re-radicalised chain-end resinols ----------------
-    # A referee argues the beta-beta ceiling is a self-inflicted artifact: the model
+    # The beta-beta ceiling may be self-inflicted rather than chemical: the model
     # lets only FREE MONOMERS carry a live beta radical (so beta-beta is monomer-
     # monomer at nucleation only -> beta-beta% = p_bb * n_nuclei / (N-1), a hard cap),
     # whereas peroxidase/laccase continuously RE-RADICALISE oligomer units, enabling
@@ -173,7 +178,7 @@ DEFAULT_PARAMS = {
     # k_nuc: whether a refit accepts it and lowers held-out error, or collapses it to
     # the floor (which would show the ceiling is chemistry, not an artifact).
     "oligo_bb": 0.0,
-    # ---- Poisson nucleus count (reviewer 2.3, third option) -------------------
+    # ---- Poisson nucleus count ------------------------------------------------
     # n_nuclei is normally rounded to a fixed integer, identical in every molecule.
     # That makes the beta-beta ceiling a hard line: beta-beta% = p_bb * N / (N_tot-1)
     # with N fixed, so poplar (5.13%) and high-S (4.57%) are unreachable at N = 5.
@@ -460,8 +465,8 @@ class MiniForwardKMC:
         props["b5"] = p["k_b5"] * n_beta * len(b5_acc)
         props["b1"] = p["k_b1"] * n_beta * len(b1_acc)
         props["bb"] = p["k_bb"] * n_beta * max(n_beta - 1, 0) / 2.0
-        # oligomer beta-beta (re-radicalised chain ends). Off by default; the referee
-        # test for whether the beta-beta ceiling is an artifact. Phenolic END units of
+        # oligomer beta-beta (re-radicalised chain ends). Off by default; the test
+        # for whether the beta-beta ceiling is an artifact. Phenolic END units of
         # oligomers re-radicalise at beta and couple beta-beta with a free monomer or
         # with another oligomer end, joining two fragments.
         end_olig = []
@@ -816,7 +821,7 @@ def main():
             fh.write("%.2f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%s\n" %
                      (sg, m["bo4"], m["b5"], m["bb"], m["55"], m["4o5"], m["b1"], br,
                       nmr if nmr else ""))
-    print("\nWrote %s" % out_csv)
+    print("\nWrote %s" % rel(out_csv))
 
 
 if __name__ == "__main__":

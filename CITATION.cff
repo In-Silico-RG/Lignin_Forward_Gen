@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software (below) and the paper in preferred-citation."
+type: software
+title: "Lignin_Forward_Gen: a forward kinetic Monte Carlo generator for linkage-resolved lignin structure"
+abstract: >-
+  A minimal, transparent forward kinetic Monte Carlo generator that predicts the
+  native lignin inter-unit linkage inventory (beta-O-4, beta-5, beta-beta, beta-1,
+  5-5, 4-O-5) from monomer composition (S/G ratio) alone. The linkage distribution
+  emerges from radical-coupling propensities rather than being imposed as a target.
+authors:
+  - family-names: Combariza
+    given-names: Marianny Y.
+    orcid: "https://orcid.org/0000-0002-6907-4759"
+    affiliation: "School of Chemistry, Universidad Industrial de Santander, Bucaramanga, Colombia"
+  - family-names: Combariza
+    given-names: Aldo F.
+    orcid: "https://orcid.org/0000-0003-4837-7723"
+    affiliation: "Department of Biology and Chemistry, Universidad de Sucre, Sincelejo, Colombia"
+    email: aldo.combariza@unisucre.edu.co
+repository-code: "https://github.com/In-Silico-RG/Lignin_Forward_Gen"
+license: MIT
+keywords:
+  - lignin
+  - kinetic Monte Carlo
+  - structure generator
+  - linkage inventory
+  - radical coupling
+  - lignin valorization
+preferred-citation:
+  type: article
+  title: >-
+    Predicting linkage-resolved lignin structure across feedstocks with a
+    chemically calibrated forward generator
+  authors:
+    - family-names: Combariza
+      given-names: Marianny Y.
+      orcid: "https://orcid.org/0000-0002-6907-4759"
+    - family-names: Combariza
+      given-names: Aldo F.
+      orcid: "https://orcid.org/0000-0003-4837-7723"
+  journal: "ACS Sustainable Chemistry & Engineering"
+  year: 2026
+  notes: "Submitted. Replace with volume, pages and DOI on acceptance."

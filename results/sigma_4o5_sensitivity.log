@@ -41,4 +41,4 @@ sigma_4o5   mean RMSE d(mean RMSE)   max |dk|/k  4-O-5 resid
 0.04            1.616       -0.003         2.1%        +1.90
 0.06            2.300       +0.680        63.8%        +3.82
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/results/sigma_4o5_sensitivity.csv
+Wrote results/sigma_4o5_sensitivity.csv

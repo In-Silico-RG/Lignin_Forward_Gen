@@ -2,8 +2,8 @@
 """
 poisson_nuclei_experiment.py
 
-Reviewer 2.3 (Rev_Kimi_1), third option: "Evaluate whether a non-integer n_nuclei
-(Poisson) would mitigate the beta-beta ceiling without breaking the physics."
+Does a non-integer n_nuclei (Poisson) mitigate the beta-beta ceiling without breaking
+the physics?
 
 BACKGROUND. beta-beta forms only at nucleation, and the model front-loads a FIXED
 integer count N = round(n_nuclei) of nucleation dimers into every molecule. Because
@@ -21,7 +21,7 @@ so N varies rep to rep. E[N] = n_nuclei exactly, so the POPULATION MEAN beta-bet
 unchanged (mean-preserving) -- what changes is the SPREAD: the ceiling line becomes a
 band, and individual molecules with a high N reach beta-beta well above 4.2%.
 
-So the experiment answers two distinct questions the reviewer conflates:
+So the experiment answers two distinct questions that are easily conflated:
   Q1 (mean)  Does Poisson move the mean beta-beta toward the hardwood references?
              Prediction: NO -- E[N] = n_nuclei, so the mean is pinned to the same
              line. If confirmed, integer rounding was NOT the cause.
@@ -41,11 +41,16 @@ Writes results/poisson_nuclei_experiment.csv and prints a report.
 import argparse
 import json
 import os
+import sys
+
 
 import numpy as np
 
 import mini_forward_generator as mfg
 from calibrate_full import REFERENCE, N, ANCHORS
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, os.pardir, "results")
@@ -109,7 +114,7 @@ def main():
         print(s, flush=True)
         lines.append(s)
 
-    emit("Poisson-nucleus experiment (reviewer 2.3, third option)")
+    emit("Poisson-nucleus experiment (does a variable nucleus count lift beta-beta?)")
     emit("adopted params: n_nuclei = %.4f -> round = %d;  n_target = %d;  reps = %d"
          % (lam_fit, round(lam_fit), N, args.reps))
     emit("hard ceiling at N = %d nuclei: %.2f%% (= %d/%d, only if every nucleus is a"
@@ -183,8 +188,8 @@ def main():
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     emit("")
-    emit("Wrote %s" % csv_path)
-    emit("Wrote %s" % log_path)
+    emit("Wrote %s" % rel(csv_path))
+    emit("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

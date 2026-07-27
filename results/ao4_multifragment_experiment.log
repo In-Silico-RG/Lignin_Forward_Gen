@@ -1,4 +1,4 @@
-alpha-O-4 in a multi-fragment regime (reviewer 2.4)
+alpha-O-4 in a multi-fragment regime
 refit [7 constants + k_ao4] at each fixed oo_scale; fit reps 5, eval reps 12
 baseline = the adopted single-molecule fit: chi2 25.44, k_ao4 rejected (0.0149)
 
@@ -31,4 +31,4 @@ with a chi2 gain, alpha-O-4's rejection is robust to topology: its only
 action -- joining fragments -- is invisible to the six-linkage inventory, so
 no inventory fit adopts it, multi-fragment or not. The oo_scale = 0 regime
 reaches real fragments but loses 5-5 and 4-O-5 (which alpha-O-4 cannot make),
-so it cannot be the better model the reviewer hypothesized.
+so it cannot be the better model either.

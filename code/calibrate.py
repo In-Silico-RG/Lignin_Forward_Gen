@@ -19,9 +19,14 @@ Run: conda run -n lignin python code/calibrate.py
 Outputs: results/calibration.log (this stdout) + results/mini_forward_calibrated.csv
 """
 import os
+import sys
+
 import importlib.util
 import numpy as np
 from scipy.optimize import minimize
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location(
@@ -150,7 +155,7 @@ def main():
                   (sg, b, mo["bo4"], mo["b5"], mo["bb"], mo["b1"], mo["55"], mo["4o5"], br))
             fh.write("%.2f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n" %
                      (sg, b, mo["bo4"], mo["b5"], mo["bb"], mo["b1"], mo["55"], mo["4o5"], br))
-    print("\nWrote %s" % csv)
+    print("\nWrote %s" % rel(csv))
 
 
 if __name__ == "__main__":

@@ -2,11 +2,10 @@
 """
 ao4_multifragment_experiment.py
 
-Rev_Kimi_1 concern 2.4: the alpha-O-4 8th parameter was rejected (k_ao4 -> ~0, no chi2
-gain) at the calibrated single-molecule regime. The reviewer's hypothesis is that this
-is an artifact of the single-molecule restriction -- "the model is over-determined in
-its connectivity objective" -- and that alpha-O-4 might earn its place if the model
-were allowed multiple fragments. This tests that directly.
+The alpha-O-4 8th parameter was rejected (k_ao4 -> ~0, no chi2 gain) in the calibrated
+single-molecule regime. That rejection could be an artifact of the single-molecule
+restriction: with the model over-determined in its connectivity objective, alpha-O-4
+might earn its place once multiple fragments are allowed. This tests that directly.
 
 alpha-O-4 in this model is a WELDER: a quinone methide (left by a beta-O-4 donor) is
 captured by a phenolic O4 on a DIFFERENT fragment, joining the two by an ether without
@@ -39,12 +38,17 @@ Writes results/ao4_multifragment_experiment.csv and .log.
 """
 import argparse
 import os
+import sys
+
 
 import numpy as np
 from scipy.optimize import minimize
 
 import mini_forward_generator as mfg
 import calibrate_full as cf
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, os.pardir, "results")
@@ -113,7 +117,7 @@ def main():
         print(s, flush=True)
         lines.append(s)
 
-    emit("alpha-O-4 in a multi-fragment regime (reviewer 2.4)")
+    emit("alpha-O-4 in a multi-fragment regime")
     emit("refit [7 constants + k_ao4] at each fixed oo_scale; fit reps %d, eval reps %d"
          % (args.fit_reps, args.eval_reps))
     emit("baseline = the adopted single-molecule fit: chi2 25.44, k_ao4 rejected"
@@ -157,7 +161,7 @@ def main():
     emit("action -- joining fragments -- is invisible to the six-linkage inventory, so")
     emit("no inventory fit adopts it, multi-fragment or not. The oo_scale = 0 regime")
     emit("reaches real fragments but loses 5-5 and 4-O-5 (which alpha-O-4 cannot make),")
-    emit("so it cannot be the better model the reviewer hypothesized.")
+    emit("so it cannot be the better model either.")
 
     os.makedirs(RESULTS, exist_ok=True)
     csv_path = os.path.join(RESULTS, "ao4_multifragment_experiment.csv")
@@ -179,8 +183,8 @@ def main():
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     emit("")
-    emit("Wrote %s" % csv_path)
-    emit("Wrote %s" % log_path)
+    emit("Wrote %s" % rel(csv_path))
+    emit("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

@@ -27,4 +27,4 @@ full S/G sweep with fitted params (raw %% of all bonds; bO4* = beta-side-chain):
  2.00   87.3%   70.7%   4.4%   2.0%   3.9%   8.1%  10.8%   0.186
  3.00   88.7%   73.8%   3.4%   2.3%   3.6%   6.5%  10.2%   0.161
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/mini_forward_calibrated.csv
+Wrote results/mini_forward_calibrated.csv

@@ -17,9 +17,14 @@ Run: conda run -n lignin python code/calibrate_full.py
 Outputs: results/calibration_full.log, results/mini_forward_full_calibrated.csv
 """
 import os
+import sys
+
 import importlib.util
 import numpy as np
 from scipy.optimize import minimize
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location(
@@ -123,8 +128,8 @@ def _norm(d):
 # modelled linkages is self-consistent, but the model's TOPOLOGY cannot be right if
 # the missing linkages join chains -- and alpha-O-4 does. See k_ao4.
 # Raw per-100-C9 inventories, before normalising to the six modelled linkages. Kept
-# separate from REFERENCE so a single raw number can be overridden (see --ref-4o5,
-# reviewer 3.2) and the whole reference rebuilt consistently.
+# separate from REFERENCE so a single raw number can be overridden (see --ref-4o5)
+# and the whole reference rebuilt consistently.
 RAW_REFERENCE = {
     0.0: {"bo4": 46.0, "b5": 11.0, "bb": 2.5, "b1": 2.0, "55": 4.0, "4o5": 1.0},
     1.0: {"bo4": 62.0, "b5": 6.0,  "bb": 4.0, "b1": 1.5, "55": 3.0,  "4o5": 1.5},
@@ -204,8 +209,8 @@ AO4_X0 = 1.0
 
 # WITH_KNUC (set by --with-knuc) appends k_nuc as an EIGHTH free parameter. k_nuc is
 # CONTINUOUS nucleation during growth (two fresh monomers introduced and coupled by
-# the monomer-monomer constants), the mechanism reviewer 2.3 asks for to decouple
-# beta-beta from the fixed nucleation burst. The sweep (code/knuc_nuclei_experiment.py)
+# the monomer-monomer constants), the mechanism that decouples beta-beta from the
+# fixed nucleation burst. The sweep (code/knuc_nuclei_experiment.py)
 # showed it CAN lift beta-beta past the 4.20% burst ceiling to every reference, but
 # that a single GLOBAL k_nuc at the calibrated params does not lower summed chi2
 # (minimised at k_nuc = 0). This refit is the decisive test: with the other six
@@ -217,8 +222,8 @@ KNUC_BOUND = ("k_nuc", 0.001, 40.0)
 
 # WITH_OLIGOBB (set by --with-oligobb) appends oligo_bb as an EIGHTH free parameter:
 # beta-beta via RE-RADICALISED oligomer chain ends (monomer-oligomer and oligomer-
-# oligomer resinols), the mechanism a referee says the fixed-nucleation model wrongly
-# forbids, making the beta-beta ceiling (allegedly) a self-inflicted artifact. The
+# oligomer resinols), the mechanism the fixed-nucleation model forbids and the reason
+# the beta-beta ceiling could be self-inflicted rather than chemical. The
 # channel demonstrably lifts beta-beta far past the burst ceiling (oligo_bb = 1 gives
 # poplar beta-beta ~59%). The decisive test, same standard as k_ao4 / k_nuc: does the
 # refit ACCEPT it (lower summed chi2 AND held-out error, fixing the poplar/high-S
@@ -233,7 +238,7 @@ OLIGOBB_BOUND = ("oligo_bb", 0.0001, 5.0)
 # It is NOT a fitted parameter; it is held so that a fit can be run in a chosen
 # connectivity regime. oo_scale = 1 is the calibrated single-molecule regime;
 # oo_scale = 0 is the multi-fragment regime (n_frags = n_nuclei). See the connectivity
-# experiment (bistable welding) and reviewer concern 2.4.
+# experiment (bistable welding).
 OO_SCALE_FIXED = None
 
 # REF_4O5_TAG (set by --ref-4o5) is only a filename tag so a sensitivity run does not
@@ -416,7 +421,7 @@ def main(objective="sse"):
             fh.write("%.2f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n" %
                      (sg, m["bo4"], m["b5"], m["bb"], m["b1"], m["55"], m["4o5"], br))
     print("\nfitted params:", {k: round(v, 4) for k, v in best.items()})
-    print("Wrote %s" % csv)
+    print("Wrote %s" % rel(csv))
 
 
 if __name__ == "__main__":
@@ -440,26 +445,26 @@ if __name__ == "__main__":
     ap.add_argument("--with-knuc", action="store_true",
                     help="fit k_nuc as an 8th parameter: continuous nucleation during "
                          "growth, the mechanism that decouples beta-beta from the "
-                         "fixed nucleation burst (reviewer 2.3). Candidate fix for the "
+                         "fixed nucleation burst. Candidate fix for the "
                          "beta-beta ceiling.")
     ap.add_argument("--with-oligobb", action="store_true",
                     help="fit oligo_bb as an 8th parameter: beta-beta via re-radicalised "
                          "OLIGOMER chain ends (monomer-oligomer and oligomer-oligomer "
-                         "resinols). The referee mechanism that would lift the beta-beta "
+                         "resinols). The mechanism that would lift the beta-beta "
                          "ceiling if the fit accepts it. Judged on whether it lowers "
                          "held-out error or collapses to the floor.")
     ap.add_argument("--oo-scale", type=float, default=None,
                     help="hold oo_scale (the 5-5/4-O-5 welding-channel multiplier) "
                          "fixed at this value for every model run, instead of the "
                          "generator default 1.0. Use with --with-ao4 to fit alpha-O-4 "
-                         "in a chosen connectivity regime (reviewer 2.4); oo_scale=0 "
+                         "in a chosen connectivity regime; oo_scale=0 "
                          "is multi-fragment, oo_scale=1 the calibrated single molecule.")
     ap.add_argument("--ref-4o5", type=float, default=None,
                     help="override the SOFTWOOD (S/G 0) 4-O-5 reference (raw per-100-C9, "
                          "default 1.0) and rebuild the normalised reference. The adopted "
                          "1.0 is the only directly NMR-measured figure; thioacidolysis "
-                         "inflates it ~8x. Reviewer 3.2 asks what the fitted constants do "
-                         "if the reference is higher -- run 2.0 and 3.0. Writes a _ref4o5-<v> "
+                         "inflates it ~8x. Run 2.0 and 3.0 to see what the fitted "
+                         "constants do if the reference is higher. Writes a _ref4o5-<v> "
                          "suffix so it never overwrites the adopted result files.")
     _a = ap.parse_args()
     if _a.ref_4o5 is not None:

@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 """
-seed_averaged_refit.py  --  close the one real crack the round-2 sparring opened.
+seed_averaged_refit.py  --  fit the expected inventory, not one noise realisation.
 
-The stress-test verdict (Exp B, param_recovery_experiment): the ADOPTED parameters
-generalise across seeds (chi2 27+/-3), but the FITTING PROCEDURE itself is noisy --
-it minimises a chi2 evaluated at a SINGLE seed base (7000) with only FIT_REPS=8 KMC
-runs per anchor. A stochastic objective built from 8 samples has real Monte-Carlo
-variance, so the located optimum is partly tuned to seed 7000's particular noise
-realisation. That is a property of the PROCEDURE, not the model, and it is the one
-concession worth acting on.
+What param_recovery_experiment establishes: the ADOPTED parameters generalise across
+seeds (chi2 27+/-3), but the FITTING PROCEDURE itself is noisy -- it minimises a chi2
+evaluated at a SINGLE seed base (7000) with only FIT_REPS=8 KMC runs per anchor. A
+stochastic objective built from 8 samples has real Monte-Carlo variance, so the
+located optimum is partly tuned to seed 7000's particular noise realisation. That is
+a property of the PROCEDURE, not the model, and it is worth fixing.
 
 The fix is the statistically correct objective: fit the model's EXPECTED inventory,
 estimated by averaging over several DECORRELATED seed streams (M seed bases x reps
@@ -119,7 +118,7 @@ def main():
     def emit(s=""):
         print(s); lines.append(s)
 
-    emit("Seed-averaged refit -- closing the fit-stability crack (round-2 Exp B follow-up)")
+    emit("Seed-averaged refit -- fit stability under a noisy objective")
     emit("fit objective: chi2 of inventory AVERAGED over seed bases %s x %d reps (= %d eff.)"
          % (FIT_SEED_BASES, FIT_REPS, len(FIT_SEED_BASES) * FIT_REPS))
     emit("held-out bases (never seen by any fit): %s x %d reps" % (HELDOUT_SEED_BASES, EVAL_REPS))

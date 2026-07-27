@@ -27,4 +27,4 @@ scale     mean RMSE  d(mean RMSE)    max |dk|/k mean 4-O-5 res
 2             1.430        -0.190          7.4%          +1.07
 4             1.682        +0.063         28.8%          -0.28
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/results/ref_4o5_hardwood_sensitivity.csv
+Wrote results/ref_4o5_hardwood_sensitivity.csv

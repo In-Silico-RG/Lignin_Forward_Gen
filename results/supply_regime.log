@@ -13,4 +13,4 @@ params: max_monos=100 n_reps=15  bonds shown as % of total
  1.0     1e+06   32.8%  16.7%  17.1%   2.1%  31.4%   0.0%   0.241    99.6
  1.0     1e+08   19.5%  21.8%  23.0%   1.4%  34.3%   0.0%   0.102    91.3
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/supply_regime_sweep.csv
+Wrote results/supply_regime_sweep.csv

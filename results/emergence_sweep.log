@@ -11,4 +11,4 @@ NMR anchors: SW black pine ~48%; poplar ~60%; birch ~72%; high-S poplar ~79%
  2.00   0.67     74.8%    2.8       22.2%     0.9%    22.1%    0.0%   0.001     96.9
  3.00   0.75     79.0%    2.8       17.1%     0.7%    17.0%    0.0%   0.001     95.8
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/emergence_sweep.csv
+Wrote results/emergence_sweep.csv

@@ -53,6 +53,7 @@ from ligninkmc.kmc_common import (Event, GROW, ADJ_MATRIX, BONDS, TIME,
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cross_common import (CONFIGS, DP, N_REPS, BASE_SEED, sg_to_pct_s,
                           results_dir, write_csv, report_anova)
+from repo_paths import rel
 
 TEMP = 298.15        # K -- the DFT barriers' reference state
 INI_MONOS = 2
@@ -146,8 +147,8 @@ def main():
 
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
-    print("\nWrote %s" % os.path.join(out_dir, "cross_kmc_matched.csv"))
-    print("Wrote %s" % log_path)
+    print("\nWrote %s" % rel(os.path.join(out_dir, "cross_kmc_matched.csv")))
+    print("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 """
-param_recovery_experiment.py  --  round-2 reviewers' methodological critique
+param_recovery_experiment.py  --  can the seven constants be recovered at all?
 
-Both reject-grade referees hit the same two points:
-  (1) "the fit uses a FIXED random seed, so it chases one noise realisation, not the
-      true response surface" (serious for a stochastic KMC);
-  (2) "the identifiability finding is trivial / an artifact of wide priors".
+Two things threaten a fit like this one:
+  (1) the fit uses a FIXED random seed, so it may chase one noise realisation rather
+      than the true response surface (serious for a stochastic KMC);
+  (2) the identifiability finding could be an artifact of wide priors rather than a
+      real property of the inventory.
 
-This answers both with a parameter-RECOVERY test, the standard check neither reviewer
-saw:
+A parameter-RECOVERY test settles both:
 
   PART 1 -- Recovery on synthetic data. Generate a low-noise synthetic reference by
   running the model at KNOWN ("true") parameters with many reps, then refit from a
@@ -74,7 +74,7 @@ def main():
         print(s); lines.append(s)
 
     tp = true_params()
-    emit("Parameter recovery + seed robustness (round-2 methodological critique)")
+    emit("Parameter recovery + seed robustness")
     emit("true params: " + json.dumps({k: round(tp[k], 4) for k in PARAM_ORDER}))
     emit("")
 

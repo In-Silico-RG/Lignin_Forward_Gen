@@ -19,6 +19,8 @@ Run inside the `lignin_kmc` conda env (python 3.6, ligninkmc 0.2.2):
 Outputs: results/emergence_sweep.csv  and a printed summary table.
 """
 import os
+import sys
+
 import numpy as np
 
 from ligninkmc.create_lignin import (calc_rates, create_initial_monomers,
@@ -27,6 +29,9 @@ from ligninkmc.kmc_functions import run_kmc, analyze_adj_matrix
 from ligninkmc.kmc_common import (Event, GROW, ADJ_MATRIX, BONDS, CHAIN_LEN,
                                   CHAIN_BRANCH_COEFF, BO4, BB, B5, B1, C5O4, AO4,
                                   C5C5, DEF_E_BARRIER_KCAL_MOL)
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 # ---- experiment parameters -------------------------------------------------
 TEMP = 298.15          # K  (matches the DFT barrier reference state)
@@ -115,7 +120,7 @@ def main():
         fh.write(",".join(cols) + "\n")
         for r in rows:
             fh.write(",".join("%.5f" % r[c] for c in cols) + "\n")
-    print("\nWrote %s" % out_csv)
+    print("\nWrote %s" % rel(out_csv))
 
 
 if __name__ == "__main__":

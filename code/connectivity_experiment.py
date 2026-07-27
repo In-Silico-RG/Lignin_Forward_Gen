@@ -2,11 +2,11 @@
 """
 connectivity_experiment.py
 
-Rev_Kimi_1 concern 2.1 (the connectivity gap): the generator emits ONE molecule of
-n_target units (DP = n_target), while native MWL is ~20 units across many fragments.
-The paper reports "% of total modelled bonds"; the reviewer asks (a) how much the
+The connectivity gap: the generator emits ONE molecule of n_target units
+(DP = n_target), while native MWL is ~20 units across many fragments. The paper
+reports "% of total modelled bonds", which raises two questions: (a) how much the
 reported inventory depends on that single-molecule choice, and (b) whether the model
-"over-spends condensed bonds (5-5, 4-O-5) to force single-molecule connectivity",
+over-spends condensed bonds (5-5, 4-O-5) to force single-molecule connectivity,
 which would make the 4-O-5 residual a topology artifact.
 
 Two parts, each answering one half honestly.
@@ -21,7 +21,7 @@ single-molecule size -- DP is a simulation size, as the docstring already states
 beta-beta is the one exception by construction (it is set by nucleus count / bonds),
 and that is the ceiling story, not a new problem.
 
-PART B -- fragmentation vs condensed content (tests the reviewer's causal claim). At
+PART B -- fragmentation vs condensed content (tests that causal claim directly). At
 n_target = 120, dial down oo_scale (the multiplier on the 5-5 / 4-O-5 channel, the
 ONLY channel that welds fragments -- beta-coupling never joins two chains). Report
 n_frags, the largest fragment, the condensed inventory and chi2. This exposes the
@@ -39,11 +39,16 @@ Writes results/connectivity_experiment.csv and .log and prints a report.
 import argparse
 import json
 import os
+import sys
+
 
 import numpy as np
 
 import mini_forward_generator as mfg
 from calibrate_full import REFERENCE, N, ANCHORS, ALL_KEYS, sigma
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, os.pardir, "results")
@@ -100,7 +105,7 @@ def main():
         print(s, flush=True)
         lines.append(s)
 
-    emit("Connectivity experiment (reviewer 2.1)")
+    emit("Connectivity experiment (DP-invariance and the welding channel)")
     emit("adopted params; base n_nuclei = %.4f at n_target = %d; reps = %d"
          % (lam, N, args.reps))
     emit("")
@@ -173,8 +178,8 @@ def main():
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     emit("")
-    emit("Wrote %s" % csv_path)
-    emit("Wrote %s" % log_path)
+    emit("Wrote %s" % rel(csv_path))
+    emit("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

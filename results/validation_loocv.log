@@ -20,4 +20,4 @@ HELD-OUT S/G=3.0 (fit on [0.0, 1.0]):
   held-out RMSE: 3.8 pts
 
 mean held-out RMSE across folds: 3.4 pts
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/code/../results/validation_loocv.csv
+Wrote results/validation_loocv.csv

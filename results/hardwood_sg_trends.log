@@ -23,4 +23,4 @@ HIGH-SYRINGYL ANCHOR
   The model predicts UNDER this anchor, so part of that residual may be
   the anchor rather than the model.
 
-Wrote /media/aldo/Aldo/Documents/Investigacion/Testing_Lignin_Structure_Generators/results/hardwood_sg_trends.csv
+Wrote results/hardwood_sg_trends.csv

@@ -1,0 +1,32 @@
+{
+  "upload_type": "software",
+  "title": "Lignin_Forward_Gen: a forward kinetic Monte Carlo generator for linkage-resolved lignin structure",
+  "description": "<p>A minimal, transparent <strong>forward</strong> kinetic Monte Carlo generator that predicts the native lignin inter-unit linkage inventory (&beta;-O-4, &beta;-5, &beta;-&beta;, &beta;-1, 5-5, 4-O-5) from monomer composition (S/G ratio) alone.</p><p>Unlike backward generators, which are given target bond fractions and reproduce them, this generator evolves structure from radical-coupling propensities, so the linkage distribution is an emergent output rather than an input. Seven coupling constants are calibrated by Nelder-Mead against three native wood anchors (softwood, poplar and a high-syringyl hardwood) and validated by leave-one-out cross-validation.</p><p>The repository contains the generator, its calibration and validation scripts, the parameter-recovery and sensitivity experiments, the matched cross-generator comparison harness, and every result log reproducing the accompanying paper. All runs are seeded and deterministic.</p>",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Combariza, Marianny Y.",
+      "affiliation": "School of Chemistry, Universidad Industrial de Santander, Bucaramanga, Colombia",
+      "orcid": "0000-0002-6907-4759"
+    },
+    {
+      "name": "Combariza, Aldo F.",
+      "affiliation": "Department of Biology and Chemistry, Universidad de Sucre, Sincelejo, Colombia",
+      "orcid": "0000-0003-4837-7723"
+    }
+  ],
+  "keywords": [
+    "lignin",
+    "kinetic Monte Carlo",
+    "structure generator",
+    "linkage inventory",
+    "beta-O-4",
+    "radical coupling",
+    "syringyl/guaiacyl ratio",
+    "lignin valorization",
+    "computational chemistry"
+  ],
+  "language": "eng",
+  "notes": "Developed alongside the manuscript 'Predicting linkage-resolved lignin structure across feedstocks with a chemically calibrated forward generator'. Update related_identifiers with the article DOI once it is assigned."
+}

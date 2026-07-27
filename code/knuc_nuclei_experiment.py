@@ -2,8 +2,8 @@
 """
 knuc_nuclei_experiment.py
 
-Rev_Kimi_1 concern 2.3, FIRST option: "propose a mechanical modification that
-decouples the condensable-fragment count from the beta-beta nucleus count."
+A mechanical modification that decouples the condensable-fragment count from the
+beta-beta nucleus count.
 
 The companion Poisson experiment (poisson_nuclei_experiment.py) showed that the
 beta-beta ceiling is NOT an integer-rounding artifact: because beta-beta forms only
@@ -18,7 +18,7 @@ biphenyls -- formed "while monolignols are being transported to the lignifying
 zone", i.e. throughout the stream, not in one burst). Each such event can yield a
 resinol, so the TOTAL nucleation count -- and hence beta-beta -- is no longer capped
 by the initial burst. It also spends monomer budget, so it raises the fragment count
-(n_frags), which is the same decoupling the reviewer asks for on the topology side.
+(n_frags) -- the same decoupling, seen from the topology side.
 
 WHAT THIS TESTS. For each anchor we sweep k_nuc and report:
   - mean beta-beta% (does it break the 4.20% ceiling and reach the reference?)
@@ -40,11 +40,16 @@ Writes results/knuc_nuclei_experiment.csv and .log and prints a report.
 import argparse
 import json
 import os
+import sys
+
 
 import numpy as np
 
 import mini_forward_generator as mfg
 from calibrate_full import REFERENCE, N, ANCHORS, ALL_KEYS, sigma
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, os.pardir, "results")
@@ -101,7 +106,7 @@ def main():
         print(s, flush=True)
         lines.append(s)
 
-    emit("k_nuc (continuous-nucleation) experiment (reviewer 2.3, first option)")
+    emit("k_nuc (continuous-nucleation) experiment")
     emit("adopted params: n_nuclei = %.4f -> burst N = %d;  n_target = %d;  reps = %d"
          % (lam, round(lam), N, args.reps))
     emit("fixed-burst beta-beta ceiling: %.2f%% (= %d/%d). k_nuc adds nucleation"
@@ -157,8 +162,8 @@ def main():
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     emit("")
-    emit("Wrote %s" % csv_path)
-    emit("Wrote %s" % log_path)
+    emit("Wrote %s" % rel(csv_path))
+    emit("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-plot_intermediate_sg.py  --  figure for reviewer concern 2.2
+plot_intermediate_sg.py  --  figure for the intermediate-S/G experiment
 
 Reads results/intermediate_sg_experiment.csv (written by intermediate_sg_experiment.py)
 and draws the predicted linkage inventory vs S/G, with:

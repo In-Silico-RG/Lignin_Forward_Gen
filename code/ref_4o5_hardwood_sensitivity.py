@@ -44,8 +44,10 @@ import sys
 import numpy as np
 from scipy.optimize import minimize
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calibrate_full as cf  # noqa: E402
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from repo_paths import rel
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, os.pardir, "results")
@@ -149,7 +151,7 @@ def main():
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
-    print("\nWrote %s" % os.path.normpath(out))
+    print("\nWrote %s" % rel(out))
 
 
 if __name__ == "__main__":

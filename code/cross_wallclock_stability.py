@@ -34,6 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cross_common import (CONFIGS, N_REPS, BASE_SEED, sg_to_pct_s,
                           results_dir, write_csv, kruskal)
 from cross_kmc_matched import run_one, TEMP
+from repo_paths import rel
 
 from ligninkmc.create_lignin import calc_rates
 from ligninkmc.kmc_common import DEF_E_BARRIER_KCAL_MOL
@@ -115,8 +116,8 @@ def main():
 
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
-    print("\nWrote %s" % os.path.join(out_dir, "cross_wallclock_stability.csv"))
-    print("Wrote %s" % log_path)
+    print("\nWrote %s" % rel(os.path.join(out_dir, "cross_wallclock_stability.csv")))
+    print("Wrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

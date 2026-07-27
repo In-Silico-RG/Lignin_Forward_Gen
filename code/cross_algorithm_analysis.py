@@ -22,10 +22,14 @@ Runs on the base env (numpy + scipy). The three arms must be run first:
     python code/cross_algorithm_analysis.py
 """
 import os
+import sys
+
 
 import numpy as np
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cross_common import LABELS, results_dir, report_anova
+from repo_paths import rel
 
 
 def read_csv(path):
@@ -137,7 +141,7 @@ def main():
 
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
-    print("\nWrote %s" % log_path)
+    print("\nWrote %s" % rel(log_path))
 
 
 if __name__ == "__main__":

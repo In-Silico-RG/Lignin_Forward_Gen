@@ -1,4 +1,4 @@
-k_nuc (continuous-nucleation) experiment (reviewer 2.3, first option)
+k_nuc (continuous-nucleation) experiment
 adopted params: n_nuclei = 4.7160 -> burst N = 5;  n_target = 120;  reps = 200
 fixed-burst beta-beta ceiling: 4.20% (= 5/119). k_nuc adds nucleation DURING growth, so it is not bound by this.
 other six constants held at their calibrated values; only k_nuc varies.
