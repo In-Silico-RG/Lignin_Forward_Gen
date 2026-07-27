@@ -1,6 +1,6 @@
 # Lignin_Forward_Gen
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21630116.svg)](https://doi.org/10.5281/zenodo.21630116)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A minimal, transparent **forward** kinetic Monte Carlo generator that predicts the
@@ -158,11 +158,11 @@ Released under the [MIT License](LICENSE).
              linkage-resolved lignin structure},
   year    = {2026},
   url     = {https://github.com/In-Silico-RG/Lignin_Forward_Gen},
-  doi     = {10.5281/zenodo.XXXXXXX}
+  doi     = {10.5281/zenodo.21630116}
 }
 ```
 
-Each release is archived on Zenodo and gets its own DOI; `10.5281/zenodo.XXXXXXX`
+Each release is archived on Zenodo and gets its own DOI; `10.5281/zenodo.21630116`
 above is the concept DOI, which always resolves to the newest version. Repository
 metadata for the deposition lives in `.zenodo.json`.
 
