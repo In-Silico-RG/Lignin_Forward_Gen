@@ -19,15 +19,14 @@ authors:
     email: aldo.combariza@unisucre.edu.co
 repository-code: "https://github.com/In-Silico-RG/Lignin_Forward_Gen"
 license: MIT
-version: 1.0.0
+version: 1.0.1
 doi: 10.5281/zenodo.21630116
 identifiers:
   - type: doi
     value: 10.5281/zenodo.21630116
-    description: Concept DOI, always resolving to the latest release
-  - type: doi
-    value: 10.5281/zenodo.21630117
-    description: DOI for release v1.0.0
+    description: >-
+      Concept DOI, always resolving to the latest release. Each release also
+      gets its own version DOI, listed on the Zenodo record.
 keywords:
   - lignin
   - kinetic Monte Carlo
