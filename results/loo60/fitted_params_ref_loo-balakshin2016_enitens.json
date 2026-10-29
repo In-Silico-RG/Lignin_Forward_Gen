@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-balakshin2016_enitens.log",
+ "_held_out": [
+  "balakshin2016_enitens"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 1171.8565875437127,
+ "k_bo4": 8.0,
+ "k_b5": 1.8951358162789986,
+ "k_b1": 0.2744060112896921,
+ "k_bb": 23.04378774288186,
+ "k_55": 0.6462710650728436,
+ "k_4o5": 0.12608030471183135,
+ "n_nuclei": 10.964609124039306,
+ "k_bo4_nuc": 0.9940383601494784
+}

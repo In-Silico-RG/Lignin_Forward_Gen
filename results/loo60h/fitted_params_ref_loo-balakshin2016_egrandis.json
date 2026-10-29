@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-balakshin2016_egrandis.log",
+ "_held_out": [
+  "balakshin2016_egrandis"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 673.2328501755355,
+ "k_bo4": 8.0,
+ "k_b5": 1.9928751730327503,
+ "k_b1": 0.2592151418880353,
+ "k_bb": 25.04909189294983,
+ "k_55": 0.47934198514291737,
+ "k_4o5": 0.16571196933387555,
+ "n_nuclei": 9.00439967659769,
+ "k_bo4_nuc": 1.1085291377641617
+}

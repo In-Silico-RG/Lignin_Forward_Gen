@@ -1,0 +1,17 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v60h_loso_sw-stewart.log",
+ "_held_out": [
+  "stewart2009_poplar_wt_acml",
+  "stewart2009_poplar_f5h_acml"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 229.83163009074818,
+ "k_bo4": 8.0,
+ "k_b5": 2.2684778703513016,
+ "k_b1": 0.3087742088237804,
+ "k_bb": 18.147760613565783,
+ "k_55": 0.6016801109274311,
+ "k_4o5": 0.1527598143515388,
+ "n_nuclei": 7.288366923423467,
+ "k_bo4_nuc": 1.117794481958907
+}

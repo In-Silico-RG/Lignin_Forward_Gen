@@ -1,0 +1,21 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v60h_loso_sw-rencoret.log",
+ "_held_out": [
+  "rencoret2019_olive_mwl",
+  "rencoret2019_olive_wcw",
+  "rencoret2009_paulownia_mwl",
+  "rencoret2011_eglobulus_1mo_mwl",
+  "rencoret2011_eglobulus_18mo_mwl",
+  "rencoret2011_eglobulus_9y_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 223.40022907409053,
+ "k_bo4": 8.0,
+ "k_b5": 2.291789235996264,
+ "k_b1": 0.22903391323078928,
+ "k_bb": 16.958978097858473,
+ "k_55": 0.8489452799468036,
+ "k_4o5": 0.16508052081990965,
+ "n_nuclei": 6.570422500872699,
+ "k_bo4_nuc": 1.1375208089284075
+}

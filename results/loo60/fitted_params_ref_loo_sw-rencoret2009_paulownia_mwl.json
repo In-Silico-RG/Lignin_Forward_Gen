@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-rencoret2009_paulownia_mwl.log",
+ "_held_out": [
+  "rencoret2009_paulownia_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 325.80021014854884,
+ "k_bo4": 8.0,
+ "k_b5": 1.9875808537812472,
+ "k_b1": 0.24555050358283467,
+ "k_bb": 18.724871331602863,
+ "k_55": 0.6304223238436011,
+ "k_4o5": 0.16465493833500466,
+ "n_nuclei": 9.320443318402768,
+ "k_bo4_nuc": 1.0133811379035522
+}

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-rencoret2011_eglobulus_18mo_mwl.log",
+ "_held_out": [
+  "rencoret2011_eglobulus_18mo_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 246.35771043176527,
+ "k_bo4": 8.0,
+ "k_b5": 2.0769893706835316,
+ "k_b1": 0.2668053054512951,
+ "k_bb": 22.193203360792094,
+ "k_55": 0.6543345922614257,
+ "k_4o5": 0.1420158961310569,
+ "n_nuclei": 6.792828931945177,
+ "k_bo4_nuc": 1.0516852612832503
+}

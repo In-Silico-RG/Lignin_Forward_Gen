@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-sette2011_norwayspruce_emal.log",
+ "_held_out": [
+  "sette2011_norwayspruce_emal"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 249.611149148867,
+ "k_bo4": 8.0,
+ "k_b5": 2.022100097814039,
+ "k_b1": 0.2893626561730117,
+ "k_bb": 22.686379964166782,
+ "k_55": 0.5822293047204491,
+ "k_4o5": 0.15522155450763014,
+ "n_nuclei": 7.488564759299643,
+ "k_bo4_nuc": 1.006455176266188
+}

@@ -1,0 +1,15 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60h_loso_sw-lourenco.log",
+ "_held_out": [
+  "lourenco2016_qsuber_xylem_ml"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 546.116617999034,
+ "m_b5": 0.11973620365232267,
+ "m_b1": 1.5972609880613937,
+ "m_bb": 0.7609325716020973,
+ "m_55": 1.8549786283047096,
+ "m_5o4": 0.7681639096701078,
+ "m_ao4": 2.5370766425742315,
+ "add_rate": 34.488762161002875
+}

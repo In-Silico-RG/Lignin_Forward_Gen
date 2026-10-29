@@ -1,0 +1,20 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v60h_loso-sette.log",
+ "_held_out": [
+  "sette2011_norwayspruce_mwl",
+  "sette2011_blackspruce_mwl",
+  "sette2011_norwayspruce_emal",
+  "sette2011_beech_mwl",
+  "sette2013_norwayspruce_qqhsqc"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 636.9297385976535,
+ "k_bo4": 8.0,
+ "k_b5": 1.8504736952562648,
+ "k_b1": 0.2380278762463846,
+ "k_bb": 25.808159627076915,
+ "k_55": 0.6530767155355631,
+ "k_4o5": 0.15606177071664779,
+ "n_nuclei": 10.141921795019273,
+ "k_bo4_nuc": 0.9642777376885434
+}

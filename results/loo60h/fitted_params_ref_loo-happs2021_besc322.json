@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-happs2021_besc322.log",
+ "_held_out": [
+  "happs2021_besc322"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 681.0327210481466,
+ "k_bo4": 8.0,
+ "k_b5": 1.8963820832858072,
+ "k_b1": 0.2744770153218274,
+ "k_bb": 24.02416198066689,
+ "k_55": 0.6848133750412585,
+ "k_4o5": 0.1411791534953902,
+ "n_nuclei": 9.462922811256442,
+ "k_bo4_nuc": 0.8966307452942929
+}

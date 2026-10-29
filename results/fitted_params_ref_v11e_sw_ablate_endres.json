@@ -1,0 +1,14 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11e_sw_ablate_endres.log",
+ "_held_out": [],
+ "_source_weighted": true,
+ "_chi2_eval": 299.98642769449924,
+ "k_bo4": 8.0,
+ "k_b5": 0.7993302436111919,
+ "k_b1": 0.1845527266932432,
+ "k_bb": 40.6148429076945,
+ "k_55": 1.6399654872822778,
+ "k_4o5": 0.21239493516518848,
+ "n_nuclei": 7.690058379094295,
+ "k_bo4_nuc": 0.9203921350827245
+}

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-balakshin2016_redalder.log",
+ "_held_out": [
+  "balakshin2016_redalder"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 74.25639602228324,
+ "k_bo4": 8.0,
+ "k_b5": 2.0042134765869997,
+ "k_b1": 0.5711184955666453,
+ "k_bb": 14.448734979517289,
+ "k_55": 0.4416447534058758,
+ "k_4o5": 0.14505556925886962,
+ "n_nuclei": 7.833528454740514,
+ "k_bo4_nuc": 0.9962329900731616
+}

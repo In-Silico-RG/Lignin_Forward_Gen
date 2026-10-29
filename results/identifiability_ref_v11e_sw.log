@@ -1,0 +1,19 @@
+Identifiability sweep on the expanded-set objective
+params: results/fitted_params_ref_v11e_sw.json
+adopted: {'k_bo4': 8.0, 'k_b5': 2.2568, 'k_b1': 0.3969, 'k_bb': 21.691, 'k_55': 0.5875, 'k_4o5': 0.1726, 'n_nuclei': 7.1745, 'k_bo4_nuc': 0.9578}
+samples: 60  reps per evaluation: 8  seed bases for noise: 16  grid points: 9
+
+noise: 171 components; median sigma/|r| = 0.102
+
+constant       range              max|d|/s     rms lo     rms hi   verdict
+k_b5           [   0.05,     40]      224.6        5.5       50.9   determined
+k_b1           [   0.01,     20]      108.7        2.5       36.5   determined
+k_bb           [   0.05,     60]       25.7        7.2        1.4   determined
+k_55           [  0.005,     40]       72.0        1.6        9.0   determined
+k_4o5          [  0.005,     40]      760.2        1.9       63.6   determined
+n_nuclei       [      1,     30]      377.1       11.8       84.0   determined
+k_bo4_nuc      [   0.02,     40]       17.0        0.4        3.4   determined
+
+Reading: max|d|/sigma is the largest movement of any observable, in units of its
+own run-to-run noise, anywhere in the constant's search range; rms lo/hi are the
+root-mean-square movements at the two ends of the range.

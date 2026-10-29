@@ -1,0 +1,23 @@
+weld decomposition of the condensed linkages
+  n_target = 120  (119 bonds)   reps = 24   n_nuclei = 7.174 -> 7
+  welds structurally required to reach one molecule = n_nuclei - 1 = 6  (5.04% of 119 bonds)
+
+wood      bond    model %   weld % elective %    ref % model-ref elective-ref
+-----------------------------------------------------------------------------
+softwood  fragments at the end of the run: mean 1.00 (required welds 6, made 6.00)
+softwood  55         6.86     3.05      3.82     6.00     +0.86       -2.18
+softwood  4o5        4.41     2.00      2.42     1.50     +2.91       +0.92
+poplar    fragments at the end of the run: mean 1.00 (required welds 6, made 6.00)
+poplar    55         2.59     1.82      0.77     3.80     -1.21       -3.03
+poplar    4o5        4.80     3.22      1.58     1.90     +2.90       -0.32
+high-S    fragments at the end of the run: mean 1.79 (required welds 6, made 5.21)
+high-S    55         0.95     0.81      0.14     1.10     -0.15       -0.96
+high-S    4o5        4.27     3.57      0.70     0.60     +3.67       +0.10
+
+READING. The welds are the same 6 bonds at every wood, because the
+construction always closes to one molecule. Removing them is what the
+last column shows: the condensed linkage the model forms BY CHOICE, against
+the measured value. If that column is near zero while 'model-ref' is not,
+the model's condensed excess is the single-molecule constraint, not the fit.
+
+Wrote results/weld_decomposition_v11e_sw.csv

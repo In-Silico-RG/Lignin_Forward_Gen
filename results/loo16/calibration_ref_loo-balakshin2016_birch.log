@@ -1,0 +1,55 @@
+Calibration on the expanded reference set (ratios to beta-O-4)
+samples in fit: 15  held out: ['balakshin2016_birch']  reps: 8  N: 120  seed base: 7000  source-weighted: False
+generator: code/mini_forward_generator.py
+  eval  20  chi2=263.273  best=174.365
+  eval  40  chi2=166.292  best=159.208
+  eval  60  chi2=162.253  best=157.160
+  eval  80  chi2=156.692  best=155.195
+  eval 100  chi2=152.501  best=152.501
+  eval 120  chi2=157.932  best=149.915
+  eval 140  chi2=154.350  best=149.915
+  eval 160  chi2=149.915  best=149.782
+  eval 180  chi2=149.782  best=149.782
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 1.8654, 'k_b1': 0.3104, 'k_bb': 19.8297, 'k_55': 1.1587, 'k_4o5': 0.138, 'n_nuclei': 6.9364, 'k_bo4_nuc': 0.7929}
+minimised chi2 = 149.782 (188 evals)
+
+chi2 at 30 reps: 158.687 over 15 samples, 65 terms
+sample                         S/G   chi2  z per ratio (model - measured)/sigma
+anchor_softwood               0.00  19.51  b5:-2.25 bb:+1.03 b1:+0.11 c55:+3.51 c4o5:+1.05
+anchor_poplar                 1.00   2.66  b5:-0.47 bb:+0.09 b1:+0.97 c55:+0.95 c4o5:+0.77
+anchor_highS                  3.00  11.94  b5:-0.22 bb:+0.98 b1:+1.85 c55:+0.96 c4o5:+2.57
+balakshin2016_redoak          2.13   6.21  b5:+0.30 bb:+0.73 b1:-0.45 dc:-2.32
+balakshin2016_sweetgum        1.61   9.18  b5:+0.58 bb:-0.67 b1:-0.85 dc:-2.77
+balakshin2016_redmaple        1.20   5.81  b5:-0.47 bb:-1.14 b1:-0.90 dc:-1.87
+balakshin2016_egrandis        2.00   7.66  b5:+0.90 bb:+0.59 b1:-1.84 dc:-1.77
+balakshin2016_redalder        1.37   6.89  b5:+0.88 bb:+0.20 b1:+0.17 dc:-2.46
+balakshin2016_cottonwood      1.41   1.75  b5:+0.35 bb:-0.81 b1:-0.95 dc:-0.27
+balakshin2016_acacia          1.15   3.31  b5:+0.79 bb:+0.28 b1:+0.15 dc:-1.61
+balakshin2016_eglobulus       2.73   6.67  b5:+1.03 bb:-1.09 b1:-0.44 dc:-2.06
+balakshin2016_enitens         2.59   2.86  b5:+0.24 bb:-1.09 b1:-0.75 dc:-1.02
+balakshin2016_eurograndis     1.76   7.46  b5:+1.85 bb:-0.86 b1:-0.61 dc:-1.71
+balakshin2016_ebenthamii      1.85  10.85  b5:+2.98 bb:-0.70 b1:-0.53 dc:-1.09
+capanema2005_egrandis         1.72  55.93  b5:+1.00 bb:+0.87 b1:-3.98 c55:-0.54 c4o5:-5.77 dc:-2.17
+
+held-out samples (predicted with the fitted constants):
+balakshin2016_birch           3.02  10.67  b5:-0.16 bb:-0.28 b1:-2.60 dc:-1.96
+
+model per 100 units at the fitted constants (30 reps):
+sample                         S/G    bo4    b5    bb    b1   5-5   4O5    DC
+anchor_softwood               0.00   65.4  12.0   5.0   3.0  10.8   2.9  36.5
+anchor_poplar                 1.00   76.6   6.8   5.1   3.1   4.9   2.8  19.4
+anchor_highS                  3.00   81.9   2.9   5.2   3.0   2.1   3.2  10.2
+balakshin2016_redoak          2.13   80.7   4.4   5.0   2.1   3.0   3.5  14.0
+balakshin2016_sweetgum        1.61   78.9   5.4   5.0   3.2   3.1   3.3  15.0
+balakshin2016_redmaple        1.20   77.8   6.1   5.1   2.8   3.9   3.4  17.3
+balakshin2016_egrandis        2.00   79.6   5.1   4.7   2.8   3.2   3.4  14.9
+balakshin2016_redalder        1.37   79.1   5.2   5.0   2.9   3.8   3.1  15.9
+balakshin2016_cottonwood      1.41   77.3   6.5   4.7   3.0   4.1   3.5  18.2
+balakshin2016_acacia          1.15   77.1   6.4   5.0   2.9   4.5   3.2  18.7
+balakshin2016_eglobulus       2.73   80.3   4.0   5.1   3.4   2.3   3.5  12.1
+balakshin2016_enitens         2.59   79.9   4.4   5.2   3.0   3.0   3.6  13.9
+balakshin2016_eurograndis     1.76   79.5   4.9   4.6   3.1   3.8   3.2  15.8
+balakshin2016_ebenthamii      1.85   79.4   4.9   4.7   3.1   3.4   3.6  15.4
+capanema2005_egrandis         1.72   78.6   5.2   5.0   3.6   3.2   3.4  14.9
+balakshin2016_birch           3.02   81.3   3.5   5.2   2.9   2.1   3.2  11.0

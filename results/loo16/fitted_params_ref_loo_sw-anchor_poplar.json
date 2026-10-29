@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-anchor_poplar.log",
+ "_held_out": [
+  "anchor_poplar"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 79.97669584983248,
+ "k_bo4": 8.0,
+ "k_b5": 2.002544829437298,
+ "k_b1": 0.3943310125252681,
+ "k_bb": 19.960456157710002,
+ "k_55": 0.519956178525316,
+ "k_4o5": 0.14013007898168112,
+ "n_nuclei": 7.389715891521392,
+ "k_bo4_nuc": 1.0644374067074847
+}

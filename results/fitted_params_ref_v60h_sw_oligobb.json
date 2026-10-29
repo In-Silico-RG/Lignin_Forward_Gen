@@ -1,0 +1,15 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v60h_sw_oligobb.log",
+ "_held_out": [],
+ "_source_weighted": true,
+ "_chi2_eval": 232.4542459868936,
+ "k_bo4": 8.0,
+ "k_b5": 2.096507277112267,
+ "k_b1": 0.2950471265577606,
+ "k_bb": 26.72066153575675,
+ "k_55": 0.6655388099463954,
+ "k_4o5": 0.15342395603558842,
+ "n_nuclei": 6.956800934713412,
+ "k_bo4_nuc": 1.1395725445881797,
+ "oligo_bb": 0.0001
+}

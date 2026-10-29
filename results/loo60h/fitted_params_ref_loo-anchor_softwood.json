@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-anchor_softwood.log",
+ "_held_out": [
+  "anchor_softwood"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 657.3539742887625,
+ "k_bo4": 8.0,
+ "k_b5": 1.8216127188360356,
+ "k_b1": 0.2814628654114016,
+ "k_bb": 23.180385794492654,
+ "k_55": 0.6705462693796833,
+ "k_4o5": 0.14811045481680446,
+ "n_nuclei": 10.260941120184777,
+ "k_bo4_nuc": 0.9362536386986938
+}

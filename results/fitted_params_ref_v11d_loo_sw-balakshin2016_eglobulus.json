@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11d_loo_sw-balakshin2016_eglobulus.log",
+ "_held_out": [
+  "balakshin2016_eglobulus"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 253.97222826401125,
+ "k_bo4": 8.0,
+ "k_b5": 2.1460560743012755,
+ "k_b1": 0.3372125742682683,
+ "k_bb": 16.571345370313345,
+ "k_55": 0.8271647207146796,
+ "k_4o5": 0.17138376167278438,
+ "n_nuclei": 7.378295947213143,
+ "k_bo4_nuc": 1.175978177999017
+}

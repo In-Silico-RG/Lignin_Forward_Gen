@@ -58,8 +58,9 @@ DP_GRID = [20, 40, 60, 120, 240]
 OO_GRID = [0.0, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0]
 
 
-def load_fitted():
-    with open(os.path.join(RESULTS, "fitted_params.json")) as fh:
+def load_fitted(path=None):
+    """Constants from a fitted_params*.json (default: the v1.0.1 three-anchor fit)."""
+    with open(path or os.path.join(RESULTS, "fitted_params.json")) as fh:
         raw = json.load(fh)
     return {k: v for k, v in raw.items() if not k.startswith("_")}
 
@@ -94,9 +95,12 @@ def run_cell(sg, base, reps, seed0, n_target=None, n_nuclei=None,
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--reps", type=int, default=150)
+    ap.add_argument("--params", default=None,
+                    help="fitted_params*.json to run at (default: results/fitted_params.json, v1.0.1)")
+    ap.add_argument("--tag", default="", help="suffix for the output files")
     args = ap.parse_args()
 
-    base = load_fitted()
+    base = load_fitted(args.params)
     lam = base["n_nuclei"]
     rows = []
     lines = []
@@ -112,7 +116,9 @@ def main():
 
     # ---- PART A: DP invariance ------------------------------------------------
     emit("=== PART A: linkage inventory vs DP (nucleus density fixed) ===")
-    emit("n_nuclei scaled proportionally to n_target and floored at 1 (integer burst).")
+    emit("n_nuclei scaled proportionally to n_target and floored at 1; the generator rounds")
+    emit("it to an integer, so the nucleus DENSITY is only approximately constant across DP")
+    emit("(the integer actually used is n_nuc).")
     for sg in ANCHORS:
         emit("-- %s (S/G %.1f) --  ref: %s" %
              (LABEL[sg], sg, " ".join("%s %.1f" % (k, 100 * REFERENCE[sg][k])
@@ -166,7 +172,7 @@ def main():
     emit("   The 4-O-5 column shows whether its over-prediction is a welding artifact.")
 
     os.makedirs(RESULTS, exist_ok=True)
-    csv_path = os.path.join(RESULTS, "connectivity_experiment.csv")
+    csv_path = os.path.join(RESULTS, "connectivity_experiment%s.csv" % args.tag)
     cols = ["part", "anchor", "sg", "dp", "oo_scale", "n_nuclei", "n_frags",
             "max_frag", "chi2"] + ALL_KEYS
     with open(csv_path, "w") as fh:
@@ -174,7 +180,7 @@ def main():
         for row in rows:
             fh.write(",".join(("%s" % row[c]) if c in ("part", "anchor")
                               else ("%.4f" % row[c]) for c in cols) + "\n")
-    log_path = os.path.join(RESULTS, "connectivity_experiment.log")
+    log_path = os.path.join(RESULTS, "connectivity_experiment%s.log" % args.tag)
     with open(log_path, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     emit("")

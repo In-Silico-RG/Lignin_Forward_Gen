@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-stewart2009_poplar_wt_acml.log",
+ "_held_out": [
+  "stewart2009_poplar_wt_acml"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 224.94774200998546,
+ "k_bo4": 8.0,
+ "k_b5": 2.342969678864536,
+ "k_b1": 0.3526307800582357,
+ "k_bb": 28.283528290007613,
+ "k_55": 0.623670284988704,
+ "k_4o5": 0.12738022623007,
+ "n_nuclei": 8.010378292001164,
+ "k_bo4_nuc": 0.9413380919359454
+}

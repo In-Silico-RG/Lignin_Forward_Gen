@@ -1,0 +1,15 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60h_loso_sw-capanema.log",
+ "_held_out": [
+  "capanema2005_egrandis"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 441.43710082195923,
+ "m_b5": 0.12394745426652422,
+ "m_b1": 1.617971150585205,
+ "m_bb": 0.7491321727967858,
+ "m_55": 0.6110408287604262,
+ "m_5o4": 0.7686355745271111,
+ "m_ao4": 8.398186338544221,
+ "add_rate": 127.15953094780042
+}

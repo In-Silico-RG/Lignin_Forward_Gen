@@ -4,6 +4,11 @@ mini_forward_generator.py
 
 A fresh, minimal, fully-owned FORWARD lignin structure generator.
 
+Lignin, the final frontier. These are the runs of the forward generator. Its
+continuing mission: to explore strange new feedstocks, to seek out new linkage
+distributions and new condensations, to boldly polymerize where no model has
+polymerized before.
+
 Motivation (see docs/06): Lignin-KMC demonstrated that a forward generator makes
 the S/G->beta-O-4 relationship and chain linearity EMERGE, but its published Gani
 barriers over-favour beta-5 for guaiacyl (softwood irreproducible) and pure
@@ -48,10 +53,28 @@ Chemistry (minimal but mechanistic):
     Only free monomers carry a live beta donor, so beta-coupling is intrinsically
     endwise; 5-5 / 4-O-5 are the minority inter-fragment channel (see NOTE above).
 
-This is a research prototype: propensities use aggregate counts and participants
-are drawn at firing time with a different-fragment constraint (documented
-simplification). Kinetic exactness is Lignin-KMC's job; this tool's job is a
-transparent, controllable forward model.
+This is a research prototype. There is no time variable: at each step one
+reaction is drawn with probability proportional to k times the number of pairs
+that could form it right now, and the pair is then drawn uniformly from that
+same list. Only ratios of the constants matter. Kinetic exactness is Lignin-KMC's
+job; this tool's job is a transparent, controllable forward model.
+
+v1.1 (2026-09, docs/12_code_audit.md) corrected three things the v1.0.1 code did
+that its own chemistry forbids:
+  A. beta-5 and beta-1 now consume the acceptor's phenolic 4-OH (phenylcoumaran
+     ring closure / spirodienone), so a beta-5 acceptor cannot later accept a
+     beta-O-4 on the same oxygen. v1.0.1 left it free, doubling the phenolic-end
+     count.
+  B. 5-5 and 4-O-5 now require a PHENOLIC C5 partner (a phenoxy radical needs a
+     free 4-OH). v1.0.1 let etherified internal units condense.
+  C. partners are drawn exactly from the valid inter-fragment pairs. v1.0.1 drew
+     from the full site lists and discarded the event after 12 same-fragment
+     draws, which scaled the condensed constants by ~0.5 at softwood and ~0.95
+     at high-S.
+At the v1.0.1 constants the mean error is unchanged (1.62 -> 1.60 points) but the
+mechanism is not: phenolic ends drop from ~35 to ~12 per 120 units at softwood,
+and at high-S the corrected chemistry no longer always welds the chains into one
+molecule (S ends have no C5). See docs/12_code_audit.md section 3.
 
 Usage:
     python code/mini_forward_generator.py            # S/G sweep vs NMR
@@ -215,6 +238,16 @@ DEFAULT_PARAMS = {
     "pct_h":  0.0,        # fraction of p-hydroxyphenyl (H) monomers
     "frac_pca": 0.0,      # fraction of S units gamma-p-coumaroylated (BAHD PMT)
     "frac_tricin": 0.0,   # fraction of nucleation events initiated by tricin
+    # ---- beta-5 donor specificity (tested 2026-09-15 as an eighth parameter) -------
+    # The corrected-set fit over-predicts beta-5 for high-S woods and under-predicts it
+    # for low-S woods (docs/15 section 4.6). The acceptor side is already in the model
+    # (an S end has no C5); what is missing is the DONOR side: a sinapyl beta radical
+    # may add to a C5 less readily than a coniferyl one. b5_s_donor multiplies the
+    # chain-extension beta-5 propensity when the free monomer is S. 1.0 = no effect
+    # (the published model). Nucleation is untouched: Gani's monomer-monomer beta-5
+    # barriers are equal for (G,G) and (S,G) donors, so the DFT gives no donor effect
+    # there.
+    "b5_s_donor": 1.0,
 }
 
 MONO_C5_T = False         # tricin: flavone initiator, no free C5
@@ -267,14 +300,20 @@ def _pair_mod(kind, donor_type, acceptor_type):
 
 
 class Unit:
-    __slots__ = ("uid", "mtype", "o4", "c5", "c1", "beta", "alpha")
+    __slots__ = ("uid", "mtype", "o4", "c5", "c1", "beta", "alpha", "deg")
 
     def __init__(self, uid, mtype):
         self.uid = uid
         self.mtype = mtype
+        self.deg = 0                   # bonds this unit carries (>=3 = branch point)
         self.o4 = True                 # phenolic O available
         self.c5 = MONO_C5[mtype]       # C5 available (G/H only)
-        self.c1 = True
+        # beta-1 acceptor: a phenolic unit whose own side chain is already in a
+        # beta-O-4 linkage -- its alpha-OH traps the quinone methide and closes the
+        # spirodienone (Zhang & Gellerstedt 2001; Zhang, Gellerstedt, Ralph & Lu 2006). A fresh monomer is not one;
+        # a unit becomes one when it donates a beta-O-4 (fix D, 2026-09-16,
+        # Lignin_Structure_Toolkit/docs/notes_for_paper1_beta1.md).
+        self.c1 = False
         self.beta = True               # one-shot beta radical donor
         # alpha: a quinone methide, created when THIS unit donates a beta-O-4.
         # Capturable by a phenol on another fragment -> alpha-O-4 (see k_ao4).
@@ -353,12 +392,6 @@ class MiniForwardKMC:
         c1 = [u for u in self.units.values() if u.c1]
         return beta, o4, c5, c1, alpha
 
-    def _diff_frag_pairs(self, listA, listB):
-        """count ordered/unordered pairs on different fragments (approx via product)."""
-        # approximate: product minus same-fragment overlaps is expensive; use product
-        # and rely on rejection sampling at firing. Return counts for propensity.
-        return len(listA) * len(listB)
-
     def _count_free_monomers(self):
         """free monomer = beta-carrying unit that is still its own size-1 fragment."""
         size = {}
@@ -394,58 +427,45 @@ class MiniForwardKMC:
                 self._new_monomer()
 
         beta, o4, c5, c1, alpha = self._sites()
-        n_beta = len(beta)
 
-        # inter-fragment (5-5, 4-O-5) require two units on DIFFERENT fragments;
-        # count only inter-fragment pairs so single-fragment states give zero rate
-        # (otherwise the KMC selects impossible events and spins on rejection).
-        # fragment sizes: a beta radical is only a valid donor while the unit is a
-        # FREE MONOMER (its own size-1 fragment). Once incorporated (even via a
-        # C5/O4 acceptor coupling), its beta is no longer an available radical --
-        # enforcing this is both correct endwise chemistry and prevents "stuck"
-        # beta donors trapped inside the main fragment (which cannot satisfy the
-        # different-fragment constraint and would spin forever).
+        # A beta radical is a valid donor only while its unit is a FREE MONOMER
+        # (its own size-1 fragment). Once incorporated -- even through a C5/O4
+        # coupling -- the side chain is spent. That is what makes beta-coupling
+        # endwise, and it is why a monomer that attached through C5 keeps an
+        # unreacted cinnamyl-alcohol side chain (reported by summary()).
         size = {}
         for uid in self.units:
             r = self.dsu.find(uid); size[r] = size.get(r, 0) + 1
+        self._size = size
         beta = [u for u in beta if size[self.dsu.find(u.uid)] == 1]
-        n_beta = len(beta)
+
+        # Coupling at C5 needs a phenoxy radical, i.e. a unit whose 4-OH is still
+        # free. Internal etherified units keep a chemically free C5 but cannot be
+        # oxidised, so they do not condense (fix B; the same rule that restricts
+        # beta-5 to phenolic ends below).
+        c5_phen = [u for u in c5 if u.o4]
 
         # Candidate partners for the condensed channels. Under oo_true / oo_route=1
         # these exclude free monomers, so 5-5 / 4-O-5 couple two genuine oligomers.
-        # Otherwise (default) any unit qualifies and the standing free monomer
-        # participates. See DEFAULT_PARAMS for why the routes are not equivalent.
+        # Otherwise (default) any phenolic unit qualifies and the standing free
+        # monomer participates. See DEFAULT_PARAMS for why the routes differ.
         route = int(round(p.get("oo_route", 0.0)))
         if p.get("oo_true", 0.0) >= 0.5:
             route = 1
         if route == 1:
             o4_oo = [u for u in o4 if size[self.dsu.find(u.uid)] > 1]
-            c5_oo = [u for u in c5 if size[self.dsu.find(u.uid)] > 1]
+            c5_oo = [u for u in c5_phen if size[self.dsu.find(u.uid)] > 1]
         else:
-            o4_oo, c5_oo = o4, c5
-
-        # MP route: exactly one partner is a free monomer. A size-1 fragment and a
-        # size>1 fragment are necessarily DIFFERENT fragments, so the pair count is
-        # simply the product -- no inter-fragment correction needed.
-        c5_mono = [u for u in c5 if size[self.dsu.find(u.uid)] == 1]
-        c5_olig = [u for u in c5 if size[self.dsu.find(u.uid)] > 1]
-
-        o4_by, c5_by = {}, {}
-        for u in o4_oo:
-            r = self.dsu.find(u.uid); o4_by[r] = o4_by.get(r, 0) + 1
-        for u in c5_oo:
-            r = self.dsu.find(u.uid); c5_by[r] = c5_by.get(r, 0) + 1
-        t_o4, t_c5 = len(o4_oo), len(c5_oo)
-        inter_c5_pairs = (t_c5 * t_c5 - sum(v * v for v in c5_by.values())) / 2.0
-        inter_o4_c5 = t_o4 * t_c5 - sum(o4_by.get(r, 0) * c5_by.get(r, 0)
-                                        for r in set(o4_by) | set(c5_by))
+            o4_oo, c5_oo = o4, c5_phen
+        c5_mono = [u for u in c5_phen if size[self.dsu.find(u.uid)] == 1]
+        c5_olig = [u for u in c5_phen if size[self.dsu.find(u.uid)] > 1]
 
         # Endwise chemistry: an incoming monomer beta-radical couples to a
         # phenolic END of the polymer, offering that end unit's O4 (->beta-O-4),
         # C5 (->beta-5, G/H only) or C1 (->beta-1). So beta-5 / beta-1 acceptors
         # are restricted to END units (open O4), NOT arbitrary internal C5/C1 --
         # otherwise the huge internal-C5 pool inflates beta-5 regardless of rate
-        # constants. Internal C5 still participates in inter-fragment 5-5/4-O-5.
+        # constants.
         ends = o4                              # units with an open phenolic O4
         if p.get("end_restricted", 1.0) >= 0.5:
             b5_acc = [u for u in ends if u.c5]
@@ -458,50 +478,53 @@ class MiniForwardKMC:
             b5_acc = c5
             b1_acc = c1
 
-        # propensities (aggregate). beta-couplings: donor(free monomer) x end.
-        # (Supply is handled deterministically above, not as a KMC event.)
-        props = {}
-        props["bo4"] = p["k_bo4"] * n_beta * len(ends)
-        props["b5"] = p["k_b5"] * n_beta * len(b5_acc)
-        props["b1"] = p["k_b1"] * n_beta * len(b1_acc)
-        props["bb"] = p["k_bb"] * n_beta * max(n_beta - 1, 0) / 2.0
+        # Each reaction is the list of pairs that could form it right now: distinct
+        # units on different fragments. The propensity is k times the length of
+        # that list, and the event, once chosen, is drawn uniformly from the same
+        # list, so the count and the draw agree exactly (fix C).
+        pairs = {}
+        pairs["bo4"] = self._pairs(beta, ends)
+        pairs["b5"] = self._pairs(beta, b5_acc)
+        pairs["b1"] = self._pairs(beta, b1_acc)
+        pairs["bb"] = self._pairs(beta, beta, unordered=True)
         # oligomer beta-beta (re-radicalised chain ends). Off by default; the test
         # for whether the beta-beta ceiling is an artifact. Phenolic END units of
-        # oligomers re-radicalise at beta and couple beta-beta with a free monomer or
-        # with another oligomer end, joining two fragments.
-        end_olig = []
+        # oligomers re-radicalise at beta and couple beta-beta with a free monomer
+        # or with another oligomer end, joining two fragments.
         if p.get("oligo_bb", 0.0) > 0.0:
-            end_olig = [u for u in o4 if size[self.dsu.find(u.uid)] > 1]
-            if end_olig:
-                eo_by = {}
-                for u in end_olig:
-                    r = self.dsu.find(u.uid); eo_by[r] = eo_by.get(r, 0) + 1
-                t_eo = len(end_olig)
-                inter_eo = (t_eo * t_eo - sum(v * v for v in eo_by.values())) / 2.0
-                props["bb_olig"] = p["k_bb"] * p["oligo_bb"] * (
-                    n_beta * t_eo + max(inter_eo, 0.0))
+            pool = beta + [u for u in o4 if size[self.dsu.find(u.uid)] > 1]
+            pairs["bb_olig"] = self._pairs(pool, pool, unordered=True)
         if route == 2:      # MP only: one free monomer x one oligomer
-            n55_pairs = len(c5_mono) * len(c5_olig)
+            pairs["55"] = self._pairs(c5_mono, c5_olig)
         else:
-            n55_pairs = inter_c5_pairs
-        props["55"] = p["k_55"] * p["oo_scale"] * n55_pairs
+            pairs["55"] = self._pairs(c5_oo, c5_oo, unordered=True)
+        pairs["4o5"] = self._pairs(o4_oo, c5_oo)
         # alpha-O-4: a quinone methide captures a phenol on ANOTHER fragment.
         # This is the ether route to joining two chains -- no condensed bond spent.
-        if p.get("k_ao4", 0.0) > 0.0 and alpha and o4:
-            a_by, o_by = {}, {}
-            for u in alpha:
-                r = self.dsu.find(u.uid); a_by[r] = a_by.get(r, 0) + 1
-            for u in o4:
-                r = self.dsu.find(u.uid); o_by[r] = o_by.get(r, 0) + 1
-            inter_a_o4 = len(alpha) * len(o4) - sum(
-                a_by.get(r, 0) * o_by.get(r, 0) for r in set(a_by) | set(o_by))
-            if inter_a_o4 > 0:
-                props["ao4"] = p["k_ao4"] * inter_a_o4
+        if p.get("k_ao4", 0.0) > 0.0:
+            pairs["ao4"] = self._pairs(alpha, o4)
 
+        # propensities: k times the number of available pairs. (Supply is handled
+        # deterministically above, not as an event.)
+        props = {
+            "bo4": p["k_bo4"] * len(pairs["bo4"]),
+            # donor-type weight on beta-5 (b5_s_donor, default 1). With one free monomer
+            # every pair shares the donor, so the uniform draw in _fire_coupling stays
+            # exact; with several free monomers (nucleation_on = 0) it is approximate.
+            "b5": p["k_b5"] * sum(p.get("b5_s_donor", 1.0) if a.mtype == "S" else 1.0
+                                  for a, _ in pairs["b5"]),
+            "b1": p["k_b1"] * len(pairs["b1"]),
+            "bb": p["k_bb"] * len(pairs["bb"]),
+            "55": p["k_55"] * p["oo_scale"] * len(pairs["55"]),
+            "4o5": p["k_4o5"] * p["oo_scale"] * len(pairs["4o5"]),
+        }
+        if "bb_olig" in pairs:
+            props["bb_olig"] = p["k_bb"] * p["oligo_bb"] * len(pairs["bb_olig"])
+        if "ao4" in pairs:
+            props["ao4"] = p["k_ao4"] * len(pairs["ao4"])
         # continuous nucleation: needs room for two more monomers
         if p.get("k_nuc", 0.0) > 0.0 and self.n_introduced + 2 <= self.n_target:
             props["nuc"] = p["k_nuc"]
-        props["4o5"] = p["k_4o5"] * p["oo_scale"] * max(inter_o4_c5, 0.0)
 
         total = sum(props.values())
         if total <= 0:
@@ -514,138 +537,93 @@ class MiniForwardKMC:
             if r <= acc:
                 choice = k
                 break
+        self.fired[choice] = self.fired.get(choice, 0) + 1
+        self._fire_coupling(choice, pairs)
+        return True
 
-        before = sum(self.bonds.values())
-        res = self._fire_coupling(choice, beta, o4, c5, c1, b5_acc, b1_acc,
-                                  o4_oo=o4_oo, c5_oo=c5_oo,
-                                  c5_mono=c5_mono, c5_olig=c5_olig, route=route,
-                                  alpha=alpha, end_olig=end_olig)
-        if sum(self.bonds.values()) > before:
-            self.fired[choice] = self.fired.get(choice, 0) + 1
-        else:
-            self.wasted[choice] = self.wasted.get(choice, 0) + 1
-        return res
+    def _pairs(self, A, B, unordered=False):
+        """Pairs that could couple right now: distinct units on different fragments.
+        Ordered (a from A, b from B), or unordered within A when A is B."""
+        fa = {u.uid: self.dsu.find(u.uid) for u in A}
+        if unordered:
+            return [(a, b) for i, a in enumerate(A) for b in A[i + 1:]
+                    if fa[a.uid] != fa[b.uid]]
+        fb = {u.uid: self.dsu.find(u.uid) for u in B}
+        return [(a, b) for a in A for b in B
+                if a.uid != b.uid and fa[a.uid] != fb[b.uid]]
 
-    def _pick_diff(self, listA, listB, same_ok=False, tries=12):
-        """pick a on A, b on B, on different fragments (and different units)."""
-        for _ in range(tries):
-            a = listA[self.rng.randint(len(listA))]
-            b = listB[self.rng.randint(len(listB))]
-            if a.uid == b.uid:
-                continue
-            if self.dsu.find(a.uid) == self.dsu.find(b.uid):
-                continue
-            return a, b
-        return None, None
+    def _bond(self, kind, a, b):
+        """Record one bond of `kind` between units a and b."""
+        self.dsu.union(a.uid, b.uid)
+        self.bonds[kind] += 1
+        a.deg += 1
+        b.deg += 1
 
-    def _fire_coupling(self, kind, beta, o4, c5, c1, b5_acc, b1_acc,
-                       o4_oo=None, c5_oo=None, c5_mono=None, c5_olig=None,
-                       route=0, alpha=None, end_olig=None):
-        # o4_oo / c5_oo are the condensed channels' candidate pools (see oo_true).
-        # c5_mono / c5_olig split C5 by fragment size, for the MP route (oo_route=2).
-        if o4_oo is None:
-            o4_oo = o4
-        if c5_oo is None:
-            c5_oo = c5
+    def _fire_coupling(self, kind, pairs):
+        """Fire one event of `kind`, drawing its pair uniformly from pairs[kind],
+        and mark the positions each partner spends."""
         if kind == "nuc":
             # a nucleation event during growth -- two fresh monomers dimerize and
             # start a new chain, rather than a monomer adding to an existing one
             self._nucleate_one()
-            return True
-        if kind == "ao4":
-            # a quinone methide (donor alpha) is captured by a phenolic O4 on a
-            # DIFFERENT fragment -> the two chains are now joined by an ether
-            d, a = self._pick_diff(alpha or [], o4)
-            if d is None:
-                return True
-            d.alpha = False
-            a.o4 = False
-            self.dsu.union(d.uid, a.uid)
-            self.bonds["ao4"] += 1
-            self.branch_points += 1
-            return True
+            return
+        cand = pairs[kind]
+        a, b = cand[self.rng.randint(len(cand))]
         if kind == "bo4":
-            d, a = self._pick_diff(beta, o4)
-            if d is None:
-                return True
-            d.beta = False
-            a.o4 = False              # ether formed on acceptor's O4
-            # the donor's alpha is now a quinone methide, capturable by a phenol
+            # monomer beta + end O4 -> beta-aryl ether; the donor's free O4 is the
+            # new end, and its alpha is a quinone methide capturable by a phenol
+            a.beta = False
+            b.o4 = False
+            a.c1 = True                 # the donor, now a beta-O-4 unit with a free
+                                        # phenol and an alpha-OH, can accept a beta-1
             if self.p.get("k_ao4", 0.0) > 0.0:
-                d.alpha = True
-            self.dsu.union(d.uid, a.uid)
-            self.bonds["bo4"] += 1
+                a.alpha = True
         elif kind == "b5":
-            d, a = self._pick_diff(beta, b5_acc)
-            if d is None:
-                return True
-            d.beta = False
-            a.c5 = False
-            self.dsu.union(d.uid, a.uid)
-            self.bonds["b5"] += 1
+            # phenylcoumaran: the acceptor's C5 and its 4-O (ring closure) are both
+            # spent, so the acceptor is no longer a phenol (fix A)
+            a.beta = False
+            b.c5 = False
+            b.o4 = False
         elif kind == "b1":
-            d, a = self._pick_diff(beta, b1_acc)
-            if d is None:
-                return True
-            d.beta = False
-            a.c1 = False
-            self.dsu.union(d.uid, a.uid)
-            self.bonds["b1"] += 1
+            # spirodienone: the acceptor's C1 is used and its ring is no longer a
+            # phenol (fix A). The fate of the acceptor's own side chain is not
+            # modelled.
+            a.beta = False
+            b.c1 = False
+            b.o4 = False
         elif kind == "bb":
-            d, d2 = self._pick_diff(beta, beta)
-            if d is None:
-                return True
-            d.beta = False
-            d2.beta = False
-            self.dsu.union(d.uid, d2.uid)
-            self.bonds["bb"] += 1
+            # resinol from two free monomers; both keep their phenols
+            a.beta = False
+            b.beta = False
         elif kind == "bb_olig":
-            # re-radicalised oligomer beta-beta: a resinol involving at least one
-            # oligomer phenolic END, joining two fragments. A free-monomer partner
-            # spends its beta; an oligomer end is capped by the resinol (o4 consumed).
-            pool = list(beta) + list(end_olig or [])
-            if len(pool) < 2:
-                return True
-            a, b = self._pick_diff(pool, pool)
-            if a is None:
-                return True
+            # re-radicalised oligomer beta-beta (diagnostic): a resinol involving at
+            # least one oligomer phenolic END. A free-monomer partner spends its
+            # beta; an oligomer end is capped by the resinol (o4 consumed).
             for u in (a, b):
-                if sum(1 for x in self.units
-                       if self.dsu.find(x) == self.dsu.find(u.uid)) == 1:
-                    u.beta = False     # a free monomer spends its beta
+                if self._size[self.dsu.find(u.uid)] == 1:
+                    u.beta = False
                 else:
-                    u.o4 = False       # an oligomer end is capped by the resinol
-            self.dsu.union(a.uid, b.uid)
-            self.bonds["bb"] += 1
+                    u.o4 = False
+            kind = "bb"
             self.branch_points += 1
         elif kind == "55":
-            if route == 2:
-                if not c5_mono or not c5_olig:
-                    return True
-                a, b = self._pick_diff(c5_mono, c5_olig)
-            else:
-                if len(c5_oo) < 2:
-                    return True
-                a, b = self._pick_diff(c5_oo, c5_oo)
-            if a is None:
-                return True
+            # biphenyl: both C5 spent, both phenols kept (a dibenzodioxocin may
+            # later close on them by beta-O-4)
             a.c5 = False
             b.c5 = False
-            self.dsu.union(a.uid, b.uid)
-            self.bonds["55"] += 1
             self.branch_points += 1
         elif kind == "4o5":
-            if not o4_oo or not c5_oo:
-                return True
-            a, b = self._pick_diff(o4_oo, c5_oo)
-            if a is None:
-                return True
+            # diaryl ether: a's phenolic O4 and b's C5
             a.o4 = False
             b.c5 = False
-            self.dsu.union(a.uid, b.uid)
-            self.bonds["4o5"] += 1
             self.branch_points += 1
-        return True
+        elif kind == "ao4":
+            # a quinone methide (a's alpha) is captured by a phenolic O4 on a
+            # DIFFERENT fragment -> the two chains are joined by an ether
+            a.alpha = False
+            b.o4 = False
+            self.branch_points += 1
+        self._bond(kind, a, b)
 
     def _nucleate_one(self):
         """Form one nucleation dimer from two fresh monomers (donor beta + acceptor
@@ -668,8 +646,7 @@ class MiniForwardKMC:
             self.n_tricin += 1
             d.beta = False
             t.o4 = False
-            self.dsu.union(d.uid, t.uid)
-            self.bonds["bo4"] += 1
+            self._bond("bo4", d, t)
             return True
         d = self._new_monomer()
         a = self._new_monomer()
@@ -677,10 +654,11 @@ class MiniForwardKMC:
         # specificity (see _pair_mod). beta-O-4 uses its OWN monomer-monomer
         # constant -- the chain-extension k_bo4 describes a different reaction.
         dt, at = d.mtype, a.mtype
+        # No beta-1 between two free monomers: the acceptor must already carry a
+        # beta-O-4 side chain (fix D).
         opts = [
             ("bb",  p["k_bb"] * _pair_mod("bb", dt, at)),
             ("bo4", p.get("k_bo4_nuc", p["k_bo4"]) * _pair_mod("bo4", dt, at)),
-            ("b1",  p["k_b1"] * _pair_mod("b1", dt, at)),
         ]
         if a.c5:
             opts.append(("b5", p["k_b5"] * _pair_mod("b5", dt, at)))
@@ -716,16 +694,19 @@ class MiniForwardKMC:
                 a.beta = False
             elif kind == "bo4":
                 a.o4 = False
-            elif kind == "b5":
+                d.c1 = True             # the donor can now accept a beta-1 (fix D)
+            elif kind == "b5":          # phenylcoumaran: acceptor phenol spent (fix A)
                 a.c5 = False
-            elif kind == "b1":
+                a.o4 = False
+            elif kind == "b1":          # spirodienone: acceptor phenol spent (fix A)
                 a.c1 = False
-        self.dsu.union(d.uid, a.uid)
-        self.bonds[kind] += 1
+                a.o4 = False
+        self._bond(kind, d, a)
         return True
 
     def run(self, max_steps=200000):
         # nucleation phase: form n_nuclei dimers up front (chain starts + beta-beta)
+        # every long voyage begins with two strangers meeting
         if self.p.get("nucleation_on", 1.0) >= 0.5:
             lam = self.p.get("n_nuclei", 1)
             if self.p.get("nuclei_poisson", 0.0) >= 0.5:
@@ -748,7 +729,7 @@ class MiniForwardKMC:
             if not self.step():
                 break
             steps += 1
-        return self.summary()
+        return self.summary()   # the mission, such as it was, concludes here
 
     def summary(self):
         total_bonds = sum(self.bonds.values())
@@ -760,11 +741,22 @@ class MiniForwardKMC:
             root = self.dsu.find(uid)
             sizes[root] = sizes.get(root, 0) + 1
         n_units = len(self.units)
-        branch_coeff = self.branch_points / n_units if n_units else 0.0
+        # branch point = a unit carrying three or more bonds. (v1.0.1 reported the
+        # number of condensed EVENTS per unit, which also counted a monomer
+        # attaching to a chain end through C5; that count is kept as
+        # condensed_events.)
+        n_branch = sum(1 for u in self.units.values() if u.deg >= 3)
+        branch_coeff = n_branch / n_units if n_units else 0.0
+        # units whose side chain never reacted (attached through C5 or O4 only):
+        # the model's implicit cinnamyl-alcohol end groups, per 100 units
+        unreacted = sum(1 for u in self.units.values() if u.beta and u.deg > 0)
         comp = {k: (v / n_units if n_units else 0.0) for k, v in self.comp.items()}
         return {"frac": frac, "n_bonds": total_bonds, "n_units": n_units,
                 "n_frags": len(sizes), "max_frag": max(sizes.values()) if sizes else 0,
                 "branch_coeff": branch_coeff, "comp": comp,
+                "condensed_events": self.branch_points,
+                "n_phenolic_ends": sum(1 for u in self.units.values() if u.o4),
+                "unreacted_sidechain_per100": 100.0 * unreacted / n_units if n_units else 0.0,
                 "n_nuclei_formed": self.n_nuclei_formed,
                 "n_nucleation_events": self.n_nucleation_events,
                 "pca_frac": self.n_pca / n_units if n_units else 0.0,

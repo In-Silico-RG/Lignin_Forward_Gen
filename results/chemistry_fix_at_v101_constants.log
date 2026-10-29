@@ -1,0 +1,19 @@
+Corrected generator (fixes A, B, C) run at the v1.0.1 adopted constants, no refit.
+Seeds 7000 + r + 100*S/G, 30 replicates, n_target 120. Compare docs/12_variants_audit.json (v1.0.1 rows: RMSE 0.97/1.21/2.67, ends 34.9/23.0/17.2).
+
+wood         bO4     b5     bb     b1    5-5    4O5 |  RMSE  ends CA/100 branch frags
+softwood    67.2   16.9    3.5    2.2    6.6    3.6 |  1.28  13.0    7.6  0.101  1.00
+poplar      79.2    9.0    3.6    2.3    2.2    3.6 |  1.29   7.9    3.1  0.054  1.00
+high-S      84.6    4.8    3.6    3.0    1.0    3.0 |  2.35   7.1    1.8  0.030  1.70
+deterministic: OK
+  ok {'k_ao4': 0.5} n_units 120 frags 1 bo4 61.3
+  ok {'oligo_bb': 0.3} n_units 120 frags 1 bo4 58.0
+  ok {'oo_route': 1} n_units 120 frags 1 bo4 78.2
+  ok {'oo_route': 2} n_units 120 frags 1 bo4 80.7
+  ok {'k_nuc': 0.5} n_units 120 frags 1 bo4 78.2
+  ok {'nuclei_poisson': 1} n_units 120 frags 1 bo4 72.3
+  ok {'end_restricted': 0} n_units 120 frags 1 bo4 63.9
+  ok {'nucleation_on': 0} n_units 120 frags 1 bo4 82.4
+  ok {'pct_h': 0.1, 'frac_pca': 0.3, 'frac_tricin': 0.15} n_units 120 frags 1 bo4 79.8
+  ok {'k_55_nuc': 1.0} n_units 120 frags 1 bo4 79.8
+480 units: 0.25 s

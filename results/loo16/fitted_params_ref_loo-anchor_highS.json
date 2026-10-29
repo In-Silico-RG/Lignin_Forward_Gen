@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-anchor_highS.log",
+ "_held_out": [
+  "anchor_highS"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 155.0264118006569,
+ "k_bo4": 8.0,
+ "k_b5": 1.8818727635207955,
+ "k_b1": 0.33032910595567166,
+ "k_bb": 22.619836025980273,
+ "k_55": 0.9034249853865164,
+ "k_4o5": 0.19927189271297088,
+ "n_nuclei": 6.982114564216067,
+ "k_bo4_nuc": 0.6999662164805541
+}

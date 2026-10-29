@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-sette2013_norwayspruce_qqhsqc.log",
+ "_held_out": [
+  "sette2013_norwayspruce_qqhsqc"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 229.4779653683137,
+ "k_bo4": 8.0,
+ "k_b5": 2.0054334870029127,
+ "k_b1": 0.24940688271053238,
+ "k_bb": 20.5957076906695,
+ "k_55": 0.7110865825286482,
+ "k_4o5": 0.1466587285670319,
+ "n_nuclei": 7.340136105112116,
+ "k_bo4_nuc": 1.1281858894520567
+}

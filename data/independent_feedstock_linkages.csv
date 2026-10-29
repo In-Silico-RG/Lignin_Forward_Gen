@@ -1,0 +1,14 @@
+source,feedstock,type,method,native_or_technical,sg_ratio,sg_basis,bo4,bo4_err,bo4_basis,b5,bb,notes
+Bourmaud2024,Black pine,softwood,WCW-HSQC0,native,0.0,type-typical(verify),48.0,2.4,mol%,,,doi:10.1002/anie.202404442; whole plant cell wall gel-phase HSQC0
+Bourmaud2024,Poplar,hardwood,WCW-HSQC0,native,1.0,type-typical(verify),60.5,3.0,mol%,,,
+Bourmaud2024,Birch,hardwood,WCW-HSQC0,native,2.5,type-typical(verify),72.5,3.6,mol%,,,
+Bourmaud2024,High-syringyl poplar,hardwood,WCW-HSQC0,native,3.0,type-typical(verify),78.9,3.9,mol%,,,transgenic high-S
+Bourmaud2024,Maple,hardwood,WCW-HSQC0,native,1.2,type-typical(verify),35.3,1.8,mol%,,,low bo4 for a hardwood -- WCW method reads lower than MWL
+Bourmaud2024,Corn cobs,grass,WCW-HSQC0,native,0.8,type-typical(verify),30.4,1.5,mol%,,,GRASS METHOD DISCREPANCY: WCW-HSQC0 gives ~30% vs MWL ~75% (see notes doc)
+Bourmaud2024,Sorghum,grass,WCW-HSQC0,native,0.8,type-typical(verify),29.7,1.5,mol%,,,same grass discrepancy
+Laskar2013,Spruce,softwood,MWL,native,0.0,type-typical(verify),46.0,,mol%,,,doi:10.1002/bbb.1422; isolated milled-wood lignin
+Laskar2013,Poplar,hardwood,MWL,native,1.0,type-typical(verify),57.8,,mol%,,,
+Laskar2013,Birch,hardwood,MWL,native,2.5,type-typical(verify),60.0,,mol%,,,
+Laskar2013,Eucalyptus,hardwood,MWL,native,2.5,type-typical(verify),61.0,,mol%,,,
+Laskar2013,Wheat straw,grass,MWL,native,0.8,type-typical(verify),75.0,,mol%,,,MWL grass reads HIGH (75) vs Bourmaud WCW grass (~30)
+Deuss2017,Elephant grass,grass,MWL-HSQC,native,1.4,measured(HSQC),54.0,,pct-of-linkages,2.0,1.0,doi:10.1002/cssc.201601608; bo4/b5/bb are % of identified linkages (different denominator); NO 5-5/4-O-5 reported

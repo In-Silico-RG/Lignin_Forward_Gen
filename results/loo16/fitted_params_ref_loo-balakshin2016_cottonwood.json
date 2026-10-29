@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-balakshin2016_cottonwood.log",
+ "_held_out": [
+  "balakshin2016_cottonwood"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 176.34889588487383,
+ "k_bo4": 8.0,
+ "k_b5": 2.0912466554669464,
+ "k_b1": 0.32449471333940355,
+ "k_bb": 20.743727044562316,
+ "k_55": 0.8702354044519689,
+ "k_4o5": 0.15453935332356603,
+ "n_nuclei": 6.611687702860726,
+ "k_bo4_nuc": 0.8402233811488815
+}

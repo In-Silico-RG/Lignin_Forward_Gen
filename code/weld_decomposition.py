@@ -2,6 +2,8 @@
 weld_decomposition.py
 
 How much of the model's condensed (5-5 / 4-O-5) linkage is structurally forced?
+Condensed bonds: resistance is futile to form, but once formed, resist to the end
+-- these are the ones the paper means by "resists depolymerization."
 
 The generator emits ONE molecule. Only 5-5 and 4-O-5 join two fragments that are
 both larger than a monomer, so welding the n_nuclei separately grown chains into a
@@ -50,8 +52,10 @@ REF = {
 WOODS = [(0.0, "softwood"), (1.0, "poplar"), (3.0, "high-S")]
 
 
-def load_params():
-    with open(os.path.join(RESULTS, "fitted_params.json")) as fh:
+def load_params(path=None):
+    """Constants from a fitted_params*.json (default: the v1.0.1 three-anchor fit).
+    Underscore-prefixed keys are notes, not parameters."""
+    with open(path or os.path.join(RESULTS, "fitted_params.json")) as fh:
         p = json.load(fh)
     return {k: v for k, v in p.items() if not k.startswith("_")}
 
@@ -94,9 +98,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--reps", type=int, default=24)
     ap.add_argument("--n", type=int, default=120)
+    ap.add_argument("--params", default=None,
+                    help="fitted_params*.json to run at (default: results/fitted_params.json, v1.0.1)")
+    ap.add_argument("--tag", default="", help="suffix for the output CSV")
     args = ap.parse_args()
 
-    params = load_params()
+    params = load_params(args.params)
     n_bonds = args.n - 1
     required = round(params["n_nuclei"]) - 1
 
@@ -116,10 +123,17 @@ def main():
     rows = []
     for sg, name in WOODS:
         agg = {}
+        frags = []
         for seed in range(args.reps):
-            rec, _ = run_one(sg, seed, params, args.n)
+            rec, summ = run_one(sg, seed, params, args.n)
             for k, v in rec.items():
                 agg[k] = agg.get(k, 0) + v
+            frags.append(summ["n_frags"])
+        # Since v1.1 a run need not close to one molecule (an S end has no C5 to weld
+        # through), so the welds actually made are reported beside the required count.
+        print("%-9s fragments at the end of the run: mean %.2f (required welds %d, made %.2f)"
+              % (name, sum(frags) / len(frags), required,
+                 (agg.get(("55", "weld"), 0) + agg.get(("4o5", "weld"), 0)) / args.reps))
         for bond in ("55", "4o5"):
             weld = agg[(bond, "weld")] / args.reps
             elect = agg[(bond, "elect")] / args.reps
@@ -131,6 +145,7 @@ def main():
                   % (name, bond, model_pct, weld_pct, elect_pct, ref,
                      model_pct - ref, elect_pct - ref))
             rows.append({"wood": name, "sg": sg, "bond": bond,
+                         "n_frags": round(sum(frags) / len(frags), 3),
                          "model_pct": round(model_pct, 3),
                          "weld_pct": round(weld_pct, 3),
                          "elective_pct": round(elect_pct, 3),
@@ -145,7 +160,7 @@ def main():
     print("the measured value. If that column is near zero while 'model-ref' is not,")
     print("the model's condensed excess is the single-molecule constraint, not the fit.")
 
-    out = os.path.join(RESULTS, "weld_decomposition.csv")
+    out = os.path.join(RESULTS, "weld_decomposition%s.csv" % args.tag)
     with open(out, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()

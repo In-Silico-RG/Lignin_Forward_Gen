@@ -1,0 +1,16 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60h_loso_sw-peng.log",
+ "_held_out": [
+  "peng2021_poplar_ck_del",
+  "peng2021_poplar_c3h_del"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 561.999393958692,
+ "m_b5": 0.12544651931591908,
+ "m_b1": 0.820186008589784,
+ "m_bb": 0.9015439505988252,
+ "m_55": 1.9201980304299908,
+ "m_5o4": 1.3828263966822634,
+ "m_ao4": 2.0538824464458716,
+ "add_rate": 34.07450156909721
+}

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v60h_loso_sw-dou.log",
+ "_held_out": [
+  "dou2018_willow_wood_wcw"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 223.49999880023427,
+ "k_bo4": 8.0,
+ "k_b5": 2.306481568989757,
+ "k_b1": 0.3379045240821678,
+ "k_bb": 22.70323180551513,
+ "k_55": 0.6498938905541892,
+ "k_4o5": 0.1066928262834472,
+ "n_nuclei": 8.59727093150275,
+ "k_bo4_nuc": 0.9200778446434732
+}

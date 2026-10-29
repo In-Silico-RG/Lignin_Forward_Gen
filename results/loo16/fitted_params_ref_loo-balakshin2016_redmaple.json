@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-balakshin2016_redmaple.log",
+ "_held_out": [
+  "balakshin2016_redmaple"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 168.8790496892888,
+ "k_bo4": 8.0,
+ "k_b5": 1.6848828940117542,
+ "k_b1": 0.33293812236090947,
+ "k_bb": 20.926725519858223,
+ "k_55": 0.9488500628585358,
+ "k_4o5": 0.19081936108518413,
+ "n_nuclei": 7.164159766062339,
+ "k_bo4_nuc": 0.7517356276810916
+}

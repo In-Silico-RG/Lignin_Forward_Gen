@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo-balakshin2016_acacia.log",
+ "_held_out": [
+  "balakshin2016_acacia"
+ ],
+ "_source_weighted": false,
+ "_chi2_eval": 175.22136228824996,
+ "k_bo4": 8.0,
+ "k_b5": 1.9811860826246643,
+ "k_b1": 0.33200033349877006,
+ "k_bb": 22.69527769343139,
+ "k_55": 0.635304987431915,
+ "k_4o5": 0.13947507595507114,
+ "n_nuclei": 7.01189842373322,
+ "k_bo4_nuc": 0.8911887686079774
+}

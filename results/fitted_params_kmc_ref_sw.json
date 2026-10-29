@@ -1,0 +1,13 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_sw.log",
+ "_held_out": [],
+ "_source_weighted": true,
+ "_chi2_eval": 877.1479121563871,
+ "m_b5": 0.12315357792582894,
+ "m_b1": 1.0845361721694595,
+ "m_bb": 0.8093221272845926,
+ "m_55": 2.1596819895745303,
+ "m_5o4": 1.2540974989263205,
+ "m_ao4": 1.5824871327214616,
+ "add_rate": 4.591866253501056
+}

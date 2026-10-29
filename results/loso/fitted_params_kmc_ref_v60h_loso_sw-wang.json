@@ -1,0 +1,16 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60h_loso_sw-wang.log",
+ "_held_out": [
+  "wangdeuss2021_birch_mwl",
+  "wangdeuss2021_pine_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 596.5592507002119,
+ "m_b5": 0.12048638539791713,
+ "m_b1": 1.3037735702030706,
+ "m_bb": 0.5666104740143687,
+ "m_55": 1.8213320737543715,
+ "m_5o4": 1.8134887697643978,
+ "m_ao4": 2.278783190078378,
+ "add_rate": 15.255668719855137
+}

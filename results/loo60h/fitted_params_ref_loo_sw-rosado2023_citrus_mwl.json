@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-rosado2023_citrus_mwl.log",
+ "_held_out": [
+  "rosado2023_citrus_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 236.0455209595575,
+ "k_bo4": 8.0,
+ "k_b5": 2.0193455679370653,
+ "k_b1": 0.27730286195610526,
+ "k_bb": 21.268395213225922,
+ "k_55": 0.6074425650615117,
+ "k_4o5": 0.14053880692705592,
+ "n_nuclei": 7.72267947604339,
+ "k_bo4_nuc": 1.037312454763262
+}

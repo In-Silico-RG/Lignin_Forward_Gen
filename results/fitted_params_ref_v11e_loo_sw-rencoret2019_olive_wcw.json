@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11e_loo_sw-rencoret2019_olive_wcw.log",
+ "_held_out": [
+  "rencoret2019_olive_wcw"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 240.0415203247617,
+ "k_bo4": 8.0,
+ "k_b5": 2.1942378038522596,
+ "k_b1": 0.48234017559320636,
+ "k_bb": 23.160557641901057,
+ "k_55": 0.6433453866108936,
+ "k_4o5": 0.16143802378280858,
+ "n_nuclei": 7.362384070464654,
+ "k_bo4_nuc": 1.0275229872192968
+}

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-lourenco2016_qsuber_xylem_ml.log",
+ "_held_out": [
+  "lourenco2016_qsuber_xylem_ml"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 237.14440928155184,
+ "k_bo4": 8.0,
+ "k_b5": 1.9795649094526824,
+ "k_b1": 0.2854777755091791,
+ "k_bb": 20.642229640411532,
+ "k_55": 0.5767064039224283,
+ "k_4o5": 0.12614071865832355,
+ "n_nuclei": 9.078487202770598,
+ "k_bo4_nuc": 1.0428106453923607
+}

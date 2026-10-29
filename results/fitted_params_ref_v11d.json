@@ -1,0 +1,14 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11d.log",
+ "_held_out": [],
+ "_source_weighted": false,
+ "_chi2_eval": 726.7020273007231,
+ "k_bo4": 8.0,
+ "k_b5": 1.8955620064327123,
+ "k_b1": 0.29781264127009893,
+ "k_bb": 24.47077705187703,
+ "k_55": 0.6905176801811417,
+ "k_4o5": 0.17226006198471677,
+ "n_nuclei": 9.44932476077697,
+ "k_bo4_nuc": 0.8119028817734488
+}

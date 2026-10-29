@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11e_loo_sw-wangdeuss2021_pine_mwl.log",
+ "_held_out": [
+  "wangdeuss2021_pine_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 232.20738144280577,
+ "k_bo4": 8.0,
+ "k_b5": 2.2662947908271707,
+ "k_b1": 0.39883829669163895,
+ "k_bb": 32.332733870977044,
+ "k_55": 0.5857089070809847,
+ "k_4o5": 0.17333286917689025,
+ "n_nuclei": 7.183456556465301,
+ "k_bo4_nuc": 0.9533956364206786
+}

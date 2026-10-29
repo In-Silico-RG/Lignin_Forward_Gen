@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_loo_sw-ralph2012_poplar_wt_cel.log",
+ "_held_out": [
+  "ralph2012_poplar_wt_cel"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 247.8186453818487,
+ "k_bo4": 8.0,
+ "k_b5": 2.0826901965162934,
+ "k_b1": 0.3008054402616076,
+ "k_bb": 22.232000688289016,
+ "k_55": 0.5966852144855928,
+ "k_4o5": 0.15293280858531483,
+ "n_nuclei": 7.221367846116541,
+ "k_bo4_nuc": 0.9639936799580369
+}

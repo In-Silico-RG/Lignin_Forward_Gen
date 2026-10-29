@@ -1,0 +1,6 @@
+structure_from_run.py  2026-09-25 15:10
+params results/fitted_params_ref_v11e_sw.json  S/G 1.00  H 0.00  N 120  seed 7000
+events 119  bonds {'bb': 6, 'b5': 9, 'bo4': 92, '55': 6, '4o5': 5, 'b1': 1}  fragments 1
+formula C1258H1502O510  MW 24783.3  heavy atoms 1768
+2D 48.3 s  3D 0.0 s (none)
+wrote results/structures/sg1.0_n120_seed7000.json

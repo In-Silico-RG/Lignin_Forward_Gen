@@ -1,0 +1,14 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11d_sw_ablate_single.log",
+ "_held_out": [],
+ "_source_weighted": true,
+ "_chi2_eval": 248.83006297892052,
+ "k_bo4": 8.0,
+ "k_b5": 2.310977556025501,
+ "k_b1": 0.45821271436035166,
+ "k_bb": 13.459108879022963,
+ "k_55": 0.7696979484577273,
+ "k_4o5": 0.1331226210723778,
+ "n_nuclei": 10.19909416618087,
+ "k_bo4_nuc": 0.8563920850074608
+}

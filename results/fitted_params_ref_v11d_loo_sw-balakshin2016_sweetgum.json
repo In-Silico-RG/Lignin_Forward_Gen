@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11d_loo_sw-balakshin2016_sweetgum.log",
+ "_held_out": [
+  "balakshin2016_sweetgum"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 254.5729219157977,
+ "k_bo4": 8.0,
+ "k_b5": 2.163542319225997,
+ "k_b1": 0.3363202451895002,
+ "k_bb": 16.47327789913935,
+ "k_55": 0.8313346739855008,
+ "k_4o5": 0.17260118878749192,
+ "n_nuclei": 7.329448736412647,
+ "k_bo4_nuc": 1.1962269206409804
+}
