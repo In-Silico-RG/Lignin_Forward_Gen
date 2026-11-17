@@ -16,7 +16,7 @@ beta-O-4 that each of the 60 samples reports (171 components).
 Same reading as SI S5 of the v1.0.1 paper: a constant whose sweep moves the observables
 by many sigma is determined by the data; one that stays within a few sigma is not.
 
-    python code/identifiability_ref.py --params results/fitted_params_ref_v60h_sw.json
+    python code/identifiability_ref.py --params results/fitted_params_ref_v60i_sw.json
 """
 import argparse
 import json

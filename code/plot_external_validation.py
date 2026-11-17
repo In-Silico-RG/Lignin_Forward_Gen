@@ -23,7 +23,7 @@ The figure makes three honest points at once:
      the model without resolving the method gap.
 
 Run:    conda run -n base python code/plot_external_validation.py
-Output: manuscript/submission/figures/fig_external_validation.pdf (+ .png)
+Output: manuscript/figures/fig_external_validation.pdf (+ .png)
 """
 import os
 import csv
@@ -35,7 +35,7 @@ from matplotlib.lines import Line2D
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir)
 CSV = os.path.join(ROOT, "data", "independent_feedstock_linkages.csv")
-OUT = os.path.join(ROOT, "manuscript", "submission", "figures", "fig_external_validation")
+OUT = os.path.join(ROOT, "manuscript", "figures", "fig_external_validation")
 
 BLUE, GREEN, ORANGE, INK, MUTED, GRID = (
     "#2a78d6", "#008300", "#eb6834", "#0b0b0b", "#898781", "#e1e0d9")

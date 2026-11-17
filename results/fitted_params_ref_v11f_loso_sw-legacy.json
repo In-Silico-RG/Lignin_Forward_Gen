@@ -1,0 +1,18 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loso_sw-legacy.log",
+ "_held_out": [
+  "anchor_softwood",
+  "anchor_poplar",
+  "anchor_highS"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 156.94512366925565,
+ "k_bo4": 8.0,
+ "k_b5": 2.2519589336913644,
+ "k_b1": 0.5432594270419693,
+ "k_bb": 14.310100847287393,
+ "k_55": 0.40827269942546135,
+ "k_4o5": 0.23923024782813496,
+ "n_nuclei": 8.713431908066434,
+ "k_bo4_nuc": 0.7043825482645336
+}

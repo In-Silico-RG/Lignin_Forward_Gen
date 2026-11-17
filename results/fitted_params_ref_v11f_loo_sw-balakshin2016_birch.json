@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loo_sw-balakshin2016_birch.log",
+ "_held_out": [
+  "balakshin2016_birch"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 203.0359377644924,
+ "k_bo4": 8.0,
+ "k_b5": 2.1092320460682727,
+ "k_b1": 0.42905536717374554,
+ "k_bb": 29.023083920603142,
+ "k_55": 0.6596704087332168,
+ "k_4o5": 0.14175171790855054,
+ "n_nuclei": 7.973605124001599,
+ "k_bo4_nuc": 1.1754291379559536
+}

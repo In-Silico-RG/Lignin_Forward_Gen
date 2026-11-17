@@ -31,7 +31,7 @@ Stereocentres are not assigned; the 3D model is one diastereomer, a geometry ill
 
 Usage (RDKit needed; the lignin env's RDKit is broken by NumPy 2, use base conda):
     ~/miniconda3/bin/python code/structure_from_run.py --sg 1.0 --seed 7000 \
-        --params results/fitted_params_ref_v11e_sw.json
+        --params results/fitted_params_ref_v11f_sw.json
 """
 import argparse
 import json
@@ -170,7 +170,7 @@ def main():
     ap.add_argument("--pct-h", type=float, default=0.0)
     ap.add_argument("--n", type=int, default=120)
     ap.add_argument("--seed", type=int, default=7000)
-    ap.add_argument("--params", default=os.path.join("results", "fitted_params_ref_v11e_sw.json"))
+    ap.add_argument("--params", default=os.path.join("results", "fitted_params_ref_v11f_sw.json"))
     ap.add_argument("--tag", default=None)
     ap.add_argument("--scale-nuclei", action="store_true",
                     help="scale n_nuclei by n/120, so a small molecule keeps the calibrated seed proportion")

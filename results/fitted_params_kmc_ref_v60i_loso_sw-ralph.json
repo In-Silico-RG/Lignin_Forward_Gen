@@ -1,0 +1,16 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-ralph.log",
+ "_held_out": [
+  "ralph2012_poplar_wt_cel",
+  "ralph2012_poplar_c3h14_cel"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 590.4699674824279,
+ "m_b5": 0.12195497981756465,
+ "m_b1": 1.1149932706549033,
+ "m_bb": 0.6589641608542568,
+ "m_55": 2.285091436277696,
+ "m_5o4": 1.442276780063962,
+ "m_ao4": 1.8250331993350077,
+ "add_rate": 4.883375021569789
+}

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loso_sw-capanema.log",
+ "_held_out": [
+  "capanema2005_egrandis"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 152.96417759360338,
+ "k_bo4": 8.0,
+ "k_b5": 1.9666331692413506,
+ "k_b1": 0.31219410639644657,
+ "k_bb": 24.175213412341897,
+ "k_55": 0.5744041212438529,
+ "k_4o5": 0.1669600036337818,
+ "n_nuclei": 8.193044818355558,
+ "k_bo4_nuc": 0.8254015124340692
+}

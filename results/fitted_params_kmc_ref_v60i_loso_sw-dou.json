@@ -1,0 +1,15 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-dou.log",
+ "_held_out": [
+  "dou2018_willow_wood_wcw"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 563.6795617295893,
+ "m_b5": 0.12095669368935921,
+ "m_b1": 1.2679798700839342,
+ "m_bb": 1.2453603074399726,
+ "m_55": 1.4231089915063029,
+ "m_5o4": 1.0830377860805234,
+ "m_ao4": 1.2709742737096938,
+ "add_rate": 3.0102817723590984
+}

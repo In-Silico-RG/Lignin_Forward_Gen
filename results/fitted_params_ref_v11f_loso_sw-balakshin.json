@@ -1,0 +1,27 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loso_sw-balakshin.log",
+ "_held_out": [
+  "balakshin2016_birch",
+  "balakshin2016_redoak",
+  "balakshin2016_sweetgum",
+  "balakshin2016_redmaple",
+  "balakshin2016_egrandis",
+  "balakshin2016_redalder",
+  "balakshin2016_cottonwood",
+  "balakshin2016_acacia",
+  "balakshin2016_eglobulus",
+  "balakshin2016_enitens",
+  "balakshin2016_eurograndis",
+  "balakshin2016_ebenthamii"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 202.5871197999007,
+ "k_bo4": 8.0,
+ "k_b5": 2.1588662088969293,
+ "k_b1": 0.26836643281096745,
+ "k_bb": 18.871950776579823,
+ "k_55": 0.7704454808713234,
+ "k_4o5": 0.19043752458288565,
+ "n_nuclei": 8.563369191246874,
+ "k_bo4_nuc": 0.6646456132599006
+}

@@ -1,0 +1,17 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loso_sw-wang.log",
+ "_held_out": [
+  "wangdeuss2021_birch_mwl",
+  "wangdeuss2021_pine_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 199.06607252021283,
+ "k_bo4": 8.0,
+ "k_b5": 2.2231858977194454,
+ "k_b1": 0.27948294150119724,
+ "k_bb": 16.86671227855076,
+ "k_55": 0.7466399301026326,
+ "k_4o5": 0.1806144566342083,
+ "n_nuclei": 9.163112357275708,
+ "k_bo4_nuc": 0.842164688430279
+}

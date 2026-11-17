@@ -1,0 +1,143 @@
+Calibration on the expanded reference set (ratios to beta-O-4)
+samples in fit: 59  held out: ['peng2021_poplar_c3h_del']  reps: 8  N: 120  seed base: 7000  source-weighted: True
+generator: code/mini_forward_generator.py
+free parameters: ['k_b5', 'k_b1', 'k_bb', 'k_55', 'k_4o5', 'n_nuclei', 'k_bo4_nuc']  start: {'k_b5': 2.1104, 'k_b1': 0.4295, 'k_bb': 29.0993, 'k_55': 0.6595, 'k_4o5': 0.1417, 'n_nuclei': 7.9672, 'k_bo4_nuc': 0.9669}
+  eval  20  chi2=211.438  best=198.142
+  eval  40  chi2=208.529  best=198.142
+  eval  60  chi2=193.713  best=193.713
+  eval  80  chi2=192.816  best=191.946
+  eval 100  chi2=191.403  best=191.403
+  eval 120  chi2=190.973  best=190.491
+  eval 140  chi2=191.012  best=190.452
+  eval 160  chi2=190.491  best=190.452
+
+fitted params: {'k_bo4': 8.0, 'k_b5': 2.1059, 'k_b1': 0.4339, 'k_bb': 30.9013, 'k_55': 0.6216, 'k_4o5': 0.2102, 'n_nuclei': 7.9752, 'k_bo4_nuc': 0.9246}
+minimised chi2 = 190.452 (171 evals)
+
+chi2 at 30 reps: 201.018 over 59 samples, 169 terms
+sample                         S/G   chi2  z per ratio (model - measured)/sigma
+anchor_softwood               0.00  12.83  b5:-0.70 bb:+1.70 b1:-0.41 c55:+0.72 c4o5:+2.96
+anchor_poplar                 1.00  13.89  b5:+0.27 bb:+0.98 b1:+1.08 c55:-0.67 c4o5:+3.35
+anchor_highS                  3.00  31.67  b5:+0.92 bb:+2.14 b1:+2.07 c55:-0.04 c4o5:+4.69
+balakshin2016_birch           3.02  10.21  b5:+0.28 bb:+0.52 b1:-2.59 dc:-1.78
+balakshin2016_redoak          2.13   8.94  b5:+0.67 bb:+1.60 b1:+0.25 dc:-2.42
+balakshin2016_sweetgum        1.61   8.97  b5:+0.88 bb:+0.06 b1:-0.96 dc:-2.70
+balakshin2016_redmaple        1.20   4.25  b5:+0.39 bb:-0.43 b1:-0.92 dc:-1.75
+balakshin2016_egrandis        2.00   9.69  b5:+1.11 bb:+1.50 b1:-1.61 dc:-1.90
+balakshin2016_redalder        1.37   9.11  b5:+1.58 bb:+1.08 b1:+0.14 dc:-2.32
+balakshin2016_cottonwood      1.41   1.02  b5:+0.08 bb:-0.03 b1:-0.88 dc:-0.48
+balakshin2016_acacia          1.15   5.79  b5:+1.46 bb:+1.05 b1:+0.08 dc:-1.60
+balakshin2016_eglobulus       2.73   6.86  b5:+1.52 bb:-0.26 b1:-0.90 dc:-1.91
+balakshin2016_enitens         2.59   2.52  b5:+1.10 bb:-0.35 b1:-0.66 dc:-0.87
+balakshin2016_eurograndis     1.76  11.54  b5:+2.93 bb:+0.15 b1:-0.32 dc:-1.67
+balakshin2016_ebenthamii      1.85  17.60  b5:+4.06 bb:+0.30 b1:-0.51 dc:-0.88
+capanema2005_egrandis         1.72  45.54  b5:+1.54 bb:+1.69 b1:-4.00 c55:+0.22 c4o5:-4.48 dc:-2.06
+sette2011_norwayspruce_mwl    0.00   1.22  b5:-0.61 bb:+0.89 b1:+0.24
+sette2011_blackspruce_mwl     0.00   5.08  b5:-1.80 bb:-1.22 b1:+0.60
+sette2011_norwayspruce_emal   0.00   8.27  b5:-0.16 bb:+2.70 b1:-0.97
+sette2011_beech_mwl           1.67  19.97  b5:+3.23 bb:-2.97 b1:-0.85
+sette2013_norwayspruce_qqhsqc  0.00  14.55  b5:-2.51 bb:-2.87 b1:-0.22
+rencoret2019_olive_mwl        0.90  14.54  b5:-3.47 bb:+1.13 b1:+1.10
+rencoret2019_olive_wcw        1.00   7.08  b5:-2.38 bb:+1.20
+rencoret2009_paulownia_mwl    0.66  10.55  b5:-2.62 bb:-0.97 b1:-1.65
+rencoret2011_eglobulus_1mo_mwl  1.33   6.73  b5:+0.19 bb:-2.44 b1:-0.85
+rencoret2011_eglobulus_18mo_mwl  2.70  12.39  b5:+0.57 bb:-2.91 b1:-1.90
+rencoret2011_eglobulus_9y_mwl  3.17  13.97  b5:+1.13 bb:-2.98 b1:-1.95
+rosado2023_citrus_mwl         0.60  10.05  b5:-3.07 bb:+0.69 b1:-0.39
+lourenco2016_qsuber_xylem_ml  1.20   5.26  b5:-1.11 bb:+2.00 b1:-0.07
+wangdeuss2021_birch_mwl       2.00   1.71  b5:-0.33 bb:-1.27
+wangdeuss2021_pine_mwl        0.00  17.13  b5:-4.14 bb:+0.17
+stewart2009_poplar_wt_acml    2.24  17.97  b5:+3.99 bb:-0.97 b1:+1.04
+stewart2009_poplar_f5h_acml  38.00   4.49  b5:+0.42 bb:-2.01 b1:+0.53
+ralph2012_poplar_wt_cel       1.70   1.72  b5:+1.20 bb:+0.54
+ralph2012_poplar_c3h14_cel    3.60   6.41  b5:+2.49 bb:+0.47
+peng2021_poplar_ck_del        2.82   6.65  b5:+1.69 bb:-1.95
+dou2018_willow_wood_wcw       2.00  10.34  b5:+3.20 bb:-0.36
+happs2021_besc004             1.60  15.57  b5:-0.83 bb:-3.86
+happs2021_besc021             0.89  19.83  b5:-1.73 bb:-4.11
+happs2021_besc036             1.90  10.71  b5:+0.04 bb:-3.27
+happs2021_besc075             2.10  14.17  b5:+0.30 bb:-3.75
+happs2021_besc095             1.50   8.30  b5:-0.03 bb:-2.88
+happs2021_besc096             2.10  12.19  b5:+1.71 bb:-3.04
+happs2021_besc140             1.70  11.41  b5:+0.84 bb:-3.27
+happs2021_besc169             1.20   9.82  b5:-0.03 bb:-3.13
+happs2021_besc173             1.10  14.82  b5:-1.34 bb:-3.61
+happs2021_besc182             1.80  11.61  b5:-0.76 bb:-3.32
+happs2021_besc217             1.70  12.54  b5:-0.20 bb:-3.54
+happs2021_besc219             2.30  18.87  b5:+1.90 bb:-3.91
+happs2021_besc255             1.80  14.14  b5:-1.12 bb:-3.59
+happs2021_besc282             1.10  34.81  b5:-4.13 bb:-4.21
+happs2021_besc322             2.20  15.70  b5:+2.03 bb:-3.41
+happs2021_besc334             2.30  18.19  b5:+0.07 bb:-4.26
+happs2021_besc388             0.94  20.37  b5:-2.67 bb:-3.64
+happs2021_besc841             2.40  12.74  b5:+0.59 bb:-3.52
+happs2021_besc853             2.40  13.55  b5:+1.08 bb:-3.52
+happs2021_besc863             1.40  14.79  b5:+1.36 bb:-3.60
+happs2021_besc883             2.30  15.64  b5:+2.46 bb:-3.10
+happs2021_nist_pine           0.00  19.08  b5:-4.36 bb:+0.20
+
+held-out samples (predicted with the fitted constants):
+peng2021_poplar_c3h_del       2.48   4.94  b5:+2.03 bb:-0.91
+
+model per 100 units at the fitted constants (30 reps):
+sample                         S/G    bo4    b5    bb    b1   5-5   4O5    DC
+anchor_softwood               0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+anchor_poplar                 1.00   74.0   7.5   6.0   3.1   2.8   5.8  18.9
+anchor_highS                  3.00   78.9   4.0   6.2   3.1   1.0   5.2  11.2
+balakshin2016_birch           3.02   79.4   3.9   6.1   2.8   1.4   4.6  11.4
+balakshin2016_redoak          2.13   78.3   4.8   6.0   2.9   1.4   5.5  13.1
+balakshin2016_sweetgum        1.61   76.9   5.8   6.0   3.0   2.0   5.3  15.1
+balakshin2016_redmaple        1.20   75.4   7.0   5.9   2.7   2.4   5.7  17.4
+balakshin2016_egrandis        2.00   77.7   5.2   5.8   3.0   1.6   5.6  13.9
+balakshin2016_redalder        1.37   76.6   6.0   6.0   2.8   2.4   5.5  16.2
+balakshin2016_cottonwood      1.41   76.0   6.0   5.8   3.1   2.9   5.4  17.1
+balakshin2016_acacia          1.15   75.2   7.1   5.9   2.7   2.9   5.4  18.2
+balakshin2016_eglobulus       2.73   78.7   4.6   6.1   2.7   1.5   5.0  12.5
+balakshin2016_enitens         2.59   77.4   5.4   6.1   3.1   1.6   5.3  14.0
+balakshin2016_eurograndis     1.76   76.6   6.1   5.8   3.3   1.9   5.5  15.4
+balakshin2016_ebenthamii      1.85   76.5   6.1   5.8   3.0   1.9   5.8  15.7
+capanema2005_egrandis         1.72   76.6   5.7   5.9   3.5   2.2   5.1  15.2
+sette2011_norwayspruce_mwl    0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+sette2011_blackspruce_mwl     0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+sette2011_norwayspruce_emal   0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+sette2011_beech_mwl           1.67   76.8   5.4   6.1   3.4   1.9   5.4  14.7
+sette2013_norwayspruce_qqhsqc  0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+rencoret2019_olive_mwl        0.90   74.3   7.4   5.9   3.0   3.6   4.9  19.6
+rencoret2019_olive_wcw        1.00   74.1   7.6   5.9   3.3   2.4   5.8  18.3
+rencoret2009_paulownia_mwl    0.66   72.9   8.1   5.7   2.6   3.2   6.6  21.1
+rencoret2011_eglobulus_1mo_mwl  1.33   76.1   6.2   5.9   3.2   2.2   5.6  16.2
+rencoret2011_eglobulus_18mo_mwl  2.70   78.9   4.0   6.1   3.2   1.4   4.9  11.7
+rencoret2011_eglobulus_9y_mwl  3.17   79.5   3.4   6.1   3.2   0.9   4.9  10.2
+rosado2023_citrus_mwl         0.60   72.8   8.8   5.5   2.7   3.5   5.8  21.7
+lourenco2016_qsuber_xylem_ml  1.20   74.7   7.3   6.0   2.8   2.8   5.6  18.4
+wangdeuss2021_birch_mwl       2.00   78.1   5.4   6.0   2.6   1.4   5.4  13.5
+wangdeuss2021_pine_mwl        0.00   65.0  13.5   6.1   2.4   6.7   5.4  32.3
+stewart2009_poplar_wt_acml    2.24   77.6   5.4   5.9   2.8   1.8   5.5  14.4
+stewart2009_poplar_f5h_acml  38.00   82.4   0.5   6.6   3.7   0.0   0.8   1.3
+ralph2012_poplar_wt_cel       1.70   77.2   5.4   6.0   3.3   2.0   5.2  14.6
+ralph2012_poplar_c3h14_cel    3.60   75.4   5.9   6.2   3.2   2.7   5.7  17.0
+peng2021_poplar_ck_del        2.82   78.8   3.9   6.1   3.3   1.5   5.1  12.0
+dou2018_willow_wood_wcw       2.00   77.2   5.5   5.7   3.4   1.9   5.3  14.6
+happs2021_besc004             1.60   77.0   5.6   6.0   3.1   1.9   5.5  14.9
+happs2021_besc021             0.89   73.8   7.9   5.9   2.9   3.4   5.3  20.1
+happs2021_besc036             1.90   77.6   5.1   5.9   3.2   1.9   5.2  14.1
+happs2021_besc075             2.10   77.8   5.3   5.8   3.1   1.9   5.0  14.1
+happs2021_besc095             1.50   76.6   5.3   6.1   3.2   2.2   5.8  15.4
+happs2021_besc096             2.10   77.8   5.3   5.8   3.1   1.9   5.0  14.1
+happs2021_besc140             1.70   76.9   5.4   6.1   3.1   2.2   5.3  15.2
+happs2021_besc169             1.20   74.9   6.6   6.0   3.1   3.1   5.4  18.2
+happs2021_besc173             1.10   74.9   7.0   6.1   3.0   2.8   5.4  17.9
+happs2021_besc182             1.80   77.9   5.4   5.9   2.9   1.9   5.1  14.2
+happs2021_besc217             1.70   76.9   5.4   6.1   3.1   2.2   5.3  15.2
+happs2021_besc219             2.30   78.0   5.2   6.1   2.8   1.4   5.5  13.4
+happs2021_besc255             1.80   77.9   5.4   5.9   2.9   1.9   5.1  14.2
+happs2021_besc282             1.10   74.9   7.0   6.1   3.0   2.8   5.4  17.9
+happs2021_besc322             2.20   77.4   5.5   5.9   3.0   1.7   5.4  14.2
+happs2021_besc334             2.30   78.0   5.2   6.1   2.8   1.4   5.5  13.4
+happs2021_besc388             0.94   73.9   7.6   5.9   2.9   3.1   5.8  19.6
+happs2021_besc841             2.40   78.6   4.8   6.2   2.2   1.1   5.6  12.7
+happs2021_besc853             2.40   78.6   4.8   6.2   2.2   1.1   5.6  12.7
+happs2021_besc863             1.40   76.8   5.9   5.9   2.7   2.1   5.7  15.7
+happs2021_besc883             2.30   78.0   5.2   6.1   2.8   1.4   5.5  13.4
+happs2021_nist_pine           0.00   64.5  14.3   5.9   2.2   6.6   5.6  33.1
+peng2021_poplar_c3h_del       2.48   78.6   4.4   6.1   3.0   1.2   5.2  12.0

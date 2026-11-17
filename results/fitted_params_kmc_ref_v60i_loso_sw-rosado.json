@@ -1,0 +1,15 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-rosado.log",
+ "_held_out": [
+  "rosado2023_citrus_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 581.2378700405941,
+ "m_b5": 0.11963163312613041,
+ "m_b1": 0.9584708641973935,
+ "m_bb": 0.7872100676644619,
+ "m_55": 2.153904359086881,
+ "m_5o4": 1.5458767543521679,
+ "m_ao4": 1.7444559505936823,
+ "add_rate": 4.459934682393742
+}

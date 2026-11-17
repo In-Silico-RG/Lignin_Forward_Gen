@@ -1,0 +1,20 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-rencoret.log",
+ "_held_out": [
+  "rencoret2019_olive_mwl",
+  "rencoret2019_olive_wcw",
+  "rencoret2009_paulownia_mwl",
+  "rencoret2011_eglobulus_1mo_mwl",
+  "rencoret2011_eglobulus_18mo_mwl",
+  "rencoret2011_eglobulus_9y_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 515.5710610579255,
+ "m_b5": 0.12026521892966048,
+ "m_b1": 1.066050949696573,
+ "m_bb": 0.8084666891387663,
+ "m_55": 2.1869539108261296,
+ "m_5o4": 1.3641694163390847,
+ "m_ao4": 1.4521485225738757,
+ "add_rate": 4.366812151602373
+}

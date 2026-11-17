@@ -1,0 +1,26 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-balakshin.log",
+ "_held_out": [
+  "balakshin2016_birch",
+  "balakshin2016_redoak",
+  "balakshin2016_sweetgum",
+  "balakshin2016_redmaple",
+  "balakshin2016_egrandis",
+  "balakshin2016_redalder",
+  "balakshin2016_cottonwood",
+  "balakshin2016_acacia",
+  "balakshin2016_eglobulus",
+  "balakshin2016_enitens",
+  "balakshin2016_eurograndis",
+  "balakshin2016_ebenthamii"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 515.6876606857694,
+ "m_b5": 0.12090730481657645,
+ "m_b1": 0.725040333938888,
+ "m_bb": 1.7838528483342628,
+ "m_55": 1.5397287514367697,
+ "m_5o4": 0.7390999714757082,
+ "m_ao4": 2.2335577722912423,
+ "add_rate": 11.707352643429806
+}

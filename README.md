@@ -1,6 +1,6 @@
 # Lignin_Forward_Gen
 
-A minimal, transparent **forward** kinetic Monte Carlo generator that predicts the
+A minimal, transparent **forward** generator that predicts the
 native lignin inter-unit **linkage inventory** (β-O-4, β-5, β-β, β-1, 5-5, 4-O-5)
 from monomer composition (S/G ratio and H fraction) alone. Unlike *backward*
 generators, which are given target bond fractions and reproduce them, this generator
@@ -15,7 +15,7 @@ boldly calibrate where no model has calibrated before.
 
 ## Paper
 
-> M. Y. Combariza and A. F. Combariza, *Predicting linkage-resolved lignin structure
+> M. Y. Combariza and A. F. Combariza, *Predicting lignin linkage distributions
 > across feedstocks with a chemically calibrated forward generator* (submitted to
 > *ACS Sustainable Chemistry & Engineering*).
 
@@ -41,8 +41,9 @@ Python version:
   conda run -n lignin_kmc pip install ligninkmc
   ```
 
-The committed logs in `results/` were produced with NumPy 2.3.3 / SciPy 1.16.2 under
-`lignin`. The generator is seeded and deterministic; the Nelder–Mead calibration can
+The paper's committed logs in `results/` (the `_v11f` fit, its ablations,
+cross-validation and identifiability, and the Lignin-KMC `_v60i` comparison) were produced
+with Python 3.9, NumPy 1.26.4 and SciPy 1.10.1 (Lignin-KMC: `ligninkmc` 0.2.2). The generator is seeded and deterministic; the Nelder–Mead calibration can
 land on a marginally different optimum under a different SciPy version.
 
 ## Repository layout
@@ -50,6 +51,7 @@ land on a marginally different optimum under a different SciPy version.
 ```
 code/
   mini_forward_generator.py   The forward generator itself (814 lines, 18 functions) — the core contribution
+  predict.py                  Predict a new feedstock's inventory from its S/G and H alone — start here
   reference_set.py            The 60-sample reference set and the ratio-to-beta-O-4 objective
   calibrate_ref.py            Calibrate the seven constants (the current, v1.1 fit)
   calibrate_kmc_ref.py        Calibrate Lignin-KMC on identical footing (needs the lignin_kmc env)
@@ -57,13 +59,13 @@ code/
   score_validation.py         Score the eleven lignins never used in the fit
   weld_decomposition.py       Split condensed bonds into structural welds vs. elective attachments
   connectivity_experiment.py  Dependence of the fit on simulation size (DP)
-  structure_from_run.py       Real 2D/3D structures from a recorded run (used by the tutorial)
+  structure_from_run.py       Real 2D/3D structures from a recorded run
   *_experiment.py, *_sensitivity*.py
-                               Individual ablations and sensitivity tests
+                               Individual ablations and sensitivity tests (paper SI)
   cross_*.py                  Matched cross-generator comparison harness (LigninGraphs, LGS)
   calibrate_full.py           The original three-anchor calibration (superseded by calibrate_ref.py;
                                kept for provenance, not what the current paper reports)
-docs/experiments.md           What each script does and what its committed log showed
+docs/experiments.md          Notes on the individual experiments
 data/reference_inventories.csv
                                The 60 fitted + 11 validation-only lignins, with provenance per row
 results/                      Calibration/validation logs and the adopted fitted constants
@@ -72,12 +74,20 @@ CITATION.cff                  How to cite the software and the paper
 LICENSE                       MIT
 ```
 
-`code/` is 6,432 lines across 35 files. This repository is the archived snapshot of the
-generator itself; the full dated running log, the manuscript and its SI, and the
-interactive tutorial live in the sibling repository
-[`Testing_Lignin_Structure_Generators`](https://github.com/In-Silico-RG/Testing_Lignin_Structure_Generators),
-where the paper's own analysis is developed. The sections below cover the main line of
-the paper only.
+`code/` is 7,046 lines across 38 files. The sections below cover the main line of the
+paper; every committed log names the script and settings that produced it in its header.
+
+## Just want a prediction for your own feedstock?
+
+```bash
+conda run -n lignin python code/predict.py --sg 1.4 --h 0.03
+```
+
+Runs the generator at the paper's adopted constants for your S/G ratio and H fraction,
+prints the predicted linkage inventory, and tells you whether that composition falls
+inside the range of the sixty fitted samples (S/G 0–38, H 0–31%) or is an
+extrapolation. This is the only command most users need — everything below is how the
+constants it uses were obtained and tested.
 
 ## Reproducing the paper
 
@@ -87,16 +97,16 @@ your numbers should match the committed logs in `results/` — engage.
 ### 1. Calibration — fit the seven constants on the 60-sample reference set
 
 ```bash
-conda run -n lignin python code/calibrate_ref.py --source-weight --reps 8 --tag _v11e_sw
+conda run -n lignin python code/calibrate_ref.py --source-weight --reps 8 --tag _v11f_sw
 ```
 
 Fits `k_β5, k_β1, k_ββ, k_55, k_4o5, n_nuclei, k_β-O-4,nuc` against the 60 native
 lignins (`data/reference_inventories.csv`), source-weighted so no single laboratory
-sets the fit, with `k_β-O-4 = 8` pinned. Writes `results/calibration_ref_v11e_sw.log`
-and `results/fitted_params_ref_v11e_sw.json` — the exact names already committed
-(χ² = 244.1), so this reruns the paper's adopted fit under its own name rather than
+sets the fit, with `k_β-O-4 = 8` pinned. Writes `results/calibration_ref_v11f_sw.log`
+and `results/fitted_params_ref_v11f_sw.json` — the exact names already committed
+(χ² = 203.0), so this reruns the paper's adopted fit under its own name rather than
 a new one. Leaving `--tag` off still works, but lands on `fitted_params_ref_sw.json`
-instead (the plain default tag is just `_sw`, not `_v11e_sw` — that part names which
+instead (the plain default tag is just `_sw`, not `_v11f_sw` — that part names which
 dated round of reruns it was, not something the script picks on its own).
 
 ### 2. Validation — leave-one-sample-out and leave-one-source-out
@@ -106,10 +116,10 @@ dated round of reruns it was, not something the script picks on its own).
 conda run -n lignin python code/calibrate_ref.py --source-weight --hold-out anchor_softwood --tag _loo-anchor_softwood
 
 # collect all folds against the full-fit log
-python code/summarize_loo.py 'results/calibration_ref_loo-*.log' results/calibration_ref_v11e_sw.log
+python code/summarize_loo.py 'results/calibration_ref_loo-*.log' results/calibration_ref_v11f_sw.log
 ```
 
-Reproduces the held-out/in-sample ratios in the paper (LOO 0.98, LOSO 0.99).
+Reproduces the held-out/in-sample ratios in the paper (LOO 1.02, LOSO 1.12).
 Leave-one-source-out holds out every sample from one laboratory at once instead of
 one sample.
 
@@ -120,16 +130,15 @@ conda run -n lignin python code/calibrate_ref.py --source-weight --fix end_restr
 conda run -n lignin python code/calibrate_ref.py --source-weight --fix nucleation_on=0  --tag _ablate_single
 ```
 
-Removing the phenolic-end restriction costs 23% χ²; removing the two-stage
-nucleation structure is a near-tie in the source-weighted total but not sample by
-sample (the sibling `Testing_Lignin_Structure_Generators` repo's docs/15 has the full
-breakdown — the discussion the data actually leave open).
+Removing the phenolic-end restriction costs 22% χ²; removing the two-stage
+nucleation structure lowers the source-weighted total slightly, by about the
+seed-to-seed noise, and splits sample by sample (the paper's SI has the sample-by-sample breakdown).
 
 ### 4. Eighth constants — declined on purpose
 
 ```bash
-conda run -n lignin python code/calibrate_ref.py --source-weight --with-ao4     --start results/fitted_params_ref_v11e_sw.json --tag _ao4
-conda run -n lignin python code/calibrate_ref.py --source-weight --with-oligobb --start results/fitted_params_ref_v11e_sw.json --tag _oligobb
+conda run -n lignin python code/calibrate_ref.py --source-weight --with-ao4     --start results/fitted_params_ref_v11f_sw.json --tag _ao4
+conda run -n lignin python code/calibrate_ref.py --source-weight --with-oligobb --start results/fitted_params_ref_v11f_sw.json --tag _oligobb
 ```
 
 (explicit `--tag` on both — without one, the default is just `_sw` for any
@@ -141,7 +150,7 @@ are tested and declined — the fit does not need them, and the paper says why.
 ### 5. Identifiability — which of the seven the data actually pin down
 
 ```bash
-conda run -n lignin python code/identifiability_ref.py --params results/fitted_params_ref_v11e_sw.json
+conda run -n lignin python code/identifiability_ref.py --params results/fitted_params_ref_v11f_sw.json
 ```
 
 Sweeps each constant over its full range with the other six fixed, compared against
@@ -151,7 +160,7 @@ the model's own run-to-run noise. Six of seven are determined; the seventh
 ### 6. Validation-only samples — eleven lignins never in the fit
 
 ```bash
-conda run -n lignin python code/score_validation.py --params results/fitted_params_ref_v11e_sw.json
+conda run -n lignin python code/score_validation.py --params results/fitted_params_ref_v11f_sw.json
 ```
 
 Nothing is fitted here — this just scores the held-out samples (cork, grasses,
@@ -160,8 +169,8 @@ Nothing is fitted here — this just scores the held-out samples (cork, grasses,
 ### 7. Welds and size-dependence
 
 ```bash
-conda run -n lignin python code/weld_decomposition.py      --params results/fitted_params_ref_v11e_sw.json
-conda run -n lignin python code/connectivity_experiment.py --params results/fitted_params_ref_v11e_sw.json
+conda run -n lignin python code/weld_decomposition.py      --params results/fitted_params_ref_v11f_sw.json
+conda run -n lignin python code/connectivity_experiment.py --params results/fitted_params_ref_v11f_sw.json
 ```
 
 Splits condensed bonds into structurally forced welds vs. elective C5 attachments,
@@ -189,8 +198,8 @@ respective generators installed; see the header of each script.
 `data/reference_inventories.csv` is the full reference set: 60 native lignins used
 in the fit and 11 kept for validation only, one row per sample, with species,
 method, S/G, H fraction, every linkage it reports, and the resinol (β-β)
-units-vs-bonds convention applied to that source. Provenance for every row is in the
-sibling repo's docs/15 §5 and the paper's SI §S4.
+units-vs-bonds convention applied to that source. Provenance for every row is in
+the paper's SI §S4.
 
 ## License
 
@@ -201,8 +210,8 @@ Released under the [MIT License](LICENSE).
 ```bibtex
 @software{lignin_forward_gen,
   author  = {Combariza, Marianny Y. and Combariza, Aldo F.},
-  title   = {Lignin\_Forward\_Gen: a forward kinetic Monte Carlo generator for
-             linkage-resolved lignin structure},
+  title   = {Lignin\_Forward\_Gen: a forward generator for
+             lignin linkage distributions},
   year    = {2026},
   url     = {https://github.com/In-Silico-RG/Lignin_Forward_Gen},
   doi     = {10.5281/zenodo.21630116}

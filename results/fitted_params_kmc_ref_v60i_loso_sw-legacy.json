@@ -1,0 +1,17 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-legacy.log",
+ "_held_out": [
+  "anchor_softwood",
+  "anchor_poplar",
+  "anchor_highS"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 591.97327370842,
+ "m_b5": 0.12042138547807031,
+ "m_b1": 1.2065237822813546,
+ "m_bb": 0.6390704478428726,
+ "m_55": 2.2906618695011702,
+ "m_5o4": 1.356887159354408,
+ "m_ao4": 1.8883087525818694,
+ "add_rate": 4.96962291105197
+}

@@ -15,7 +15,7 @@ share a sensible y-scale.
 Only matplotlib + numpy needed -- run in an env that has them (the `lignin` env's
 matplotlib is broken; `base` works):
     conda run -n base python code/plot_intermediate_sg.py
-Output: manuscript/submission/figures/fig_intermediate_sg.pdf (+ .png)
+Output: manuscript/figures/fig_intermediate_sg.pdf (+ .png)
 """
 import os
 import csv
@@ -29,7 +29,7 @@ from matplotlib.lines import Line2D
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir)
 CSV = os.path.join(ROOT, "results", "intermediate_sg_experiment.csv")
-OUT = os.path.join(ROOT, "manuscript", "submission", "figures", "fig_intermediate_sg")
+OUT = os.path.join(ROOT, "manuscript", "figures", "fig_intermediate_sg")
 
 KEYS = ["bo4", "b5", "bb", "b1", "55", "4o5"]
 LABELS = {"bo4": r"$\beta$-O-4", "b5": r"$\beta$-5", "bb": r"$\beta$-$\beta$",

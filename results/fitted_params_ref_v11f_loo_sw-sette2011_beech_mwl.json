@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loo_sw-sette2011_beech_mwl.log",
+ "_held_out": [
+  "sette2011_beech_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 199.18000266167593,
+ "k_bo4": 8.0,
+ "k_b5": 2.117973933539163,
+ "k_b1": 0.4295890785541458,
+ "k_bb": 29.313117379527743,
+ "k_55": 0.660133662629432,
+ "k_4o5": 0.14181187441754226,
+ "n_nuclei": 7.948395128934389,
+ "k_bo4_nuc": 1.1531439949119549
+}

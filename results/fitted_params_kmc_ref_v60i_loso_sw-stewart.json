@@ -1,0 +1,16 @@
+{
+ "_note": "Lignin-KMC multipliers fitted on data/reference_inventories.csv; see calibration_kmc_ref_v60i_loso_sw-stewart.log",
+ "_held_out": [
+  "stewart2009_poplar_wt_acml",
+  "stewart2009_poplar_f5h_acml"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 521.2882619318846,
+ "m_b5": 0.1194808597820891,
+ "m_b1": 1.5215798297356733,
+ "m_bb": 0.5585503974622205,
+ "m_55": 1.723098725346357,
+ "m_5o4": 0.9978117742447871,
+ "m_ao4": 1.8602954693032,
+ "add_rate": 13.0412699288248
+}

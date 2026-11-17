@@ -1,6 +1,6 @@
 # results/ — index
 
-Every file here was produced by a script in `code/` (or `cluster/`) and is committed with
+Every file here was produced by a script in `code/` (or `runs/cluster/`) and is committed with
 it. This index says which generator version and which data each file belongs to, and
 whether it is **current**, **superseded** (kept so the paper's history can be checked), or a
 **record** (kept deliberately as evidence of something). Generator versions:

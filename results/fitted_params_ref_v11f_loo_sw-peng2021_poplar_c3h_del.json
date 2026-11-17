@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loo_sw-peng2021_poplar_c3h_del.log",
+ "_held_out": [
+  "peng2021_poplar_c3h_del"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 201.0181353736885,
+ "k_bo4": 8.0,
+ "k_b5": 2.105899170272467,
+ "k_b1": 0.43388051108392195,
+ "k_bb": 30.90131896323118,
+ "k_55": 0.6215945956812917,
+ "k_4o5": 0.21023952642956728,
+ "n_nuclei": 7.975243214397578,
+ "k_bo4_nuc": 0.9245658005672635
+}

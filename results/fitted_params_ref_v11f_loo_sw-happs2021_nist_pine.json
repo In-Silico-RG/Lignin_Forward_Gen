@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loo_sw-happs2021_nist_pine.log",
+ "_held_out": [
+  "happs2021_nist_pine"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 202.9759936463218,
+ "k_bo4": 8.0,
+ "k_b5": 2.1144593911183533,
+ "k_b1": 0.42911209871911254,
+ "k_bb": 29.135620486253664,
+ "k_55": 0.6600085005847529,
+ "k_4o5": 0.14177655686417667,
+ "n_nuclei": 7.968566486478994,
+ "k_bo4_nuc": 1.1653193892160534
+}

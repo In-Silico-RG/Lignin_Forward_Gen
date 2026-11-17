@@ -7,7 +7,7 @@ Predict the validation-only samples of data/reference_inventories.csv
 beta-O-4 residuals, sample by sample. Nothing is fitted. Same simulation and
 chi-square as calibrate_ref.py (simulate, reference_set.chi2_sample).
 
-    python code/score_validation.py --params results/fitted_params_ref_v11d_sw.json
+    python code/score_validation.py --params results/fitted_params_ref_v11f_sw.json
 """
 import argparse
 import json
@@ -22,7 +22,7 @@ from calibrate_ref import simulate, OUT       # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--params", default=os.path.join(OUT, "fitted_params_ref_v11d_sw.json"))
+    ap.add_argument("--params", default=os.path.join(OUT, "fitted_params_ref_v11f_sw.json"))
     ap.add_argument("--reps", type=int, default=30)
     ap.add_argument("--only", nargs="*", default=[], help="sample_id prefixes")
     ap.add_argument("--tag", default="")

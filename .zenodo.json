@@ -1,7 +1,7 @@
 {
   "upload_type": "software",
-  "title": "Lignin_Forward_Gen: a forward kinetic Monte Carlo generator for linkage-resolved lignin structure",
-  "description": "<p>A minimal, transparent <strong>forward</strong> kinetic Monte Carlo generator that predicts the native lignin inter-unit linkage inventory (&beta;-O-4, &beta;-5, &beta;-&beta;, &beta;-1, 5-5, 4-O-5) from monomer composition (S/G ratio) alone.</p><p>Unlike backward generators, which are given target bond fractions and reproduce them, this generator evolves structure from radical-coupling propensities, so the linkage distribution is an emergent output rather than an input. Seven coupling constants are calibrated by Nelder-Mead against three native wood anchors (softwood, poplar and a high-syringyl hardwood) and validated by leave-one-out cross-validation.</p><p>The repository contains the generator, its calibration and validation scripts, the parameter-recovery and sensitivity experiments, the matched cross-generator comparison harness, and every result log reproducing the accompanying paper. All runs are seeded and deterministic.</p>",
+  "title": "Lignin_Forward_Gen: a forward generator for lignin linkage distributions",
+  "description": "<p>A minimal, transparent <strong>forward</strong> generator that predicts the native lignin inter-unit linkage inventory (&beta;-O-4, &beta;-5, &beta;-&beta;, &beta;-1, 5-5, 4-O-5) from monomer composition (S/G ratio and H fraction) alone. It builds lignin one coupling at a time: at each step one coupling is drawn with probability proportional to its constant times the number of eligible pairs of units. There is no time variable and no rate constants, so only the ratios of the constants matter; it is a stochastic sequential coupling model, not a kinetic Monte Carlo model.</p><p>Unlike backward generators, which are given target bond fractions and reproduce them, this generator evolves structure under three rules of radical coupling (only phenolic chain ends accept an incoming monomer; &beta;-&beta; bonds form only between two monomers; a &beta;-1 bond needs an acceptor already in a &beta;-O-4), so the linkage distribution is an emergent output rather than an input. Seven dimensionless coupling constants are calibrated by Nelder-Mead against sixty native lignins from thirteen sources (quantitative <sup>13</sup>C and HSQC NMR), each paper weighted equally, and validated by leave-one-sample-out and leave-one-source-out cross-validation; eleven further lignins are used for validation only.</p><p>The repository contains the generator, its calibration and validation scripts, the parameter-recovery and sensitivity experiments, the matched cross-generator comparison harness (including Lignin-KMC calibrated on identical footing), and every result log reproducing the accompanying paper. All runs are seeded and deterministic.</p>",
   "license": "MIT",
   "access_right": "open",
   "creators": [
@@ -18,7 +18,7 @@
   ],
   "keywords": [
     "lignin",
-    "kinetic Monte Carlo",
+    "stochastic coupling model",
     "structure generator",
     "linkage inventory",
     "beta-O-4",
@@ -28,5 +28,5 @@
     "computational chemistry"
   ],
   "language": "eng",
-  "notes": "Developed alongside the manuscript 'Predicting linkage-resolved lignin structure across feedstocks with a chemically calibrated forward generator'. Update related_identifiers with the article DOI once it is assigned."
+  "notes": "Developed alongside the manuscript 'Predicting lignin linkage distributions across feedstocks with a chemically calibrated forward generator'. Update related_identifiers with the article DOI once it is assigned."
 }

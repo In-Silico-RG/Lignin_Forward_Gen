@@ -18,6 +18,7 @@ Outputs: results/calibration_ref[<tag>].log and results/fitted_params_ref[<tag>]
 """
 import argparse
 import json
+import multiprocessing as mp
 import os
 import sys
 
@@ -74,10 +75,24 @@ def simulate(row, params, reps, seed_base=SEED_BASE):
     return rs.model_observables(gens)
 
 
+# Optional process pool (--procs N): the samples of one evaluation are simulated in
+# parallel. Seeds are fixed per sample and replicate, and results are summed in the same
+# order, so the chi-square is identical to the serial one (AC 2026-11-16).
+POOL = None
+
+
+def _sim_job(job):
+    row, params, reps = job
+    return simulate(row, params, reps)
+
+
 def total_chi2(params, rows, weights, reps):
     tot, per = 0.0, {}
-    for row, w in zip(rows, weights):
-        obs = simulate(row, params, reps)
+    if POOL is not None:
+        all_obs = POOL.map(_sim_job, [(row, params, reps) for row in rows], chunksize=1)
+    else:
+        all_obs = [simulate(row, params, reps) for row in rows]
+    for row, w, obs in zip(rows, weights, all_obs):
         c, terms = rs.chi2_sample(row, obs)
         per[row["sample_id"]] = (c, terms, obs)
         tot += w * c
@@ -105,6 +120,8 @@ def main():
                     help="sample_ids excluded from the fit and predicted afterwards")
     ap.add_argument("--tag", default="")
     ap.add_argument("--maxiter", type=int, default=400)
+    ap.add_argument("--procs", type=int, default=1,
+                    help="simulate the samples of each evaluation on N processes (same result)")
     ap.add_argument("--start", default=None,
                     help="fitted_params_*.json whose constants replace the default start")
     ap.add_argument("--with-b5-donor", action="store_true",
@@ -133,6 +150,9 @@ def main():
     for kv in args.fix:
         k, v = kv.split("=")
         FIXED[k] = float(v)
+    global POOL
+    if args.procs > 1:
+        POOL = mp.get_context("fork").Pool(args.procs)   # forked after FIXED/BOUNDS are set
 
     rows_all = rs.load_reference_set()
     rows = [r for r in rows_all if r["sample_id"] not in args.hold_out]

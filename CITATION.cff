@@ -1,12 +1,22 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the software (below) and the paper in preferred-citation."
 type: software
-title: "Lignin_Forward_Gen: a forward kinetic Monte Carlo generator for linkage-resolved lignin structure"
+title: "Lignin_Forward_Gen: a forward generator for lignin linkage distributions"
 abstract: >-
-  A minimal, transparent forward kinetic Monte Carlo generator that predicts the
-  native lignin inter-unit linkage inventory (beta-O-4, beta-5, beta-beta, beta-1,
-  5-5, 4-O-5) from monomer composition (S/G ratio) alone. The linkage distribution
-  emerges from radical-coupling propensities rather than being imposed as a target.
+  A minimal, transparent forward generator that predicts the native lignin
+  inter-unit linkage inventory (beta-O-4, beta-5, beta-beta, beta-1, 5-5, 4-O-5)
+  from monomer composition (S/G ratio and H fraction) alone. Lignin is built one
+  coupling at a time: at each step one coupling is drawn with probability
+  proportional to its constant times the number of eligible pairs; there is no
+  clock and no rate constants, so only the ratios of the constants matter (it is
+  not a kinetic Monte Carlo model). Three rules of radical coupling apply: only
+  phenolic chain ends accept an incoming monomer, beta-beta forms only between two
+  monomers, and beta-1 needs an acceptor already in a beta-O-4. Seven dimensionless
+  constants are calibrated by Nelder-Mead on sixty native lignins from thirteen
+  sources (quantitative 13C and HSQC NMR), each paper weighted equally, and
+  validated by leave-one-sample-out and leave-one-source-out cross-validation;
+  eleven further lignins are used for validation only. The linkage distribution
+  emerges from the coupling rules and supply rather than being imposed as a target.
 authors:
   - family-names: Combariza
     given-names: Marianny Y.
@@ -19,7 +29,7 @@ authors:
     email: aldo.combariza@unisucre.edu.co
 repository-code: "https://github.com/In-Silico-RG/Lignin_Forward_Gen"
 license: MIT
-version: 1.0.1
+version: 1.1.0
 doi: 10.5281/zenodo.21630116
 identifiers:
   - type: doi
@@ -29,7 +39,7 @@ identifiers:
       gets its own version DOI, listed on the Zenodo record.
 keywords:
   - lignin
-  - kinetic Monte Carlo
+  - stochastic coupling model
   - structure generator
   - linkage inventory
   - radical coupling
@@ -37,7 +47,7 @@ keywords:
 preferred-citation:
   type: article
   title: >-
-    Predicting linkage-resolved lignin structure across feedstocks with a
+    Predicting lignin linkage distributions across feedstocks with a
     chemically calibrated forward generator
   authors:
     - family-names: Combariza

@@ -1,0 +1,16 @@
+{
+ "_note": "ratio-to-beta-O-4 fit on data/reference_inventories.csv; see calibration_ref_v11f_loo_sw-sette2011_blackspruce_mwl.log",
+ "_held_out": [
+  "sette2011_blackspruce_mwl"
+ ],
+ "_source_weighted": true,
+ "_chi2_eval": 204.70077932379704,
+ "k_bo4": 8.0,
+ "k_b5": 2.1124974164078463,
+ "k_b1": 0.4301043731840808,
+ "k_bb": 29.27705665311408,
+ "k_55": 0.6606417503160334,
+ "k_4o5": 0.14178930465768805,
+ "n_nuclei": 7.953061121444613,
+ "k_bo4_nuc": 1.147228460766748
+}
